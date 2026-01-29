@@ -4,16 +4,47 @@ public class InputHandler : MonoBehaviour
 {
     [SerializeField] private PlayerController controller;
 
-    // --- Movement Logic ---
-    // Called by UI Left/Right buttons
-    public void SetMoveDirection(float direction) 
+    // Internal state for Mobile Buttons
+    private float mobileHorizontalInput = 0f;
+
+    private void Update()
     {
-        // direction: -1 (Left), 0 (Stop), 1 (Right)
-        controller.SetInput(new Vector2(direction, 0));
+        // --- 1. HORIZONTAL MOVEMENT ---
+        
+        // Get Keyboard Input (Returns -1, 0, or 1)
+        float xInput = Input.GetAxisRaw("Horizontal");
+
+        // Logic: If Keyboard is NOT being used, check Mobile Input
+        // This prevents the keyboard (sending 0) from overriding the touch buttons
+        if (Mathf.Abs(xInput) < 0.01f)
+        {
+            xInput = mobileHorizontalInput;
+        }
+
+        // Send final calculated input to the controller
+        controller.SetInput(new Vector2(xInput, 0));
+
+
+        // --- 2. JUMPING ---
+
+        // Keyboard Jump (Spacebar)
+        if (Input.GetButtonDown("Jump"))
+        {
+            controller.OnJumpPressed();
+        }
+        if (Input.GetButtonUp("Jump"))
+        {
+            controller.OnJumpReleased();
+        }
     }
 
-    // --- Jump Logic ---
-    // Called by UI Jump button
+    // --- PUBLIC METHODS (Called by Mobile UI Buttons) ---
+
+    public void SetMoveDirection(float direction) 
+    {
+        mobileHorizontalInput = direction;
+    }
+
     public void OnJumpPressed()
     {
         controller.OnJumpPressed();

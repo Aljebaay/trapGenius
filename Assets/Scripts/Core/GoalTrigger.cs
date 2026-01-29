@@ -6,7 +6,7 @@ public class GoalTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Prevent double triggers
+        // Prevent double triggers  
         if (activated) return;
 
         if (collision.CompareTag("Player"))
