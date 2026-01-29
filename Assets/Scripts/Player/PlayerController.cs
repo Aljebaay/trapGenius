@@ -131,4 +131,17 @@ public class PlayerController : MonoBehaviour
         scaler.x *= -1;
         transform.localScale = scaler;
     }
+    
+    public void StopMovement()
+    {
+        // 1. Kill all momentum immediately
+        rb.linearVelocity = Vector2.zero;
+        rb.angularVelocity = 0f;
+
+        // 2. Turn off gravity and physics simulations so they don't slide or fall
+        rb.isKinematic = true; 
+        
+        // 3. Disable this script so Update/FixedUpdate no longer run
+        this.enabled = false;
+    }
 }

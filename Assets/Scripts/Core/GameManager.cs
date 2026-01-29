@@ -5,34 +5,67 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    [Header("Settings")]
-    [SerializeField] private float restartDelay = 0.3f; // Instant retry feel
+    [Header("Flow Settings")]
+    [SerializeField] private float deathRestartDelay = 0.5f; // Fast reset
+    [SerializeField] private float winNextLevelDelay = 1.0f; // Time for animation
 
-    private bool isGameOver = false;
+    private bool isGameActive = true;
 
     private void Awake()
     {
-        // Simple Singleton pattern
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
     }
 
+    // --- LOSS LOGIC ---
     public void GameOver()
     {
-        if (isGameOver) return; // Prevent double death
-        isGameOver = true;
+        if (!isGameActive) return;
+        isGameActive = false;
 
-        Debug.Log("Player Died!");
+        Debug.Log("💀 Dead. Restarting...");
         
-        // TODO: Add Particle Effects / Sound here later
+        // Logic to freeze/hide player is handled by the trap, 
+        // but we ensure input is dead here if needed.
         
-        // Restart level logic
-        Invoke(nameof(RestartLevel), restartDelay);
+        Invoke(nameof(RestartLevel), deathRestartDelay);
     }
 
     private void RestartLevel()
     {
-        // Reloads the current active scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    // --- WIN LOGIC ---
+    public void LevelComplete()
+    {
+        if (!isGameActive) return;
+        isGameActive = false;
+
+        Debug.Log("⭐ Level Complete! Waiting for animation...");
+
+        // TODO: Trigger your Win Animation here in Phase 2
+        // e.g. PlayerAnimator.SetTrigger("Dance");
+
+        Invoke(nameof(LoadNextLevel), winNextLevelDelay);
+    }
+
+    private void LoadNextLevel()
+    {
+        // Calculate next scene index
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        //int nextSceneIndex = currentSceneIndex + 1;
+        int nextSceneIndex = currentSceneIndex;
+
+        // Check if next scene exists in Build Settings
+        if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
+        {
+            SceneManager.LoadScene(nextSceneIndex);
+        }
+        else
+        {
+            Debug.Log("No more levels! Looping to start.");
+            SceneManager.LoadScene(0); // Loop back to first level
+        }
     }
 }
