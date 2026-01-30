@@ -1,106 +1,102 @@
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
-[RequireComponent(typeof(SpriteRenderer))]
 public class TriggeredScaleTrap : MonoBehaviour
 {
     public enum ScaleAnchor { Center, Left, Right, Top, Bottom }
 
     [Header("Settings")]
     [Tooltip("The final scale size.")]
-    [SerializeField] private Vector3 targetScale = new Vector3(0, 1, 1); // Default: Shrink X to 0
+    [SerializeField] private Vector3 targetScale = new Vector3(0, 1, 1);
     [SerializeField] private float speed = 5f;
-    
+
     [Header("Anchor Settings")]
     [Tooltip("Which side should stay still?")]
     [SerializeField] private ScaleAnchor anchor = ScaleAnchor.Center;
 
-    private SpriteRenderer sr;
-    private Vector3 initialScale;
-    private Vector2 unscaledSpriteSize; // The size of the sprite if scale was 1,1
+    private Tilemap sr;
     private bool isTriggered = false;
+
+    // We store the specific point on the object (in local space) that should act as the anchor
+    private Vector3 localAnchorOffset;
+    // We store where that point is in the World, so we can lock the object to it
+    private Vector3 initialWorldAnchorPos;
 
     private void Awake()
     {
-        sr = GetComponent<SpriteRenderer>();
-        initialScale = transform.localScale;
+        sr = GetComponent<Tilemap>();
 
-        // Calculate the "Raw" size of the sprite (World Size / Local Scale)
-        // This allows us to know how big the sprite is regardless of current scale
-        if (transform.localScale.x != 0 && transform.localScale.y != 0)
+        if (sr == null)
         {
-            unscaledSpriteSize = new Vector2(
-                sr.bounds.size.x / transform.localScale.x,
-                sr.bounds.size.y / transform.localScale.y
-            );
+            Debug.LogError("No Tilemap component found!");
+            return;
         }
+
+        // 1. Force the Tilemap to recalculate bounds to fit exactly around the painted tiles
+        sr.CompressBounds();
+
+        // 2. Calculate the Local Anchor Point based on the unscaled bounds
+        // localBounds returns the size in "Local Space" (ignoring the object's current scale), which is exactly what we want.
+        Bounds b = sr.localBounds;
+        localAnchorOffset = b.center; // Start at center
+
+        switch (anchor)
+        {
+            case ScaleAnchor.Left:
+                localAnchorOffset.x -= b.extents.x;
+                break;
+            case ScaleAnchor.Right:
+                localAnchorOffset.x += b.extents.x;
+                break;
+            case ScaleAnchor.Top:
+                localAnchorOffset.y += b.extents.y;
+                break;
+            case ScaleAnchor.Bottom:
+                localAnchorOffset.y -= b.extents.y;
+                break;
+            case ScaleAnchor.Center:
+                // Already at center
+                break;
+        }
+
+        // 3. Store where this anchor point is currently in the world
+        initialWorldAnchorPos = transform.TransformPoint(localAnchorOffset);
     }
 
     private void Update()
     {
         if (isTriggered)
         {
-            // 1. Calculate the NEW scale
-            Vector3 currentScale = transform.localScale;
-            Vector3 newScale = Vector3.MoveTowards(currentScale, targetScale, speed * Time.deltaTime);
+            // 1. Move Scale
+            transform.localScale = Vector3.MoveTowards(transform.localScale, targetScale, speed * Time.deltaTime);
 
-            // 2. Apply the Scale
-            transform.localScale = newScale;
-
-            // 3. Compensate Position (The "Pivot" Trick)
-            // We calculate how much the scale changed this frame, and move the object 
-            // in the opposite direction to keep one side fixed.
+            // 2. Correct Position (The Anti-Drift Method)
             if (anchor != ScaleAnchor.Center)
             {
-                ApplyPositionCompensation(currentScale, newScale);
+                // Calculate where the local anchor point is NOW, after the scale change
+                Vector3 currentWorldAnchorPos = transform.TransformPoint(localAnchorOffset);
+
+                // Calculate the difference between where it IS and where it SHOULD BE
+                Vector3 correction = initialWorldAnchorPos - currentWorldAnchorPos;
+
+                // Apply correction
+                transform.position += correction;
             }
         }
     }
 
-    private void ApplyPositionCompensation(Vector3 oldScale, Vector3 newScale)
-    {
-        Vector3 scaleChange = newScale - oldScale;
-        Vector3 adjustment = Vector3.zero;
-
-        // Logic: If we shrink X, the center moves. We must move the center 
-        // back to where the edge used to be.
-        
-        // Handle Horizontal Anchors (Uses transform.right to support Rotation)
-        if (anchor == ScaleAnchor.Left)
-        {
-            // If shrinking (neg change), we pull the center LEFT (neg direction)
-            // adjustment = (Change * Size * 0.5)
-            float moveAmount = scaleChange.x * unscaledSpriteSize.x * 0.5f;
-            adjustment += transform.right * moveAmount; 
-        }
-        else if (anchor == ScaleAnchor.Right)
-        {
-            // If shrinking, we pull the center RIGHT
-            float moveAmount = scaleChange.x * unscaledSpriteSize.x * 0.5f;
-            adjustment -= transform.right * moveAmount;
-        }
-
-        // Handle Vertical Anchors (Uses transform.up)
-        if (anchor == ScaleAnchor.Bottom)
-        {
-            float moveAmount = scaleChange.y * unscaledSpriteSize.y * 0.5f;
-            adjustment += transform.up * moveAmount;
-        }
-        else if (anchor == ScaleAnchor.Top)
-        {
-            float moveAmount = scaleChange.y * unscaledSpriteSize.y * 0.5f;
-            adjustment -= transform.up * moveAmount;
-        }
-
-        transform.position += adjustment;
-    }
-
     public void Activate()
     {
-        isTriggered = true;
+        // Update the world anchor position just before triggering in case the object moved before activation
+        if (!isTriggered)
+        {
+            initialWorldAnchorPos = transform.TransformPoint(localAnchorOffset);
+            isTriggered = true;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-         if (collision.gameObject.CompareTag("Player")) Activate();
+        if (collision.gameObject.CompareTag("Player")) Activate();
     }
 }

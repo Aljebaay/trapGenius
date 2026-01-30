@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5348348721889073179}
   - component: {fileID: 6165731950013977497}
   - component: {fileID: 527117348462489246}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Constant Rotate Trap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -150,7 +150,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4395673708381106514}
   - component: {fileID: 2557751390540774129}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}

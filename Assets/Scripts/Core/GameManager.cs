@@ -54,8 +54,8 @@ public class GameManager : MonoBehaviour
     {
         // Calculate next scene index
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        //int nextSceneIndex = currentSceneIndex + 1;
-        int nextSceneIndex = currentSceneIndex;
+        int nextSceneIndex = currentSceneIndex + 1;
+        //int nextSceneIndex = currentSceneIndex;
 
         // Check if next scene exists in Build Settings
         if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
