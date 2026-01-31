@@ -2,67 +2,79 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class BreakingPlatform : MonoBehaviour // Inherits MonoBehaviour (Physics-based)
+[RequireComponent(typeof(Rigidbody2D))]
+public class BreakingPlatform : MonoBehaviour
 {
-    [Header("Settings")]
-    [SerializeField] private float timeBeforeDisappear = 0.5f;
-    [SerializeField] private float disappearDuration = 2.0f; // How long it stays gone
-    [SerializeField] private bool reappear = true;
+    [Header("Break Settings")]
+    [Tooltip("How long the platform shakes before breaking")]
+    [SerializeField] private float timeBeforeBreak = 1.0f;
+    
+    [Tooltip("How violent the shaking is")]
+    [SerializeField] private float shakeIntensity = 0.05f;
 
-    [Header("Visual Feedback")]
-    [SerializeField] private Color warningColor = Color.red;
+    [Header("Fall Settings")]
+    [Tooltip("Gravity scale when the platform breaks (Higher = falls faster)")]
+    [SerializeField] private float fallGravity = 3.0f;
+    
+    [Tooltip("How long after breaking before the object is deleted from the game")]
+    [SerializeField] private float destroyAfterSeconds = 5.0f;
 
-    //private SpriteRenderer sr;
-    private Tilemap tmr;
-    //private BoxCollider2D col;
-    private TilemapCollider2D col;
-    private Color originalColor;
+    // Components
+    private Rigidbody2D rb;
+    private Vector3 initialPosition;
     private bool isTriggered = false;
 
     private void Awake()
     {
-        tmr = GetComponent<Tilemap>();
-        //sr = GetComponent<SpriteRenderer>();
-        col = GetComponent<TilemapCollider2D>();
-        //col = GetComponent<BoxCollider2D>();
-        originalColor = tmr.color;
-        //originalColor = sr.color;
+        rb = GetComponent<Rigidbody2D>();
+        
+        // Setup Rigidbody to stay still initially
+        rb.bodyType = RigidbodyType2D.Kinematic; 
+        rb.constraints = RigidbodyConstraints2D.FreezeAll;
+
+        initialPosition = transform.position;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Check if player lands ON TOP (checking normal)
-        // or just check collision if you want it to trigger from any touch
+        // Check if player touches it from above (or any side)
         if (collision.gameObject.CompareTag("Player") && !isTriggered)
         {
-            StartCoroutine(DisappearRoutine());
+            StartCoroutine(BreakRoutine());
         }
     }
 
-    private IEnumerator DisappearRoutine()
+    private IEnumerator BreakRoutine()
     {
         isTriggered = true;
+        float timer = 0f;
 
-        // Phase 1: Warning (Shake or Color Change)
-        tmr.color = warningColor;
-        //sr.color = warningColor;
-        yield return new WaitForSeconds(timeBeforeDisappear);
-
-        // Phase 2: Vanish
-        tmr.enabled = false;
-        //sr.enabled = false;
-        col.enabled = false;
-
-        // Phase 3: Reappear (Optional)
-        if (reappear)
+        // --- PHASE 1: VIBRATE ---
+        while (timer < timeBeforeBreak)
         {
-            yield return new WaitForSeconds(disappearDuration);
-            //sr.enabled = true;
-            tmr.enabled = true;
-            col.enabled = true;
-            //sr.color = originalColor;
-            tmr.color = originalColor;
-            isTriggered = false;
+            // Generate a random offset for the shake effect
+            float x = Random.Range(-1f, 1f) * shakeIntensity;
+            float y = Random.Range(-1f, 1f) * shakeIntensity;
+
+            // Apply offset to the initial position
+            transform.position = initialPosition + new Vector3(x, y, 0);
+
+            timer += Time.deltaTime;
+            yield return null; // Wait for next frame
         }
+
+        // Reset position specifically to ensure it doesn't fall from a weird offset
+        transform.position = initialPosition;
+
+        // --- PHASE 2: BREAK (FALL) ---
+        // Unlock the Rigidbody so physics takes over
+        rb.bodyType = RigidbodyType2D.Dynamic;
+        rb.constraints = RigidbodyConstraints2D.None; // Unfreeze position/rotation
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation; // Optional: Keep false if you want it to rotate while falling
+        rb.gravityScale = fallGravity;
+
+        // --- PHASE 3: CLEANUP ---
+        yield return new WaitForSeconds(destroyAfterSeconds);
+        Destroy(gameObject);
     }
 }

@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerData data;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private BoxCollider2D bodyCollider;
 
     private Rigidbody2D rb;
     private Vector2 moveInput;
@@ -16,7 +17,8 @@ public class PlayerController : MonoBehaviour
     private float coyoteTimeCounter;
     private float jumpBufferCounter;
 
-    // State
+    // Jump State
+    private bool canDoubleJump; // NEW: Tracks if we have a charge left
     private bool isFacingRight = true;
 
     private void Awake()
@@ -42,7 +44,8 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         Run();
-        ApplyGravityModifiers();
+        ApplyCustomGravity();
+        CornerCorrect();
         CheckGround();
     }
 
@@ -55,18 +58,27 @@ public class PlayerController : MonoBehaviour
 
     public void OnJumpPressed()
     {
-        jumpBufferCounter = data.jumpBufferTime; // Queue the jump
+        jumpBufferCounter = data.jumpBufferTime; // Always buffer input first
         
-        // Execute Jump if buffer and coyote time are valid
-        if (jumpBufferCounter > 0f && coyoteTimeCounter > 0f)
+        // PRIORITY 1: Normal Jump (Grounded or Coyote Time)
+        if (coyoteTimeCounter > 0f)
+        {
+            PerformJump(); // This checks "isGrounded" logic effectively via CoyoteTime
+            
+            // If we jump from ground, we are allowed to double jump next (if enabled)
+            if(data.allowDoubleJump) canDoubleJump = true; 
+        }
+        // PRIORITY 2: Double Jump (Mid-air)
+        else if (data.allowDoubleJump && canDoubleJump)
         {
             PerformJump();
+            canDoubleJump = false; // Consume the charge
         }
     }
 
     public void OnJumpReleased()
     {
-        // Variable Jump Height: If moving up, cut velocity to create short hop
+        // Variable Jump Height
         if (rb.linearVelocity.y > 0f)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f);
@@ -75,53 +87,78 @@ public class PlayerController : MonoBehaviour
 
     private void Run()
     {
-        // Calculate target speed
         float targetSpeed = moveInput.x * data.moveSpeed;
-        
-        // Calculate speed difference
-        float speedDif = targetSpeed - rb.linearVelocity.x;
-        
-        // Apply acceleration or decceleration based on input
         float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? data.acceleration : data.decceleration;
-        
-        // Apply force
-        float movement = speedDif * accelRate;
-        
-        rb.AddForce(movement * Vector2.right);
+        float velX = Mathf.MoveTowards(rb.linearVelocity.x, targetSpeed, accelRate * Time.fixedDeltaTime);
 
-        // Visual Flip
+        rb.linearVelocity = new Vector2(velX, rb.linearVelocity.y);
+
         if (moveInput.x > 0 && !isFacingRight) Flip();
         else if (moveInput.x < 0 && isFacingRight) Flip();
     }
 
     private void PerformJump()
     {
-        rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0); // Reset Y velocity for consistent jump height
-        rb.AddForce(Vector2.up * data.jumpForce, ForceMode2D.Impulse);
+        // Reset Y velocity so double jump feels consistent (doesn't add to current momentum)
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0); 
         
+        // Apply calculated velocity
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, data.JumpVelocity);
+        
+        // Clear timers to prevent accidental multi-firing
         jumpBufferCounter = 0f;
         coyoteTimeCounter = 0f;
     }
 
     // --- Physics Refinements ---
 
-    private void ApplyGravityModifiers()
+    private void ApplyCustomGravity()
     {
-        // Heavy falling (makes controls feel tighter)
+        float gravity = data.GravityStrength;
+
+        // Fall Faster
         if (rb.linearVelocity.y < 0)
         {
-            rb.gravityScale = data.gravityScale * data.fallGravityMultiplier;
+            gravity *= data.fallGravityMultiplier;
         }
-        else
+
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y + (gravity * Time.fixedDeltaTime));
+    }
+
+    private void CornerCorrect()
+    {
+        if (rb.linearVelocity.y <= 0) return;
+
+        Vector2 originLeft = new Vector2(transform.position.x - bodyCollider.bounds.extents.x, transform.position.y + bodyCollider.bounds.extents.y);
+        Vector2 originRight = new Vector2(transform.position.x + bodyCollider.bounds.extents.x, transform.position.y + bodyCollider.bounds.extents.y);
+
+        RaycastHit2D hitLeft = Physics2D.Raycast(originLeft, Vector2.up, data.topRaycastLength, groundLayer);
+        RaycastHit2D hitRight = Physics2D.Raycast(originRight, Vector2.up, data.topRaycastLength, groundLayer);
+
+        if (hitLeft && !hitRight)
         {
-            rb.gravityScale = data.gravityScale;
+            transform.position += Vector3.right * (data.cornerCorrectionDistance * Time.fixedDeltaTime);
+        }
+        else if (!hitLeft && hitRight)
+        {
+            transform.position += Vector3.left * (data.cornerCorrectionDistance * Time.fixedDeltaTime);
         }
     }
 
     private void CheckGround()
     {
-        // Simple circle check at the feet
+        bool wasGrounded = isGrounded;
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+
+        // Reset Double Jump when we touch the ground
+        if (isGrounded) 
+        {
+            canDoubleJump = true;
+        }
+        // Edge Case: If we walk off a ledge, we still have "CoyoteTime", 
+        // but if we wait too long, we shouldn't lose our Double Jump ability.
+        // The logic in OnJumpPressed handles this: 
+        // if CoyoteTime expires, it falls through to the Double Jump check.
     }
 
     private void Flip()
@@ -134,14 +171,8 @@ public class PlayerController : MonoBehaviour
     
     public void StopMovement()
     {
-        // 1. Kill all momentum immediately
         rb.linearVelocity = Vector2.zero;
-        rb.angularVelocity = 0f;
-
-        // 2. Turn off gravity and physics simulations so they don't slide or fall
         rb.isKinematic = true; 
-        
-        // 3. Disable this script so Update/FixedUpdate no longer run
         this.enabled = false;
     }
 }

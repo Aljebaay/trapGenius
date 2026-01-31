@@ -4,17 +4,27 @@ using UnityEngine;
 public class PlayerData : ScriptableObject
 {
     [Header("Movement")]
-    public float moveSpeed = 10f;
-    public float acceleration = 50f; // How fast we reach max speed
-    public float decceleration = 50f; // How fast we stop (Critical for tight controls)
+    public float moveSpeed = 12f;
+    public float acceleration = 120f;
+    public float decceleration = 120f;
 
-    [Header("Jump")]
-    public float jumpForce = 16f;
-    public float gravityScale = 3f; // Default gravity
-    public float fallGravityMultiplier = 1.5f; // Falls faster than rising
-    public float jumpCutMultiplier = 2f; // Short hop if button released
+    [Header("Math-Based Jump")]
+    public float jumpHeight = 4f;
+    public float timeToJumpApex = 0.4f;
+    public float fallGravityMultiplier = 2f;
 
-    [Header("Assists (Game Feel)")]
-    public float coyoteTime = 0.1f; // Time to jump after leaving ledge
-    public float jumpBufferTime = 0.1f; // Time to queue jump before hitting ground
+    [Header("Abilities")]
+    public bool allowDoubleJump = true; 
+
+    [Header("Assists")]
+    public float coyoteTime = 0.1f;
+    public float jumpBufferTime = 0.1f;
+    
+    [Header("Corner Correction")]
+    public float cornerCorrectionDistance = 0.5f;
+    public float topRaycastLength = 0.5f;
+
+    // --- Calculated Properties ---
+    public float GravityStrength => -(2 * jumpHeight) / (timeToJumpApex * timeToJumpApex);
+    public float JumpVelocity => Mathf.Abs(GravityStrength) * timeToJumpApex;
 }
