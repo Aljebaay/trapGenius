@@ -3,36 +3,69 @@ using UnityEngine;
 public class MovingTrap : MonoBehaviour
 {
     [Header("Movement Config")]
+    [Tooltip("If true, the trap starts moving immediately. If false, it waits for MoveOnTrigger()")]
+    [SerializeField] private bool isAutoMove = true; 
+
     [Tooltip("The first target position relative to the trap's initial position.")]
     [SerializeField] private Vector3 localTargetOffset1 = new Vector3(-3, 0, 0); 
     [Tooltip("The second target position relative to the trap's initial position.")]
     [SerializeField] private Vector3 localTargetOffset2 = new Vector3(3, 0, 0); 
-    [SerializeField] private float speed = 2f; // How fast the trap moves between points
+    [SerializeField] private float speed = 2f; 
     
-    private Vector3 initialPosition; // The trap's position at the start
+    private Vector3 initialPosition; 
     private Vector3 globalTargetPosition1;
     private Vector3 globalTargetPosition2;
 
+    // Internal state
+    private bool isMoving = false;
+    private float timeAccumulator = 0f; // Tracks time only while moving
+
     private void Start()
     {
-        initialPosition = transform.position; // Store the initial world position
+        initialPosition = transform.position; 
 
-        // Calculate the absolute world positions for the targets
+        // Calculate the absolute world positions
         globalTargetPosition1 = initialPosition + localTargetOffset1;
         globalTargetPosition2 = initialPosition + localTargetOffset2;
+
+        // If Auto Move is checked, start immediately
+        if (isAutoMove)
+        {
+            isMoving = true;
+        }
     }
 
     private void Update()
     {
-        // PingPong creates a value that bounces between 0 and 1 over time
-        // The speed now dictates how quickly it completes one full cycle (to 1 and back to 0)
-        float t = Mathf.PingPong(Time.time * speed, 1f);
+        // If we are not allowed to move, do nothing
+        if (!isMoving) return;
+
+        // We use a custom accumulator instead of Time.time so the trap 
+        // starts smoothly from 0 whenever it is triggered.
+        timeAccumulator += Time.deltaTime;
+
+        // Calculate t based on our local time accumulator
+        float t = Mathf.PingPong(timeAccumulator * speed, 1f);
         
-        // Lerp between globalTargetPosition1 and globalTargetPosition2
         transform.position = Vector3.Lerp(globalTargetPosition1, globalTargetPosition2, t);
     }
 
-    // Optional: Draw gizmos in the editor to visualize the path
+    // --- PUBLIC METHODS ---
+
+    // Call this function from your trigger script/event
+    public void MoveOnTrigger()
+    {
+        isMoving = true;
+    }
+
+    // Optional: Call this if you want to pause/stop the trap later
+    public void StopMovement()
+    {
+        isMoving = false;
+    }
+
+    // --- VISUALIZATION ---
+
     private void OnDrawGizmos()
     {
         if (Application.isPlaying)
@@ -42,7 +75,7 @@ public class MovingTrap : MonoBehaviour
             Gizmos.DrawSphere(globalTargetPosition1, 0.2f);
             Gizmos.DrawSphere(globalTargetPosition2, 0.2f);
         }
-        else // Show gizmos in editor when not playing
+        else 
         {
             Vector3 currentInitialPos = transform.position;
             Gizmos.color = Color.blue;
