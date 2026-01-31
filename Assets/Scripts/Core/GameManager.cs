@@ -6,15 +6,34 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     [Header("Flow Settings")]
-    [SerializeField] private float deathRestartDelay = 0.5f; // Fast reset
-    [SerializeField] private float winNextLevelDelay = 1.0f; // Time for animation
+    [SerializeField] private float deathRestartDelay = 0.5f;
+    [SerializeField] private float winNextLevelDelay = 2.0f; // Increased slightly for fade time
 
     private bool isGameActive = true;
+    
+    // --- NEW: Hold reference to the current scene's UI ---
+    private LevelUIManager currentLevelUI;
 
     private void Awake()
     {
-        if (Instance == null) Instance = this;
-        else Destroy(gameObject);
+        // Singleton Setup
+        if (Instance == null) 
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject); // Make sure GameManager survives scene load
+        }
+        else 
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    // --- NEW: Called by the UI when the scene starts ---
+    public void RegisterLevelUI(LevelUIManager ui)
+    {
+        currentLevelUI = ui;
+        // Reset game state for the new level
+        isGameActive = true; 
     }
 
     // --- LOSS LOGIC ---
@@ -24,10 +43,6 @@ public class GameManager : MonoBehaviour
         isGameActive = false;
 
         Debug.Log("💀 Dead. Restarting...");
-        
-        // Logic to freeze/hide player is handled by the trap, 
-        // but we ensure input is dead here if needed.
-        
         Invoke(nameof(RestartLevel), deathRestartDelay);
     }
 
@@ -42,22 +57,22 @@ public class GameManager : MonoBehaviour
         if (!isGameActive) return;
         isGameActive = false;
 
-        Debug.Log("⭐ Level Complete! Waiting for animation...");
+        Debug.Log("⭐ Level Complete!");
 
-        // TODO: Trigger your Win Animation here in Phase 2
-        // e.g. PlayerAnimator.SetTrigger("Dance");
+        // --- NEW: Trigger the UI Fade ---
+        if (currentLevelUI != null)
+        {
+            currentLevelUI.ShowWinEffects();
+        }
 
         Invoke(nameof(LoadNextLevel), winNextLevelDelay);
     }
 
     private void LoadNextLevel()
     {
-        // Calculate next scene index
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         int nextSceneIndex = currentSceneIndex + 1;
-        //int nextSceneIndex = currentSceneIndex;
 
-        // Check if next scene exists in Build Settings
         if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
         {
             SceneManager.LoadScene(nextSceneIndex);
@@ -65,7 +80,7 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.Log("No more levels! Looping to start.");
-            SceneManager.LoadScene(0); // Loop back to first level
+            SceneManager.LoadScene(0); 
         }
     }
 }
