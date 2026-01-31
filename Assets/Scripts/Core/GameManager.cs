@@ -7,20 +7,17 @@ public class GameManager : MonoBehaviour
 
     [Header("Flow Settings")]
     [SerializeField] private float deathRestartDelay = 0.5f;
-    [SerializeField] private float winNextLevelDelay = 2.0f; // Increased slightly for fade time
+    [SerializeField] private float winNextLevelDelay = 2.0f; 
 
     private bool isGameActive = true;
-    
-    // --- NEW: Hold reference to the current scene's UI ---
     private LevelUIManager currentLevelUI;
 
     private void Awake()
     {
-        // Singleton Setup
         if (Instance == null) 
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // Make sure GameManager survives scene load
+            DontDestroyOnLoad(gameObject); 
         }
         else 
         {
@@ -28,11 +25,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // --- NEW: Called by the UI when the scene starts ---
     public void RegisterLevelUI(LevelUIManager ui)
     {
         currentLevelUI = ui;
-        // Reset game state for the new level
         isGameActive = true; 
     }
 
@@ -43,6 +38,13 @@ public class GameManager : MonoBehaviour
         isGameActive = false;
 
         Debug.Log("💀 Dead. Restarting...");
+
+        // 1. Play Death SFX
+        if (AudioManager.Instance != null) 
+        {
+            AudioManager.Instance.PlayDeath();
+        }
+        
         Invoke(nameof(RestartLevel), deathRestartDelay);
     }
 
@@ -59,7 +61,13 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("⭐ Level Complete!");
 
-        // --- NEW: Trigger the UI Fade ---
+        // 1. Play Win SFX
+        if (AudioManager.Instance != null) 
+        {
+            AudioManager.Instance.PlayWin();
+        }
+
+        // 2. Show UI
         if (currentLevelUI != null)
         {
             currentLevelUI.ShowWinEffects();

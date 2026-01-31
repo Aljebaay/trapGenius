@@ -7,7 +7,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerData data;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private BoxCollider2D bodyCollider;
+    [SerializeField] private CircleCollider2D bodyCollider;
+    
+    [SerializeField] private PlayerAudio playerAudio; 
+    public bool IsGrounded => isGrounded; 
 
     private Rigidbody2D rb;
     private Vector2 moveInput;
@@ -48,6 +51,7 @@ public class PlayerController : MonoBehaviour
         CornerCorrect();
         CheckGround();
     }
+    
 
     // --- Core Movement Logic ---
 
@@ -99,15 +103,14 @@ public class PlayerController : MonoBehaviour
 
     private void PerformJump()
     {
-        // Reset Y velocity so double jump feels consistent (doesn't add to current momentum)
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0); 
-        
-        // Apply calculated velocity
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, data.JumpVelocity);
-        
-        // Clear timers to prevent accidental multi-firing
+    
         jumpBufferCounter = 0f;
         coyoteTimeCounter = 0f;
+
+        // 3. TRIGGER AUDIO HERE
+        if(playerAudio != null) playerAudio.PlayJump(); 
     }
 
     // --- Physics Refinements ---
