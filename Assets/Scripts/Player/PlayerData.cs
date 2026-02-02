@@ -7,6 +7,9 @@ public class PlayerData : ScriptableObject
     public float moveSpeed = 12f;
     public float acceleration = 120f;
     public float decceleration = 120f;
+    
+    [Tooltip("If true, Left becomes Right and vice versa.")]
+    public bool invertControls = false;
 
     [Header("Math-Based Jump")]
     public float jumpHeight = 4f;

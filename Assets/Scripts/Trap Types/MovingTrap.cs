@@ -1,19 +1,18 @@
 using UnityEngine;
 
-public class MovingTrap : MonoBehaviour
+// INHERIT FROM TrapBase
+public class MovingTrap : TrapBase
 {
     [Header("Movement Config")]
-    [Tooltip("If true, starts immediately.")]
     [SerializeField] private bool isAutoMove = true; 
-
+    [SerializeField] private bool isStopOnReachingDestination = false;
     [SerializeField] private Vector3 localTargetOffset1 = new Vector3(-3, 0, 0); 
     [SerializeField] private Vector3 localTargetOffset2 = new Vector3(3, 0, 0); 
     [SerializeField] private float speed = 2f; 
     
     private Vector3 initialPosition; 
-    private Vector3 globalTargetPosition1;
+    private Vector3 globalTargetPosition1; 
     private Vector3 globalTargetPosition2;
-
     private bool isMoving = false;
     private float timeAccumulator = 0f;
 
@@ -31,20 +30,26 @@ public class MovingTrap : MonoBehaviour
         if (!isMoving) return;
 
         timeAccumulator += Time.deltaTime;
-        float t = Mathf.PingPong(timeAccumulator * speed, 1f);
+        float t = isStopOnReachingDestination ? Mathf.Clamp01(timeAccumulator * speed) : Mathf.PingPong(timeAccumulator * speed, 1f);
+        
         transform.position = Vector3.Lerp(globalTargetPosition1, globalTargetPosition2, t);
     }
 
-    // --- CHANGED: Renamed to Activate for consistency ---
-    public void Activate()
+    // OVERRIDE THE BASE ACTIVATE
+    public override void Activate()
     {
-        isMoving = true;
+        if (!isMoving)
+        {
+            isMoving = true;
+            // Apply mutations (inherited from TrapBase)
+            if (changesPlayerData) ApplyMutationsToPlayer();
+        }
     }
-
-    public void StopMovement()
-    {
-        isMoving = false;
-    }
+    
+    public void StopMovement() { isMoving = false; }
+    
+    // OnCollisionEnter2D is already handled in TrapBase for mutations!
+    // But if you want custom kill logic, you can override it and call base.OnCollisionEnter2D(collision)
 
     private void OnDrawGizmos()
     {

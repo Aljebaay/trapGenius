@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class FakePlatform : MonoBehaviour
+public class FakePlatform : TrapBase
 {
     [SerializeField] private float fadeSpeed = 5f;
     private Tilemap tmr;
@@ -13,13 +13,14 @@ public class FakePlatform : MonoBehaviour
         GetComponent<CompositeCollider2D>().isTrigger = true; 
     }
 
-    // --- NEW PUBLIC METHOD ---
-    public void Activate()
+    public override void Activate()
     {
         isTriggered = true;
+        if (changesPlayerData) ApplyMutationsToPlayer();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    // Need to detect trigger entry for this specific trap
+    protected override void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
