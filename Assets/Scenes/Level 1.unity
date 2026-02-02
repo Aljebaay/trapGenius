@@ -657,6 +657,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 706e89a59fecc7444af511a77db76ef4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  changesPlayerData: 0
+  mutations: []
+  referenceData: {fileID: 11400000, guid: e4b0127fdd5bd7346b7778edbd71dba7, type: 2}
   fadeSpeed: 5
 --- !u!66 &734957204
 CompositeCollider2D:
@@ -3536,6 +3539,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 706e89a59fecc7444af511a77db76ef4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  changesPlayerData: 0
+  mutations:
+  - statToChange: 2
+    numberValue: 0
+    booleanValue: 0
+  referenceData: {fileID: 11400000, guid: e4b0127fdd5bd7346b7778edbd71dba7, type: 2}
   fadeSpeed: 5
 --- !u!114 &2647022605040906189
 MonoBehaviour:
@@ -3549,6 +3558,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b689ce6138e544498c715407b4014f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  changesPlayerData: 0
+  mutations: []
+  referenceData: {fileID: 11400000, guid: e4b0127fdd5bd7346b7778edbd71dba7, type: 2}
   setupNote: 'This trap is PASSIVE. It will not move until triggered.
 
 
@@ -3761,6 +3773,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6509995c202dce341b9a7323306c639a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  changesPlayerData: 0
+  mutations: []
+  referenceData: {fileID: 11400000, guid: e4b0127fdd5bd7346b7778edbd71dba7, type: 2}
   moveOffset: {x: 0, y: -3, z: 0}
   speed: 10
   triggerOnContact: 1

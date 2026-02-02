@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class BreakingPlatform : MonoBehaviour
+public class BreakingPlatform : TrapBase
 {
     [Header("Break Settings")]
     [SerializeField] private float timeBeforeBreak = 1.0f;
@@ -24,15 +24,21 @@ public class BreakingPlatform : MonoBehaviour
         initialPosition = transform.position;
     }
 
-    // --- CHANGED: Now Public ---
-    public void Activate()
+    // --- TRAP BASE OVERRIDE ---
+    public override void Activate()
     {
         if (isTriggered) return;
+        
+        // Apply remote mutations (e.g. if triggered by sequencer)
+        if(changesPlayerData) ApplyMutationsToPlayer();
+        
         StartCoroutine(BreakRoutine());
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected override void OnCollisionEnter2D(Collision2D collision)
     {
+        base.OnCollisionEnter2D(collision); // Mutations
+
         if (collision.gameObject.CompareTag("Player"))
         {
             Activate();

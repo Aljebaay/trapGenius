@@ -1,17 +1,17 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class AmbushTrap : MonoBehaviour
+public class AmbushTrap : TrapBase
 {
     [Header("⚠️ SETUP INSTRUCTIONS")]
-    [TextArea(2, 3)] // Creates a text box in the inspector
+    [TextArea(2, 3)] 
     [SerializeField] private string setupNote = "This trap is PASSIVE. It will not move until triggered.\n\n1. Create an empty GameObject.\n2. Add 'AreaTrigger' script.\n3. Link 'OnTriggerEnter' to this object's Activate() method.";
 
     public enum AmbushType { FallGravity, PopUp }
 
-    [Header("Settings")]
+    [Header("Ambush Settings")]
     [SerializeField] private AmbushType type = AmbushType.FallGravity;
-    [SerializeField] private Vector3 popOffset = new Vector3(0, 1, 0); // Only for PopUp
+    [SerializeField] private Vector3 popOffset = new Vector3(0, 1, 0); 
     [SerializeField] private float popSpeed = 15f; 
 
     private Rigidbody2D rb;
@@ -22,7 +22,6 @@ public class AmbushTrap : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         
-        // Setup initial state based on type
         if (type == AmbushType.FallGravity)
         {
             rb.gravityScale = 0; 
@@ -30,48 +29,54 @@ public class AmbushTrap : MonoBehaviour
         }
         else // PopUp
         {
-            rb.isKinematic = true; // No physics, just manual movement
+            rb.isKinematic = true; 
             targetPos = transform.position + popOffset;
         }
     }
 
     private void Update()
     {
-        // Handle PopUp movement
         if (isTriggered && type == AmbushType.PopUp)
         {
             transform.position = Vector3.MoveTowards(transform.position, targetPos, popSpeed * Time.deltaTime);
         }
     }
 
-    public void Activate()
+    // --- TRAP BASE OVERRIDE ---
+    public override void Activate()
     {
         if (isTriggered) return;
         isTriggered = true;
 
+        // Apply mutations remotely if triggered by a sequencer
+        if (changesPlayerData) ApplyMutationsToPlayer();
+
         if (type == AmbushType.FallGravity)
         {
-            // Unlock physics and let gravity take over
             rb.constraints = RigidbodyConstraints2D.None; 
-            rb.constraints = RigidbodyConstraints2D.FreezeRotation; // Keep rotation frozen (optional)
-            rb.gravityScale = 3f; // Heavy fall
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation; 
+            rb.gravityScale = 3f; 
         }
     }
 
-    // --- LETHALITY LOGIC ---
-
-    // 1. For Solid objects (Falling Rocks)
-    private void OnCollisionEnter2D(Collision2D collision)
+    // --- COLLISION LOGIC ---
+    
+    // 1. Solid Contact
+    protected override void OnCollisionEnter2D(Collision2D collision)
     {
+        base.OnCollisionEnter2D(collision); // Logic for Mutations
+        
         if (collision.gameObject.CompareTag("Player"))
         {
             KillPlayer(collision.gameObject);
         }
     }
 
-    // 2. For Trigger objects (Spikes)
-    private void OnTriggerEnter2D(Collider2D collision)
+    // 2. Trigger Contact
+    protected override void OnTriggerEnter2D(Collider2D collision)
     {
+        base.OnTriggerEnter2D(collision); // Logic for Mutations
+
         if (collision.CompareTag("Player"))
         {
             KillPlayer(collision.gameObject);
@@ -80,17 +85,7 @@ public class AmbushTrap : MonoBehaviour
 
     private void KillPlayer(GameObject player)
     {
-        // Disable player to prevent multiple deaths/movement
         player.SetActive(false);
-        
-        // Call the central Game Manager
-        if(GameManager.Instance != null)
-        {
-            GameManager.Instance.GameOver();
-        }
-        else
-        {
-            Debug.LogError("GameManager not found in scene!");
-        }
+        if(GameManager.Instance != null) GameManager.Instance.GameOver();
     }
 }
