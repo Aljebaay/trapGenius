@@ -1,0 +1,76 @@
+# Trap Sequencer System Architecture
+
+## Overview
+A ScriptableObject-based trap sequence system that supports:
+- Chain reactions (Scenario 1)
+- Timed trap rooms (Scenario 2)
+- Adaptive difficulty based on player deaths (Scenario 3)
+
+## Core Components
+
+### 1. ISequenceTriggerable Interface
+```csharp
+public interface ISequenceTriggerable
+{
+    void OnSequenceActivate();
+    void OnSequenceDeactivate();
+    bool IsActive { get; }
+}
+```
+Implemented by all traps that can be controlled by sequences.
+
+### 2. TrapSequence ScriptableObject
+Contains a list of sequence steps with timing and conditions.
+
+### 3. TrapSequenceRunner Component
+Monobehaviour that executes the sequence, attached to an empty GameObject in the scene.
+
+### 4. AttemptTracker System
+Static class that tracks player deaths per level for adaptive difficulty.
+
+## Workflow
+
+### For Designers (Non-Programmer Friendly):
+1. Create TrapSequence asset: Right-click → Create → Traps → Trap Sequence
+2. Add steps in Inspector: Select trap Tilemap → Set delay → Choose action
+3. Add TrapSequenceRunner to empty GameObject in scene
+4. Assign the TrapSequence asset to the runner
+5. Link AreaTrigger to runner's StartSequence() method
+
+### Scenario Examples:
+
+**Scenario 1 - Chain Reaction:**
+```
+Step 1: CeilingSpikesTilemap → Activate → Delay 0s
+Step 2: FloorSpikesTilemap → Activate → Delay 2s (after player jumps)
+Step 3: WallSpikesTilemap → Activate → Delay 1s
+```
+
+**Scenario 2 - Timed Room:**
+```
+Step 1: LockDoors → Activate → Delay 0s
+Step 2: FloorSpikes → Activate → Delay 5s
+Step 3: WallClose → Activate → Speed 2 units/sec
+Step 4: UnlockDoors → Activate → Delay 10s
+```
+
+**Scenario 3 - Adaptive Difficulty:**
+```
+Branch 1: Condition "Deaths < 2" → Activate basic traps
+Branch 2: Condition "Deaths 2-4" → Activate all traps
+Branch 3: Condition "Deaths > 4" → Activate all traps + speed 1.5x
+```
+
+## File Structure
+```
+Scripts/
+  Sequencer/
+    ISequenceTriggerable.cs
+    TrapSequence.cs (ScriptableObject)
+    TrapSequenceRunner.cs
+    AttemptTracker.cs
+    TrapAdapter/            # Adapters for existing traps
+      AmbushTrapAdapter.cs
+      MovingTrapAdapter.cs
+      etc.
+```

@@ -36,9 +36,13 @@ public class PlayerController : MonoBehaviour
         {
             coyoteTimeCounter = data.coyoteTime;
         }
-        else
+        else if (data.useCoyoteTime)
         {
             coyoteTimeCounter -= Time.deltaTime;
+        }
+        else
+        {
+            coyoteTimeCounter = 0f;
         }
 
         jumpBufferCounter -= Time.deltaTime;

@@ -17,6 +17,7 @@ public class PlayerData : ScriptableObject
     public bool allowDoubleJump = true; 
 
     [Header("Assists")]
+    public bool useCoyoteTime = true;
     public float coyoteTime = 0.1f;
     public float jumpBufferTime = 0.1f;
     
