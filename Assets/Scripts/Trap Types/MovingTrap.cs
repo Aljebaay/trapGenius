@@ -53,7 +53,7 @@ public class MovingTrap : MonoBehaviour
     // --- PUBLIC METHODS ---
 
     // Call this function from your trigger script/event
-    public void MoveOnTrigger()
+    public void Activate()
     {
         isMoving = true;
     }
