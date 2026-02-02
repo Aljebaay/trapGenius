@@ -24,7 +24,7 @@ public class BreakingPlatform : MonoBehaviour
         initialPosition = transform.position;
     }
 
-    // --- NEW PUBLIC METHOD FOR TRIGGERS ---
+    // --- CHANGED: Now Public ---
     public void Activate()
     {
         if (isTriggered) return;

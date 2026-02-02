@@ -7,31 +7,64 @@ public class GameManager : MonoBehaviour
 
     [Header("Flow Settings")]
     [SerializeField] private float deathRestartDelay = 0.5f;
-    [SerializeField] private float winNextLevelDelay = 2.0f; 
+    [SerializeField] private float winNextLevelDelay = 2.0f;
+
+    // --- NEW: Attempt Tracking ---
+    public int Attempts { get; private set; } = 1;
+    private int currentSceneIndex = -1;
+    // -----------------------------
 
     private bool isGameActive = true;
     private LevelUIManager currentLevelUI;
 
     private void Awake()
     {
-        if (Instance == null) 
+        if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); 
+            DontDestroyOnLoad(gameObject);
         }
-        else 
+        else
         {
             Destroy(gameObject);
         }
     }
 
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    // Called automatically whenever a level loads (start or restart)
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        isGameActive = true;
+
+        if (scene.buildIndex != currentSceneIndex)
+        {
+            // New Level: Reset attempts
+            currentSceneIndex = scene.buildIndex;
+            Attempts = 1;
+        }
+        else
+        {
+            // Same Level (Restart): Increment attempts
+            Attempts++;
+        }
+
+        Debug.Log($"Level Loaded. Attempt #{Attempts}");
+    }
+
     public void RegisterLevelUI(LevelUIManager ui)
     {
         currentLevelUI = ui;
-        isGameActive = true; 
     }
 
-    // --- LOSS LOGIC ---
     public void GameOver()
     {
         if (!isGameActive) return;
@@ -39,12 +72,11 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("💀 Dead. Restarting...");
 
-        // 1. Play Death SFX
-        if (AudioManager.Instance != null) 
+        if (AudioManager.Instance != null)
         {
             AudioManager.Instance.PlayDeath();
         }
-        
+
         Invoke(nameof(RestartLevel), deathRestartDelay);
     }
 
@@ -53,7 +85,6 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    // --- WIN LOGIC ---
     public void LevelComplete()
     {
         if (!isGameActive) return;
@@ -61,13 +92,11 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("⭐ Level Complete!");
 
-        // 1. Play Win SFX
-        if (AudioManager.Instance != null) 
+        if (AudioManager.Instance != null)
         {
             AudioManager.Instance.PlayWin();
         }
 
-        // 2. Show UI
         if (currentLevelUI != null)
         {
             currentLevelUI.ShowWinEffects();
@@ -78,8 +107,7 @@ public class GameManager : MonoBehaviour
 
     private void LoadNextLevel()
     {
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        int nextSceneIndex = currentSceneIndex + 1;
+        int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
 
         if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
         {
@@ -88,7 +116,7 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.Log("No more levels! Looping to start.");
-            SceneManager.LoadScene(0); 
+            SceneManager.LoadScene(0);
         }
     }
 }
