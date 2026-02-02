@@ -3,7 +3,8 @@ using UnityEngine.Events;
 
 public class AttemptTrigger : MonoBehaviour
 {
-    public enum CheckType { Equal, Greater, Less, Modulo }
+    // Added "GreaterOrEqual" to the list
+    public enum CheckType { Equal, Greater, Less, GreaterOrEqual, Modulo }
 
     [Header("Condition Logic")]
     [Tooltip("How to compare the current attempt count.")]
@@ -29,26 +30,39 @@ public class AttemptTrigger : MonoBehaviour
         switch (condition)
         {
             case CheckType.Equal:
+                // Triggers ONLY on attempt X (e.g., A surprise that happens once)
                 isMet = (current == targetValue);
                 break;
+
             case CheckType.Greater:
+                // Triggers on X+1, X+2... (Skips the specific target number)
                 isMet = (current > targetValue);
                 break;
+
             case CheckType.Less:
+                // Triggers on 1, 2... up to X-1 (Good for help that disappears later)
                 isMet = (current < targetValue);
                 break;
+            
+            case CheckType.GreaterOrEqual:
+                // BEST FOR LEVEL DEVIL: Triggers on X, X+1, X+2... (Permanent difficulty increase)
+                isMet = (current >= targetValue);
+                break;
+
             case CheckType.Modulo:
-                // Useful for "Every 3rd attempt" (Value = 3)
+                // Triggers every X turns (e.g., 3, 6, 9...)
                 isMet = (current % targetValue == 0);
                 break;
         }
 
         if (isMet)
         {
+            Debug.Log($"Attempt Trigger: {condition} {targetValue} (Current: {current}) -> MET");
             onConditionMet.Invoke();
         }
         else
         {
+            Debug.Log($"Attempt Trigger: {condition} {targetValue} (Current: {current}) -> FAILED");
             onConditionFailed.Invoke();
         }
     }

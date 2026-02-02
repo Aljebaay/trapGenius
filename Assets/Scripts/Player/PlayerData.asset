@@ -18,6 +18,8 @@ MonoBehaviour:
   jumpHeight: 4
   timeToJumpApex: 0.4
   fallGravityMultiplier: 2
+  allowDoubleJump: 0
+  useCoyoteTime: 0
   coyoteTime: 0.1
   jumpBufferTime: 0.1
   cornerCorrectionDistance: 0.5

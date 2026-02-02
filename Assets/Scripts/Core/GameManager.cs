@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,10 +9,13 @@ public class GameManager : MonoBehaviour
     [Header("Flow Settings")]
     [SerializeField] private float deathRestartDelay = 0.5f;
     [SerializeField] private float winNextLevelDelay = 2.0f;
+    //[SerializeField] private TMP_Text deathCounters;
 
-    // --- NEW: Attempt Tracking ---
-    public int Attempts { get; private set; } = 1;
-    private int currentSceneIndex = -1;
+    // Attempt Tracking 
+    public int Attempts { get; private set; } = 0;
+    
+    // Initialize to -1 so the first load is ALWAYS detected as a "New Level"
+    private int currentSceneIndex = -1; 
     // -----------------------------
 
     private bool isGameActive = true;
@@ -22,6 +26,9 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            // IMPORTANT: This object must be at the ROOT of the hierarchy 
+            // for DontDestroyOnLoad to work. It cannot be a child of another object.
+            transform.SetParent(null); 
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -32,6 +39,7 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
+        // Don't set currentSceneIndex here. Let OnSceneLoaded handle logic.
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
@@ -40,26 +48,29 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    // Called automatically whenever a level loads (start or restart)
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         isGameActive = true;
 
+        // Check against the stored index
         if (scene.buildIndex != currentSceneIndex)
         {
-            // New Level: Reset attempts
+            // DIFFERENT SCENE (or First Load) -> Reset Counter
             currentSceneIndex = scene.buildIndex;
             Attempts = 1;
         }
         else
         {
-            // Same Level (Restart): Increment attempts
+            // SAME SCENE -> Increment Counter
             Attempts++;
         }
 
-        Debug.Log($"Level Loaded. Attempt #{Attempts}");
+        // if(deathCounters != null) deathCounters.text = Attempts.ToString();
+        Debug.Log($"Level Loaded: {scene.name} (Index: {currentSceneIndex}) | Attempt #{Attempts}");
     }
 
+    // ... Rest of your code (GameOver, LevelComplete, etc) remains the same ...
+    
     public void RegisterLevelUI(LevelUIManager ui)
     {
         currentLevelUI = ui;
@@ -71,12 +82,7 @@ public class GameManager : MonoBehaviour
         isGameActive = false;
 
         Debug.Log("💀 Dead. Restarting...");
-
-        if (AudioManager.Instance != null)
-        {
-            AudioManager.Instance.PlayDeath();
-        }
-
+        if (AudioManager.Instance != null) AudioManager.Instance.PlayDeath();
         Invoke(nameof(RestartLevel), deathRestartDelay);
     }
 
@@ -91,32 +97,17 @@ public class GameManager : MonoBehaviour
         isGameActive = false;
 
         Debug.Log("⭐ Level Complete!");
-
-        if (AudioManager.Instance != null)
-        {
-            AudioManager.Instance.PlayWin();
-        }
-
-        if (currentLevelUI != null)
-        {
-            currentLevelUI.ShowWinEffects();
-        }
-
+        if (AudioManager.Instance != null) AudioManager.Instance.PlayWin();
+        if (currentLevelUI != null) currentLevelUI.ShowWinEffects();
         Invoke(nameof(LoadNextLevel), winNextLevelDelay);
     }
 
     private void LoadNextLevel()
     {
         int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
-
         if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
-        {
             SceneManager.LoadScene(nextSceneIndex);
-        }
         else
-        {
-            Debug.Log("No more levels! Looping to start.");
             SceneManager.LoadScene(0);
-        }
     }
 }
