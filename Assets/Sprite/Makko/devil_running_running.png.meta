@@ -1,0 +1,1378 @@
+fileFormatVersion: 2
+guid: ae6e0d8469d1a05499eac07babd937d5
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3775060344468826591
+    second: devil_running_running_0
+  - first:
+      213: 1478824536256823232
+    second: devil_running_running_1
+  - first:
+      213: -1181333681729608447
+    second: devil_running_running_2
+  - first:
+      213: -9008235100623205344
+    second: devil_running_running_3
+  - first:
+      213: -3644778742078224873
+    second: devil_running_running_4
+  - first:
+      213: 8347985953897599338
+    second: devil_running_running_5
+  - first:
+      213: 2532030069891064595
+    second: devil_running_running_6
+  - first:
+      213: -6659496911707469950
+    second: devil_running_running_7
+  - first:
+      213: 4513145581418283251
+    second: devil_running_running_8
+  - first:
+      213: 815080568121837049
+    second: devil_running_running_9
+  - first:
+      213: -7756916187905883516
+    second: devil_running_running_10
+  - first:
+      213: 9002555376735127302
+    second: devil_running_running_11
+  - first:
+      213: -9216399628286837929
+    second: devil_running_running_12
+  - first:
+      213: 6930509833594547412
+    second: devil_running_running_13
+  - first:
+      213: 1293798300729991481
+    second: devil_running_running_14
+  - first:
+      213: -2956715044000262184
+    second: devil_running_running_15
+  - first:
+      213: 8958418992359951311
+    second: devil_running_running_16
+  - first:
+      213: -4975754621975822468
+    second: devil_running_running_17
+  - first:
+      213: 72806735943349653
+    second: devil_running_running_18
+  - first:
+      213: 5029740239176571682
+    second: devil_running_running_19
+  - first:
+      213: -8168259163755004617
+    second: devil_running_running_20
+  - first:
+      213: -4880579418283875626
+    second: devil_running_running_21
+  - first:
+      213: 2962557775554638356
+    second: devil_running_running_22
+  - first:
+      213: 3215094031979167614
+    second: devil_running_running_23
+  - first:
+      213: 2556750657836585797
+    second: devil_running_running_24
+  - first:
+      213: -3825402922122593663
+    second: devil_running_running_25
+  - first:
+      213: 4914812728482205874
+    second: devil_running_running_26
+  - first:
+      213: 3578668559795814430
+    second: devil_running_running_27
+  - first:
+      213: 798378525895163265
+    second: devil_running_running_28
+  - first:
+      213: -7887524385547017725
+    second: devil_running_running_29
+  - first:
+      213: 1198527847944021637
+    second: devil_running_running_30
+  - first:
+      213: -3090245099398022977
+    second: devil_running_running_31
+  - first:
+      213: -3927884542081545271
+    second: devil_running_running_32
+  - first:
+      213: -2355196496009539355
+    second: devil_running_running_33
+  - first:
+      213: 6666581672504938047
+    second: devil_running_running_34
+  - first:
+      213: -4209159245314819425
+    second: devil_running_running_35
+  - first:
+      213: 8282305186088909980
+    second: devil_running_running_36
+  - first:
+      213: -8301780535884629798
+    second: devil_running_running_37
+  - first:
+      213: -7754680900919217187
+    second: devil_running_running_38
+  - first:
+      213: -2560958954661656246
+    second: devil_running_running_39
+  - first:
+      213: -7135260240541923051
+    second: devil_running_running_40
+  - first:
+      213: -1088549703018316801
+    second: devil_running_running_41
+  - first:
+      213: -3786873756479423380
+    second: devil_running_running_42
+  - first:
+      213: -1133888006528303308
+    second: devil_running_running_43
+  - first:
+      213: 1041995319401573556
+    second: devil_running_running_44
+  - first:
+      213: 8884768870461038685
+    second: devil_running_running_45
+  - first:
+      213: 4429470258340674257
+    second: devil_running_running_46
+  - first:
+      213: -7739357699689802831
+    second: devil_running_running_47
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: devil_running_running_0
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 3520
+        width: 292
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 126954a2e9a4c9bc0800000000000000
+      internalID: -3775060344468826591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: devil_running_running_1
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 3520
+        width: 293
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0cf38b0a417d58410800000000000000
+      internalID: 1478824536256823232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: devil_running_running_2
+      rect:
+        serializedVersion: 2
+        x: 808
+        y: 3520
+        width: 293
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1056d43864f0b9fe0800000000000000
+      internalID: -1181333681729608447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: devil_running_running_3
+      rect:
+        serializedVersion: 2
+        x: 1189
+        y: 3520
+        width: 300
+        height: 575
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02c062657e15cf280800000000000000
+      internalID: -9008235100623205344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: devil_running_running_4
+      rect:
+        serializedVersion: 2
+        x: 1568
+        y: 3521
+        width: 310
+        height: 571
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 71648818b052b6dc0800000000000000
+      internalID: -3644778742078224873
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: devil_running_running_5
+      rect:
+        serializedVersion: 2
+        x: 1946
+        y: 3520
+        width: 338
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a61540cdef00ad370800000000000000
+      internalID: 8347985953897599338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: devil_running_running_6
+      rect:
+        serializedVersion: 2
+        x: 2337
+        y: 3518
+        width: 330
+        height: 556
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 313e67ceee3932320800000000000000
+      internalID: 2532030069891064595
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: devil_running_running_7
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 2940
+        width: 331
+        height: 562
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2878dd2a7d6b493a0800000000000000
+      internalID: -6659496911707469950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: devil_running_running_8
+      rect:
+        serializedVersion: 2
+        x: 389
+        y: 2947
+        width: 350
+        height: 567
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f08f00aef9e1ae30800000000000000
+      internalID: 4513145581418283251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: devil_running_running_9
+      rect:
+        serializedVersion: 2
+        x: 780
+        y: 2964
+        width: 364
+        height: 546
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f5c93e457fbf4b00800000000000000
+      internalID: 815080568121837049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: devil_running_running_10
+      rect:
+        serializedVersion: 2
+        x: 1175
+        y: 2942
+        width: 340
+        height: 560
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 482846333d5e95490800000000000000
+      internalID: -7756916187905883516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: devil_running_running_11
+      rect:
+        serializedVersion: 2
+        x: 1570
+        y: 2942
+        width: 323
+        height: 555
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6078415ea608fec70800000000000000
+      internalID: 9002555376735127302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: devil_running_running_12
+      rect:
+        serializedVersion: 2
+        x: 1943
+        y: 2950
+        width: 377
+        height: 565
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75bbbef5e55c81080800000000000000
+      internalID: -9216399628286837929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: devil_running_running_13
+      rect:
+        serializedVersion: 2
+        x: 2328
+        y: 2972
+        width: 387
+        height: 547
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4dc21c769fd1e2060800000000000000
+      internalID: 6930509833594547412
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: devil_running_running_14
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 2374
+        width: 377
+        height: 559
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 931e30e13be74f110800000000000000
+      internalID: 1293798300729991481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: devil_running_running_15
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 2362
+        width: 321
+        height: 558
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d79f443553a7f6d0800000000000000
+      internalID: -2956715044000262184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: devil_running_running_16
+      rect:
+        serializedVersion: 2
+        x: 787
+        y: 2362
+        width: 327
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fcb4abc1c92b25c70800000000000000
+      internalID: 8958418992359951311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: devil_running_running_17
+      rect:
+        serializedVersion: 2
+        x: 1165
+        y: 2377
+        width: 352
+        height: 562
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7f7f93b88192fab0800000000000000
+      internalID: -4975754621975822468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: devil_running_running_18
+      rect:
+        serializedVersion: 2
+        x: 1558
+        y: 2373
+        width: 353
+        height: 559
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 595b8213759a20100800000000000000
+      internalID: 72806735943349653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: devil_running_running_19
+      rect:
+        serializedVersion: 2
+        x: 1956
+        y: 2365
+        width: 323
+        height: 559
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22b9b9c491a3dc540800000000000000
+      internalID: 5029740239176571682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: devil_running_running_20
+      rect:
+        serializedVersion: 2
+        x: 2349
+        y: 2363
+        width: 319
+        height: 559
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 73dbd0f519384ae80800000000000000
+      internalID: -8168259163755004617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: devil_running_running_21
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 1808
+        width: 382
+        height: 554
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d26b13a0e2b44cb0800000000000000
+      internalID: -4880579418283875626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: devil_running_running_22
+      rect:
+        serializedVersion: 2
+        x: 389
+        y: 1821
+        width: 387
+        height: 542
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 412718eb99e1d1920800000000000000
+      internalID: 2962557775554638356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: devil_running_running_23
+      rect:
+        serializedVersion: 2
+        x: 785
+        y: 1785
+        width: 370
+        height: 567
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7fb89fdcfe4e9c20800000000000000
+      internalID: 3215094031979167614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: devil_running_running_24
+      rect:
+        serializedVersion: 2
+        x: 1180
+        y: 1784
+        width: 322
+        height: 562
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54398935d276b7320800000000000000
+      internalID: 2556750657836585797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: devil_running_running_25
+      rect:
+        serializedVersion: 2
+        x: 1560
+        y: 1785
+        width: 327
+        height: 567
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18a34286f4079eac0800000000000000
+      internalID: -3825402922122593663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: devil_running_running_26
+      rect:
+        serializedVersion: 2
+        x: 1939
+        y: 1816
+        width: 357
+        height: 547
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b010c2032ce43440800000000000000
+      internalID: 4914812728482205874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: devil_running_running_27
+      rect:
+        serializedVersion: 2
+        x: 2340
+        y: 1786
+        width: 335
+        height: 563
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e100d73381cf9a130800000000000000
+      internalID: 3578668559795814430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: devil_running_running_28
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 1205
+        width: 321
+        height: 559
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18df7401a09641b00800000000000000
+      internalID: 798378525895163265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: devil_running_running_29
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 1208
+        width: 335
+        height: 562
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3022d3a7c52e98290800000000000000
+      internalID: -7887524385547017725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: devil_running_running_30
+      rect:
+        serializedVersion: 2
+        x: 777
+        y: 1242
+        width: 386
+        height: 543
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 586ed164ab602a010800000000000000
+      internalID: 1198527847944021637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: devil_running_running_31
+      rect:
+        serializedVersion: 2
+        x: 1165
+        y: 1233
+        width: 387
+        height: 551
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb83d75747e3d15d0800000000000000
+      internalID: -3090245099398022977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: devil_running_running_32
+      rect:
+        serializedVersion: 2
+        x: 1567
+        y: 1205
+        width: 357
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9cb4b7ed1d95d79c0800000000000000
+      internalID: -3927884542081545271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: devil_running_running_33
+      rect:
+        serializedVersion: 2
+        x: 1952
+        y: 1206
+        width: 324
+        height: 565
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e05b17e349a05fd0800000000000000
+      internalID: -2355196496009539355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: devil_running_running_34
+      rect:
+        serializedVersion: 2
+        x: 2334
+        y: 1211
+        width: 333
+        height: 566
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3e49c7c5b4748c50800000000000000
+      internalID: 6666581672504938047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: devil_running_running_35
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 670
+        width: 360
+        height: 537
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9a75fba7ff0695c0800000000000000
+      internalID: -4209159245314819425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: devil_running_running_36
+      rect:
+        serializedVersion: 2
+        x: 403
+        y: 633
+        width: 327
+        height: 557
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9c743a6fa8a0f270800000000000000
+      internalID: 8282305186088909980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: devil_running_running_37
+      rect:
+        serializedVersion: 2
+        x: 796
+        y: 633
+        width: 319
+        height: 553
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad8385b56962acc80800000000000000
+      internalID: -8301780535884629798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: devil_running_running_38
+      rect:
+        serializedVersion: 2
+        x: 1177
+        y: 631
+        width: 344
+        height: 562
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd334328ec6d16490800000000000000
+      internalID: -7754680900919217187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: devil_running_running_39
+      rect:
+        serializedVersion: 2
+        x: 1553
+        y: 663
+        width: 387
+        height: 543
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4949073665a57cd0800000000000000
+      internalID: -2560958954661656246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: devil_running_running_40
+      rect:
+        serializedVersion: 2
+        x: 1942
+        y: 658
+        width: 387
+        height: 546
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 519c78e8d967afc90800000000000000
+      internalID: -7135260240541923051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: devil_running_running_41
+      rect:
+        serializedVersion: 2
+        x: 2344
+        y: 627
+        width: 356
+        height: 562
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ffb7c3fffc1b4e0f0800000000000000
+      internalID: -1088549703018316801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: devil_running_running_42
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 50
+        width: 324
+        height: 565
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6c7bc7d162527bc0800000000000000
+      internalID: -3786873756479423380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: devil_running_running_43
+      rect:
+        serializedVersion: 2
+        x: 395
+        y: 52
+        width: 328
+        height: 569
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43ffdcb9dde9340f0800000000000000
+      internalID: -1133888006528303308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: devil_running_running_44
+      rect:
+        serializedVersion: 2
+        x: 777
+        y: 90
+        width: 357
+        height: 539
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4bcec86e839e57e00800000000000000
+      internalID: 1041995319401573556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: devil_running_running_45
+      rect:
+        serializedVersion: 2
+        x: 1180
+        y: 54
+        width: 323
+        height: 555
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d506743d63a0d4b70800000000000000
+      internalID: 8884768870461038685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: devil_running_running_46
+      rect:
+        serializedVersion: 2
+        x: 1573
+        y: 53
+        width: 318
+        height: 553
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1dabd8b4bb3a87d30800000000000000
+      internalID: 4429470258340674257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: devil_running_running_47
+      rect:
+        serializedVersion: 2
+        x: 1954
+        y: 56
+        width: 345
+        height: 559
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b31e405d27489490800000000000000
+      internalID: -7739357699689802831
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      devil_running_running_0: -3775060344468826591
+      devil_running_running_1: 1478824536256823232
+      devil_running_running_10: -7756916187905883516
+      devil_running_running_11: 9002555376735127302
+      devil_running_running_12: -9216399628286837929
+      devil_running_running_13: 6930509833594547412
+      devil_running_running_14: 1293798300729991481
+      devil_running_running_15: -2956715044000262184
+      devil_running_running_16: 8958418992359951311
+      devil_running_running_17: -4975754621975822468
+      devil_running_running_18: 72806735943349653
+      devil_running_running_19: 5029740239176571682
+      devil_running_running_2: -1181333681729608447
+      devil_running_running_20: -8168259163755004617
+      devil_running_running_21: -4880579418283875626
+      devil_running_running_22: 2962557775554638356
+      devil_running_running_23: 3215094031979167614
+      devil_running_running_24: 2556750657836585797
+      devil_running_running_25: -3825402922122593663
+      devil_running_running_26: 4914812728482205874
+      devil_running_running_27: 3578668559795814430
+      devil_running_running_28: 798378525895163265
+      devil_running_running_29: -7887524385547017725
+      devil_running_running_3: -9008235100623205344
+      devil_running_running_30: 1198527847944021637
+      devil_running_running_31: -3090245099398022977
+      devil_running_running_32: -3927884542081545271
+      devil_running_running_33: -2355196496009539355
+      devil_running_running_34: 6666581672504938047
+      devil_running_running_35: -4209159245314819425
+      devil_running_running_36: 8282305186088909980
+      devil_running_running_37: -8301780535884629798
+      devil_running_running_38: -7754680900919217187
+      devil_running_running_39: -2560958954661656246
+      devil_running_running_4: -3644778742078224873
+      devil_running_running_40: -7135260240541923051
+      devil_running_running_41: -1088549703018316801
+      devil_running_running_42: -3786873756479423380
+      devil_running_running_43: -1133888006528303308
+      devil_running_running_44: 1041995319401573556
+      devil_running_running_45: 8884768870461038685
+      devil_running_running_46: 4429470258340674257
+      devil_running_running_47: -7739357699689802831
+      devil_running_running_5: 8347985953897599338
+      devil_running_running_6: 2532030069891064595
+      devil_running_running_7: -6659496911707469950
+      devil_running_running_8: 4513145581418283251
+      devil_running_running_9: 815080568121837049
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

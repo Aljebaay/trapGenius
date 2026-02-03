@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerData data;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private CircleCollider2D bodyCollider;
+    [SerializeField] private CapsuleCollider2D bodyCollider;
     [SerializeField] private PlayerAudio playerAudio; 
     
     public bool IsGrounded => isGrounded; 
