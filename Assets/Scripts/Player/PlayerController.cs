@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private CircleCollider2D bodyCollider;
     
     [SerializeField] private PlayerAudio playerAudio; 
+    [SerializeField] private Animator animator;
     public bool IsGrounded => isGrounded; 
 
     private Rigidbody2D rb;
@@ -27,6 +28,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        if (animator == null) animator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -96,6 +98,8 @@ public class PlayerController : MonoBehaviour
         float velX = Mathf.MoveTowards(rb.linearVelocity.x, targetSpeed, accelRate * Time.fixedDeltaTime);
 
         rb.linearVelocity = new Vector2(velX, rb.linearVelocity.y);
+        if (animator != null)
+            animator.SetBool("IsMoving", Mathf.Abs(moveInput.x) > 0.01f);
 
         if (moveInput.x > 0 && !isFacingRight) Flip();
         else if (moveInput.x < 0 && isFacingRight) Flip();
