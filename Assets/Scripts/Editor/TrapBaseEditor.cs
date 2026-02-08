@@ -18,8 +18,8 @@ public class TrapBaseEditor : Editor
     public override void OnInspectorGUI()
     {
         // 1. Draw the Default Inspector (The child trap's specific settings)
-        // We exclude the base properties so we can draw them manually at the bottom
-        DrawPropertiesExcluding(serializedObject, "m_Script", "changesPlayerData", "mutations", "referenceData");
+        // This will draw all properties not explicitly handled below.
+        DrawDefaultInspector();
 
         serializedObject.Update();
 
