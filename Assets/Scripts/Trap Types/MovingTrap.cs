@@ -1,14 +1,14 @@
 using UnityEngine;
 
-// INHERIT FROM TrapBase
+
 public class MovingTrap : TrapBase
 {
     [Header("Movement Config")]
-    [SerializeField] private bool isAutoMove = true; 
+    [SerializeField] private bool isAutoMove = false; 
     [SerializeField] private bool isStopOnReachingDestination = false;
-    [SerializeField] private Vector3 localTargetOffset1 = new Vector3(-3, 0, 0); 
-    [SerializeField] private Vector3 localTargetOffset2 = new Vector3(3, 0, 0); 
-    [SerializeField] private float speed = 2f; 
+    [SerializeField] private Vector3 localTargetOffset1 = new Vector3(0, 0, 0); 
+    [SerializeField] private Vector3 localTargetOffset2 = new Vector3(-5, 0, 0); 
+    [SerializeField] private float speed = 1f; 
     
     private Vector3 initialPosition; 
     private Vector3 globalTargetPosition1; 
