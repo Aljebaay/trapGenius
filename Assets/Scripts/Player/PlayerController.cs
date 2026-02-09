@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private CapsuleCollider2D bodyCollider;
     [SerializeField] private PlayerAudio playerAudio; 
+    [SerializeField] private PlayerAnimation playerAnim;
     
     public bool IsGrounded => isGrounded; 
 
@@ -145,7 +146,8 @@ public class PlayerController : MonoBehaviour
         jumpBufferCounter = 0f;
         coyoteTimeCounter = 0f;
 
-        if(playerAudio != null) playerAudio.PlayJump(); 
+        playerAudio.PlayJump();
+        playerAnim.TriggerJumpAnimation();
     }
 
     private void ApplyCustomGravity()

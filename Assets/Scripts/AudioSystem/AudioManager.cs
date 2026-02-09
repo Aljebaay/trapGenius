@@ -12,6 +12,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip backgroundMusic;
     [SerializeField] private AudioClip winSound;
     [SerializeField] private AudioClip deathSound;
+    [SerializeField] private AudioClip coinSound; 
 
     private void Awake()
     {
@@ -55,5 +56,11 @@ public class AudioManager : MonoBehaviour
         // Plays the sound once on top of the music
         if (deathSound != null) 
             sfxSource.PlayOneShot(deathSound);
+    }
+    
+    public void PlayCoin()
+    {
+        if (coinSound != null) 
+            sfxSource.PlayOneShot(coinSound);
     }
 }

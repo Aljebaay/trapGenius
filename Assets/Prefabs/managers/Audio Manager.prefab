@@ -309,3 +309,4 @@ MonoBehaviour:
   backgroundMusic: {fileID: 8300000, guid: eebd3795286cfa848bdfa2ffe9c94acf, type: 3}
   winSound: {fileID: 8300000, guid: 4587fcc466e97a24883580b4fe80c4b9, type: 3}
   deathSound: {fileID: 8300000, guid: 89fb03e364838f0429f6c691378827bc, type: 3}
+  coinSound: {fileID: 8300000, guid: 517afaf99554f8f41ba3b768262dab4b, type: 3}

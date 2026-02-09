@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 2913898051805497699}
   - component: {fileID: 7810689515475465624}
   - component: {fileID: 7883398698162615111}
+  - component: {fileID: 2698041332567699810}
   - component: {fileID: 6289221185979025053}
   - component: {fileID: 486226571186040742}
   - component: {fileID: 7936010014072941752}
@@ -120,7 +121,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 14.94, y: 10.24}
+  m_Size: {x: 1.59, y: 3.02}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -190,6 +191,23 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: -0.007987976}
   m_Size: {x: 0.9035975, y: 2.7803612}
   m_Direction: 0
+--- !u!114 &2698041332567699810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6946364785821700833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c0f2a3fd73c9504e8ca589efa6af6ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 6289221185979025053}
+  rb: {fileID: 7810689515475465624}
+  isRunningParam: IsRunning
+  isGroundedParam: IsGrounded
+  jumpTriggerParam: Jump
 --- !u!114 &6289221185979025053
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,6 +227,7 @@ MonoBehaviour:
     m_Bits: 64
   bodyCollider: {fileID: 7883398698162615111}
   playerAudio: {fileID: 7936010014072941752}
+  playerAnim: {fileID: 2698041332567699810}
 --- !u!114 &486226571186040742
 MonoBehaviour:
   m_ObjectHideFlags: 0
