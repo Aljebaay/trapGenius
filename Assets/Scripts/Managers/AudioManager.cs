@@ -13,6 +13,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip winSound;
     [SerializeField] private AudioClip deathSound;
     [SerializeField] private AudioClip coinSound; 
+    [SerializeField] private AudioClip keySound; 
 
     private void Awake()
     {
@@ -62,5 +63,11 @@ public class AudioManager : MonoBehaviour
     {
         if (coinSound != null) 
             sfxSource.PlayOneShot(coinSound);
+    }
+    
+    public void PlayKeyPickupSound()
+    {
+        if (coinSound != null) 
+            sfxSource.PlayOneShot(keySound);
     }
 }

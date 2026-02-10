@@ -42,7 +42,7 @@ public class CoinPickup : MonoBehaviour
         // 1. Add to Game Manager
         if (GameManager.Instance != null)
         {
-            GameManager.Instance.AddCoin(coinValue);
+            InventoryManager.Instance.AddCoins(coinValue);
         }
 
         // 2. Play Sound

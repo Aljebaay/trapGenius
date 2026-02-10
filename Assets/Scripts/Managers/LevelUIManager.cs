@@ -13,10 +13,19 @@ public class LevelUIManager : MonoBehaviour
     [Header("HUD")] 
     [SerializeField] private TMP_Text attemptText;
     [SerializeField] private TMP_Text coinText;
+    [SerializeField] private TMP_Text keyText;
 
     private void Start()
     {
-      
+        InventoryManager.onCoinChanged += UpdateCoinText;
+        if(InventoryManager.Instance != null) 
+            UpdateCoinText(InventoryManager.Instance.GetCoinCount());
+        
+        InventoryManager.onKeysChanged += UpdateKeyText;
+        if (InventoryManager.Instance != null)
+            UpdateKeyText(InventoryManager.Instance.GetKeyCount());
+
+        
         if(winScreenObject != null) 
             winScreenObject.SetActive(false);
 
@@ -37,6 +46,35 @@ public class LevelUIManager : MonoBehaviour
             attemptText.text = count.ToString();
         }
     }
+    
+    public void UpdateKeyText(int count)
+    {
+        if (keyText != null)
+        {
+            // You might want to format this (e.g., "Keys: 1")
+            // For now, it just shows the number like the others
+            keyText.text = count.ToString();
+        }
+    }
+        
+    public void UpdateCoinText(int count)
+    {
+        if (coinText != null)
+        {
+            coinText.text = count.ToString();
+        }
+    }
+    
+    private void OnDestroy() 
+    {
+        // Unsubscribe from BOTH to prevent errors
+        InventoryManager.onCoinChanged -= UpdateCoinText;
+        InventoryManager.onKeysChanged -= UpdateKeyText;
+    }
+    
+    
+    
+    //-------------- EFFECTS
 
     public void ShowWinEffects()
     {
@@ -46,6 +84,8 @@ public class LevelUIManager : MonoBehaviour
             if (winScreenCanvasGroup != null) StartCoroutine(FadeInRoutine());
         }
     }
+    
+    
 
     private IEnumerator FadeInRoutine()
     {
@@ -58,12 +98,5 @@ public class LevelUIManager : MonoBehaviour
         }
         winScreenCanvasGroup.alpha = 1f;
     }
-    
-    public void UpdateCoinText(int count)
-    {
-        if (coinText != null)
-        {
-            coinText.text = count.ToString();
-        }
-    }
+
 }
