@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(TrapBase), true)] // 'true' means "Apply to Child Classes too"
+[CustomEditor(typeof(TrapBase), true)]
 public class TrapBaseEditor : Editor
 {
     private SerializedProperty mutationsProp;
@@ -17,19 +17,15 @@ public class TrapBaseEditor : Editor
 
     public override void OnInspectorGUI()
     {
-        // 1. Draw the Default Inspector (The child trap's specific settings)
-        // This will draw all properties not explicitly handled below.
         DrawDefaultInspector();
 
         serializedObject.Update();
 
-        // 2. Draw a Divider
         EditorGUILayout.Space(10);
         Rect rect = EditorGUILayout.GetControlRect(false, 1);
         EditorGUI.DrawRect(rect, new Color(0.5f, 0.5f, 0.5f, 1));
         EditorGUILayout.Space(10);
 
-        // 3. Draw Mutation Logic
         EditorGUILayout.LabelField("🧬 Mutation System", EditorStyles.boldLabel);
         EditorGUILayout.PropertyField(changesDataProp);
 
@@ -40,14 +36,9 @@ public class TrapBaseEditor : Editor
             if (data == null)
             {
                 EditorGUILayout.HelpBox("Could not load 'PlayerData' from Resources! Check filename.", MessageType.Error);
-                // Try reloading manually if button pressed
-                if(GUILayout.Button("Retry Load"))
-                {
-                    (target as TrapBase).SendMessage("OnValidate");
-                }
+                if(GUILayout.Button("Retry Load")) (target as TrapBase).SendMessage("OnValidate");
             }
 
-            // Draw List
             if (GUILayout.Button("Add New Mutation"))
             {
                 mutationsProp.InsertArrayElementAtIndex(mutationsProp.arraySize);
@@ -59,6 +50,10 @@ public class TrapBaseEditor : Editor
                 SerializedProperty statType = item.FindPropertyRelative("statToChange");
                 SerializedProperty numVal = item.FindPropertyRelative("numberValue");
                 SerializedProperty boolVal = item.FindPropertyRelative("booleanValue");
+                
+                // NEW FIELDS
+                SerializedProperty isTemp = item.FindPropertyRelative("isTemporaryChange");
+                SerializedProperty duration = item.FindPropertyRelative("duration");
 
                 EditorGUILayout.BeginVertical(EditorStyles.helpBox);
                 
@@ -82,9 +77,19 @@ public class TrapBaseEditor : Editor
                             case PlayerMutation.StatType.MoveSpeed: oldValText = data.moveSpeed.ToString(); break;
                             case PlayerMutation.StatType.JumpHeight: oldValText = data.jumpHeight.ToString(); break;
                             case PlayerMutation.StatType.GravityMultiplier: oldValText = data.fallGravityMultiplier.ToString(); break;
+                            case PlayerMutation.StatType.PlayerScale: oldValText = "1.0 (Multiplier)"; break; 
                         }
                     }
                 }
+
+                // --- NEW UI DRAWING ---
+                EditorGUILayout.Space(5);
+                EditorGUILayout.PropertyField(isTemp, new GUIContent("Is Temporary?"));
+                if (isTemp.boolValue)
+                {
+                    EditorGUILayout.PropertyField(duration, new GUIContent("Duration (Seconds)"));
+                }
+                // ---------------------
 
                 if (data != null)
                 {
@@ -103,4 +108,6 @@ public class TrapBaseEditor : Editor
 
         serializedObject.ApplyModifiedProperties();
     }
+    
+    
 }

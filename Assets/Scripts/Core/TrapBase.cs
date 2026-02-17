@@ -65,4 +65,19 @@ public abstract class TrapBase : MonoBehaviour
             if (changesPlayerData) ApplyMutationsToPlayer(collision.gameObject);
         }
     }
+    
+    protected void RevertMutationsFromPlayer(GameObject playerObj = null)
+    {
+        if (!changesPlayerData || mutations.Count == 0) return;
+
+        // Logic to find player (same as Apply)
+        PlayerController player = null;
+        if (playerObj != null) player = playerObj.GetComponent<PlayerController>();
+        if (player == null) player = FindAnyObjectByType<PlayerController>();
+
+        if (player != null)
+        {
+            player.RevertMutations(mutations);
+        }
+    }
 }

@@ -8,14 +8,22 @@ public class PlayerMutation
         MoveSpeed, 
         JumpHeight, 
         GravityMultiplier, 
-        InvertControls 
+        InvertControls,
+        PlayerScale
     }
     
     public StatType statToChange;
     
-    [Tooltip("Used for Speed, Jump, Gravity")]
+    [Tooltip("Used for Speed, Jump, Gravity, and Scale multiplier")]
     public float numberValue;
     
     [Tooltip("Used for Invert Controls")]
     public bool booleanValue;
+
+    [Header("Duration Settings")]
+    [Tooltip("If true, the stat will revert to its previous value after the duration.")]
+    public bool isTemporaryChange = false; 
+
+    [Tooltip("Time in seconds before reverting (only if isTemporaryChange is true).")]
+    public float duration = 5f; 
 }

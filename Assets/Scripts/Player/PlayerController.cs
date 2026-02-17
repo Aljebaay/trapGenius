@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -29,10 +30,20 @@ public class PlayerController : MonoBehaviour
     private float currentJumpHeight;
     private float currentGravityMult;
     private bool currentInvertControls;
+    
+    // Scale Logic
+    private Vector3 originalScale;
+    private Coroutine activeScaleCoroutine;
+    private bool isScaling = false; // <--- Controls Freeze
+
+    // --- LOCKING SYSTEM ---
+    private HashSet<PlayerMutation.StatType> lockedStats = new HashSet<PlayerMutation.StatType>();
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        // Clean absolute capture of original size
+        originalScale = new Vector3(Mathf.Abs(transform.localScale.x), Mathf.Abs(transform.localScale.y), transform.localScale.z);
         ResetStats(); 
     }
 
@@ -42,33 +53,123 @@ public class PlayerController : MonoBehaviour
         currentJumpHeight = data.jumpHeight;
         currentGravityMult = data.fallGravityMultiplier;
         currentInvertControls = data.invertControls;
+        
+        lockedStats.Clear();
+
+        if(activeScaleCoroutine != null) StopCoroutine(activeScaleCoroutine);
+        isScaling = false;
+
+        // Reset scale safely
+        float direction = isFacingRight ? 1f : -1f;
+        transform.localScale = new Vector3(originalScale.x * direction, originalScale.y, originalScale.z);
     }
 
-    // --- NEW: Apply List of Mutations ---
+    // --- MUTATION SYSTEM ---
     public void ApplyMutations(List<PlayerMutation> mutations)
     {
         foreach (var m in mutations)
         {
-            switch (m.statToChange)
+            if (lockedStats.Contains(m.statToChange)) continue;
+
+            lockedStats.Add(m.statToChange);
+            StartCoroutine(ProcessMutation(m));
+        }
+    }
+
+    private IEnumerator ProcessMutation(PlayerMutation m)
+    {
+        float oldFloat = 0;
+        bool oldBool = false;
+        
+        // Capture ratio for revert
+        float currentRatio = Mathf.Abs(transform.localScale.x) / originalScale.x;
+
+        switch (m.statToChange)
+        {
+            case PlayerMutation.StatType.MoveSpeed:
+                oldFloat = currentMoveSpeed;
+                currentMoveSpeed = m.numberValue;
+                break;
+            case PlayerMutation.StatType.JumpHeight:
+                oldFloat = currentJumpHeight;
+                currentJumpHeight = m.numberValue;
+                break;
+            case PlayerMutation.StatType.GravityMultiplier:
+                oldFloat = currentGravityMult;
+                currentGravityMult = m.numberValue;
+                break;
+            case PlayerMutation.StatType.InvertControls:
+                oldBool = currentInvertControls;
+                currentInvertControls = m.booleanValue;
+                break;
+            case PlayerMutation.StatType.PlayerScale:
+                if (activeScaleCoroutine != null) StopCoroutine(activeScaleCoroutine);
+                activeScaleCoroutine = StartCoroutine(SmoothScaleRoutine(m.numberValue));
+                break;
+        }
+
+        if (m.isTemporaryChange)
+        {
+            yield return new WaitForSeconds(m.duration);
+
+            RevertMutation(m, oldFloat, oldBool, currentRatio);
+            
+            if (lockedStats.Contains(m.statToChange))
             {
-                case PlayerMutation.StatType.MoveSpeed:
-                    currentMoveSpeed = m.numberValue;
-                    break;
-                case PlayerMutation.StatType.JumpHeight:
-                    currentJumpHeight = m.numberValue;
-                    break;
-                case PlayerMutation.StatType.GravityMultiplier:
-                    currentGravityMult = m.numberValue;
-                    break;
-                case PlayerMutation.StatType.InvertControls:
-                    currentInvertControls = m.booleanValue;
-                    break;
+                lockedStats.Remove(m.statToChange);
             }
         }
-        // Visual debug to confirm it happened
-        Debug.Log($"Applied {mutations.Count} mutations to player.");
     }
-    // ------------------------------------
+
+    private void RevertMutation(PlayerMutation m, float oldFloat, bool oldBool, float oldRatio)
+    {
+        switch (m.statToChange)
+        {
+            case PlayerMutation.StatType.MoveSpeed: currentMoveSpeed = oldFloat; break;
+            case PlayerMutation.StatType.JumpHeight: currentJumpHeight = oldFloat; break;
+            case PlayerMutation.StatType.GravityMultiplier: currentGravityMult = oldFloat; break;
+            case PlayerMutation.StatType.InvertControls: currentInvertControls = oldBool; break;
+            case PlayerMutation.StatType.PlayerScale:
+                if (activeScaleCoroutine != null) StopCoroutine(activeScaleCoroutine);
+                // Revert to old ratio
+                activeScaleCoroutine = StartCoroutine(SmoothScaleRoutine(oldRatio));
+                break;
+        }
+    }
+
+    // --- FREEZING SCALE ROUTINE ---
+    private IEnumerator SmoothScaleRoutine(float targetMultiplier)
+    {
+        isScaling = true; // FREEZE MOVEMENT
+        
+        // Kill existing momentum so player doesn't slide
+        rb.linearVelocity = new Vector2(0, rb.linearVelocity.y); 
+
+        Vector3 startScale = transform.localScale;
+        
+        // Calculate target respecting current facing direction
+        float direction = isFacingRight ? 1f : -1f;
+        Vector3 targetScale = new Vector3(originalScale.x * targetMultiplier * direction, originalScale.y * targetMultiplier, originalScale.z);
+
+        float elapsedTime = 0f;
+        float duration = 0.5f; 
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / duration;
+            
+            transform.localScale = Vector3.Lerp(startScale, targetScale, t);
+            yield return null;
+        }
+
+        transform.localScale = targetScale;
+        
+        isScaling = false; // UNFREEZE MOVEMENT
+        activeScaleCoroutine = null;
+    }
+
+    // ----------------------
 
     private void Update()
     {
@@ -94,6 +195,9 @@ public class PlayerController : MonoBehaviour
 
     public void OnJumpPressed()
     {
+        // Block Jump if Scaling
+        if (isScaling) return;
+
         jumpBufferCounter = data.jumpBufferTime; 
         
         if (coyoteTimeCounter > 0f)
@@ -118,10 +222,15 @@ public class PlayerController : MonoBehaviour
 
     private void Run()
     {
-        // --- NEW: Invert Logic ---
+        // Block Movement if Scaling
+        if (isScaling)
+        {
+            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+            return; 
+        }
+
         float directionMult = currentInvertControls ? -1f : 1f;
         float finalInputX = moveInput.x * directionMult;
-        // -------------------------
 
         float targetSpeed = finalInputX * currentMoveSpeed;
         float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? data.acceleration : data.decceleration;
@@ -129,9 +238,6 @@ public class PlayerController : MonoBehaviour
 
         rb.linearVelocity = new Vector2(velX, rb.linearVelocity.y);
 
-        // Flip Logic (Also needs to respect inversion visually?)
-        // Usually, if I press Right (and it's inverted), I move Left. The character should look Left.
-        // finalInputX handles this automatically.
         if (finalInputX > 0 && !isFacingRight) Flip();
         else if (finalInputX < 0 && isFacingRight) Flip();
     }
@@ -160,23 +266,29 @@ public class PlayerController : MonoBehaviour
     private void CornerCorrect()
     {
         if (rb.linearVelocity.y <= 0) return;
-        Vector2 originLeft = new Vector2(transform.position.x - bodyCollider.bounds.extents.x, transform.position.y + bodyCollider.bounds.extents.y);
-        Vector2 originRight = new Vector2(transform.position.x + bodyCollider.bounds.extents.x, transform.position.y + bodyCollider.bounds.extents.y);
-        RaycastHit2D hitLeft = Physics2D.Raycast(originLeft, Vector2.up, data.topRaycastLength, groundLayer);
-        RaycastHit2D hitRight = Physics2D.Raycast(originRight, Vector2.up, data.topRaycastLength, groundLayer);
+        
+        float scaleX = Mathf.Abs(transform.localScale.x);
+        
+        Vector2 originLeft = new Vector2(transform.position.x - (bodyCollider.bounds.extents.x), transform.position.y + bodyCollider.bounds.extents.y);
+        Vector2 originRight = new Vector2(transform.position.x + (bodyCollider.bounds.extents.x), transform.position.y + bodyCollider.bounds.extents.y);
+        RaycastHit2D hitLeft = Physics2D.Raycast(originLeft, Vector2.up, data.topRaycastLength * scaleX, groundLayer);
+        RaycastHit2D hitRight = Physics2D.Raycast(originRight, Vector2.up, data.topRaycastLength * scaleX, groundLayer);
 
-        if (hitLeft && !hitRight) transform.position += Vector3.right * (data.cornerCorrectionDistance * Time.fixedDeltaTime);
-        else if (!hitLeft && hitRight) transform.position += Vector3.left * (data.cornerCorrectionDistance * Time.fixedDeltaTime);
+        if (hitLeft && !hitRight) transform.position += Vector3.right * (data.cornerCorrectionDistance * scaleX * Time.fixedDeltaTime);
+        else if (!hitLeft && hitRight) transform.position += Vector3.left * (data.cornerCorrectionDistance * scaleX * Time.fixedDeltaTime);
     }
 
     private void CheckGround()
     {
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+        float scaleY = Mathf.Abs(transform.localScale.y);
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f * scaleY, groundLayer);
         if (isGrounded) canDoubleJump = true;
     }
 
     private void Flip()
     {
+        // Since we now block movement during scaling, we don't need complex checks here.
+        // If this code runs, we know scaling is finished.
         isFacingRight = !isFacingRight;
         Vector3 scaler = transform.localScale;
         scaler.x *= -1;
@@ -188,5 +300,47 @@ public class PlayerController : MonoBehaviour
         rb.linearVelocity = Vector2.zero;
         rb.isKinematic = true; 
         this.enabled = false;
+    }
+    
+    // --- MANUAL REVERT LOGIC (For Switches/Buttons) ---
+    public void RevertMutations(List<PlayerMutation> mutations)
+    {
+        foreach (var m in mutations)
+        {
+            // Remove from lock so it can be triggered again later
+            if (lockedStats.Contains(m.statToChange))
+            {
+                lockedStats.Remove(m.statToChange);
+            }
+
+            switch (m.statToChange)
+            {
+                case PlayerMutation.StatType.MoveSpeed:
+                    currentMoveSpeed = data.moveSpeed; // Reset to Default
+                    break;
+                case PlayerMutation.StatType.JumpHeight:
+                    currentJumpHeight = data.jumpHeight; // Reset to Default
+                    break;
+                case PlayerMutation.StatType.GravityMultiplier:
+                    currentGravityMult = data.fallGravityMultiplier; // Reset to Default
+                    break;
+                case PlayerMutation.StatType.InvertControls:
+                    currentInvertControls = data.invertControls; // Reset to Default
+                    break;
+                case PlayerMutation.StatType.PlayerScale:
+                    if (activeScaleCoroutine != null) StopCoroutine(activeScaleCoroutine);
+                    
+                    // Logic: Scale back to Original Size
+                    // We calculate the multiplier needed to get from "Current" back to "Original"
+                    // Target = Original
+                    // Current * X = Original  ->  X = Original / Current
+                    
+                    float currentAbsX = Mathf.Abs(transform.localScale.x);
+                    float factorToReturn = originalScale.x / currentAbsX;
+
+                    activeScaleCoroutine = StartCoroutine(SmoothScaleRoutine(factorToReturn));
+                    break;
+            }
+        }
     }
 }
