@@ -302,43 +302,32 @@ public class PlayerController : MonoBehaviour
         this.enabled = false;
     }
     
-    // --- MANUAL REVERT LOGIC (For Switches/Buttons) ---
     public void RevertMutations(List<PlayerMutation> mutations)
     {
         foreach (var m in mutations)
         {
-            // Remove from lock so it can be triggered again later
-            if (lockedStats.Contains(m.statToChange))
-            {
-                lockedStats.Remove(m.statToChange);
-            }
+            if (lockedStats.Contains(m.statToChange)) lockedStats.Remove(m.statToChange);
 
             switch (m.statToChange)
             {
                 case PlayerMutation.StatType.MoveSpeed:
-                    currentMoveSpeed = data.moveSpeed; // Reset to Default
+                    currentMoveSpeed = data.moveSpeed;
                     break;
                 case PlayerMutation.StatType.JumpHeight:
-                    currentJumpHeight = data.jumpHeight; // Reset to Default
+                    currentJumpHeight = data.jumpHeight;
                     break;
                 case PlayerMutation.StatType.GravityMultiplier:
-                    currentGravityMult = data.fallGravityMultiplier; // Reset to Default
+                    currentGravityMult = data.fallGravityMultiplier;
                     break;
                 case PlayerMutation.StatType.InvertControls:
-                    currentInvertControls = data.invertControls; // Reset to Default
+                    currentInvertControls = data.invertControls;
                     break;
+                
                 case PlayerMutation.StatType.PlayerScale:
                     if (activeScaleCoroutine != null) StopCoroutine(activeScaleCoroutine);
-                    
-                    // Logic: Scale back to Original Size
-                    // We calculate the multiplier needed to get from "Current" back to "Original"
-                    // Target = Original
-                    // Current * X = Original  ->  X = Original / Current
-                    
-                    float currentAbsX = Mathf.Abs(transform.localScale.x);
-                    float factorToReturn = originalScale.x / currentAbsX;
-
-                    activeScaleCoroutine = StartCoroutine(SmoothScaleRoutine(factorToReturn));
+                
+                    // FIX: Pass 1.0f to multiply OriginalScale by 1 (Returning to normal)
+                    activeScaleCoroutine = StartCoroutine(SmoothScaleRoutine(1f));
                     break;
             }
         }
