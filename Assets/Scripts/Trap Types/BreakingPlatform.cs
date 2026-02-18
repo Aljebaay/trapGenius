@@ -24,24 +24,23 @@ public class BreakingPlatform : TrapBase
         initialPosition = transform.position;
     }
 
-    // --- TRAP BASE OVERRIDE ---
     public override void Activate()
     {
         if (isTriggered) return;
         
-        // Apply remote mutations (e.g. if triggered by sequencer)
-        if(changesPlayerData) ApplyMutationsToPlayer();
+        // RNG CHECK
+        if (!ShouldActivate()) return;
         
+        if(changesPlayerData) ApplyMutationsToPlayer();
         StartCoroutine(BreakRoutine());
     }
 
     protected override void OnCollisionEnter2D(Collision2D collision)
     {
-        base.OnCollisionEnter2D(collision); // Mutations
-
+        // RNG CHECK via Activate
         if (collision.gameObject.CompareTag("Player"))
         {
-            Activate();
+            Activate(); 
         }
     }
 
@@ -50,7 +49,6 @@ public class BreakingPlatform : TrapBase
         isTriggered = true;
         float timer = 0f;
 
-        // Phase 1: Vibrate
         while (timer < timeBeforeBreak)
         {
             float x = Random.Range(-1f, 1f) * shakeIntensity;
@@ -61,14 +59,11 @@ public class BreakingPlatform : TrapBase
         }
 
         transform.position = initialPosition;
-
-        // Phase 2: Fall
         rb.bodyType = RigidbodyType2D.Dynamic;
         rb.constraints = RigidbodyConstraints2D.None; 
         rb.constraints = RigidbodyConstraints2D.FreezeRotation; 
         rb.gravityScale = fallGravity;
 
-        // Phase 3: Cleanup
         yield return new WaitForSeconds(destroyAfterSeconds);
         Destroy(gameObject);
     }

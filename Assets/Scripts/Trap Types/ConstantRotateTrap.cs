@@ -7,7 +7,6 @@ public class ConstantRotateTrap : TrapBase
     [Header("Rotation Settings")]
     [SerializeField] private RotateDirection direction = RotateDirection.Clockwise;
     [SerializeField] private float rotationSpeed = 100f;
-    [Tooltip("Should it rotate immediately or wait for Activate()?")]
     [SerializeField] private bool autoStart = true;
 
     private bool isSpinning = false;
@@ -19,6 +18,9 @@ public class ConstantRotateTrap : TrapBase
 
     public override void Activate()
     {
+        // RNG CHECK
+        if (!ShouldActivate()) return;
+
         isSpinning = true;
         if (changesPlayerData) ApplyMutationsToPlayer();
     }
@@ -30,11 +32,5 @@ public class ConstantRotateTrap : TrapBase
         float dirMultiplier = (direction == RotateDirection.CounterClockwise) ? 1f : -1f;
         float zRotation = Mathf.Abs(rotationSpeed) * dirMultiplier * Time.deltaTime;
         transform.Rotate(0, 0, zRotation);
-    }
-
-    // Pass collisions to Base to handle Mutations
-    protected override void OnCollisionEnter2D(Collision2D collision)
-    {
-        base.OnCollisionEnter2D(collision);
     }
 }

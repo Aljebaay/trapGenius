@@ -2799,7 +2799,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5053568431973572729, guid: ba1b2128147dad443b970715ec15c77e, type: 3}
       propertyPath: mutations.Array.data[0].numberValue
-      value: 7
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5053568431973572729, guid: ba1b2128147dad443b970715ec15c77e, type: 3}
       propertyPath: mutations.Array.data[1].numberValue
@@ -2807,7 +2807,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5053568431973572729, guid: ba1b2128147dad443b970715ec15c77e, type: 3}
       propertyPath: mutations.Array.data[0].statToChange
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5053568431973572729, guid: ba1b2128147dad443b970715ec15c77e, type: 3}
       propertyPath: mutations.Array.data[1].statToChange
@@ -3349,8 +3349,28 @@ PrefabInstance:
     m_TransformParent: {fileID: 1131482133511324419}
     m_Modifications:
     - target: {fileID: 5053568431973572729, guid: ba1b2128147dad443b970715ec15c77e, type: 3}
-      propertyPath: onTurnOn.m_PersistentCalls.m_Calls.Array.size
+      propertyPath: changesPlayerData
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5053568431973572729, guid: ba1b2128147dad443b970715ec15c77e, type: 3}
+      propertyPath: mutations.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5053568431973572729, guid: ba1b2128147dad443b970715ec15c77e, type: 3}
+      propertyPath: mutations.Array.data[0].numberValue
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5053568431973572729, guid: ba1b2128147dad443b970715ec15c77e, type: 3}
+      propertyPath: mutations.Array.data[0].statToChange
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5053568431973572729, guid: ba1b2128147dad443b970715ec15c77e, type: 3}
+      propertyPath: onTurnOn.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5053568431973572729, guid: ba1b2128147dad443b970715ec15c77e, type: 3}
+      propertyPath: onTurnOff.m_PersistentCalls.m_Calls.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5053568431973572729, guid: ba1b2128147dad443b970715ec15c77e, type: 3}
       propertyPath: onTurnOn.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -14202,7 +14222,7 @@ GameObject:
   - component: {fileID: 513849657756744543}
   - component: {fileID: 1073937883355626975}
   - component: {fileID: 5598629714850077484}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Moving  Trap
   m_TagString: Untagged
   m_Icon: {fileID: 0}

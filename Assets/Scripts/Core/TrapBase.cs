@@ -4,55 +4,65 @@ using System.Collections.Generic;
 public abstract class TrapBase : MonoBehaviour
 {
     [Header("Mutation Settings")]
-    [Tooltip("Does this trap change player stats when activated?")]
     public bool changesPlayerData = false;
-
-    // This list holds the changes we want to apply
     public List<PlayerMutation> mutations = new List<PlayerMutation>();
 
-    // Hidden reference, auto-loaded
+    [Header("RNG Settings")]
+    [Range(0, 100)] 
+    [Tooltip("Chance this trap works (0 = Broken, 100 = Always Works)")]
+    public float activationChance = 100f;
+
     [HideInInspector] public PlayerData referenceData;
 
     protected virtual void OnValidate()
     {
-        // AUTO-LOAD LOGIC:
-        // Finds "PlayerData" inside any "Resources" folder.
-        if (referenceData == null)
-        {
-            referenceData = Resources.Load<PlayerData>("PlayerData");
-        }
+        if (referenceData == null) referenceData = Resources.Load<PlayerData>("PlayerData");
     }
 
-    // --- SHARED LOGIC ---
+    // --- SHARED RNG CHECKER ---
+    public bool ShouldActivate()
+    {
+        // 1. If 100%, always true (Optimization)
+        if (activationChance >= 100f) return true;
+        
+        // 2. If 0%, always false
+        if (activationChance <= 0f) return false;
 
-    // All traps can call this to apply stats
+        // 3. Roll the dice
+        float roll = Random.Range(0f, 100f);
+        bool success = (roll <= activationChance);
+
+        if (!success) Debug.Log($"🎲 Trap '{name}' Failed RNG Roll ({roll:F1} > {activationChance})");
+        
+        return success;
+    }
+
+    // --- MUTATION HELPERS ---
     protected void ApplyMutationsToPlayer(GameObject playerObj = null)
     {
         if (!changesPlayerData || mutations.Count == 0) return;
-
-        // If specific object passed, try that first
-        PlayerController player = null;
-        if (playerObj != null) player = playerObj.GetComponent<PlayerController>();
         
-        // Fallback: Find globally
-        if (player == null) player = FindAnyObjectByType<PlayerController>();
-
-        if (player != null)
-        {
-            player.ApplyMutations(mutations);
-        }
+        // ... (Same find player logic as before) ...
+        PlayerController player = (playerObj != null) ? playerObj.GetComponent<PlayerController>() : FindAnyObjectByType<PlayerController>();
+        if (player != null) player.ApplyMutations(mutations);
     }
 
-    // --- STANDARD ACTIVATION ---
-    
-    // Abstract: Every trap MUST implement this
-    // This allows AreaTrigger to call trap.Activate() on ANYTHING.
+    protected void RevertMutationsFromPlayer(GameObject playerObj = null)
+    {
+        if (!changesPlayerData || mutations.Count == 0) return;
+
+        PlayerController player = (playerObj != null) ? playerObj.GetComponent<PlayerController>() : FindAnyObjectByType<PlayerController>();
+        if (player != null) player.RevertMutations(mutations);
+    }
+
+    // --- ABSTRACT METHODS ---
     public abstract void Activate();
 
-    // Standard Collision Logic (Optional override)
+    // Default implementations that can be overridden
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        // Only run base logic if RNG passes
+        if (ShouldActivate() && collision.gameObject.CompareTag("Player"))
         {
             if (changesPlayerData) ApplyMutationsToPlayer(collision.gameObject);
         }
@@ -60,24 +70,9 @@ public abstract class TrapBase : MonoBehaviour
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (ShouldActivate() && collision.CompareTag("Player"))
         {
             if (changesPlayerData) ApplyMutationsToPlayer(collision.gameObject);
-        }
-    }
-    
-    protected void RevertMutationsFromPlayer(GameObject playerObj = null)
-    {
-        if (!changesPlayerData || mutations.Count == 0) return;
-
-        // Logic to find player (same as Apply)
-        PlayerController player = null;
-        if (playerObj != null) player = playerObj.GetComponent<PlayerController>();
-        if (player == null) player = FindAnyObjectByType<PlayerController>();
-
-        if (player != null)
-        {
-            player.RevertMutations(mutations);
         }
     }
 }

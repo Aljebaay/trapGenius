@@ -29,6 +29,9 @@ public class TriggeredMoveTrap : TrapBase
     {
         if (!isTriggered)
         {
+            // RNG CHECK
+            if (!ShouldActivate()) return;
+            
             isTriggered = true;
             if (changesPlayerData) ApplyMutationsToPlayer();
         }
@@ -36,11 +39,15 @@ public class TriggeredMoveTrap : TrapBase
 
     protected override void OnCollisionEnter2D(Collision2D collision)
     {
-        base.OnCollisionEnter2D(collision); // Mutations
-
+        // RNG CHECK (inside Activate)
         if (triggerOnContact && collision.gameObject.CompareTag("Player"))
         {
             Activate();
+        }
+        else if (ShouldActivate() && changesPlayerData && collision.gameObject.CompareTag("Player"))
+        {
+            // If contact doesn't trigger movement, we still might need to apply mutations
+            ApplyMutationsToPlayer(collision.gameObject);
         }
     }
 }

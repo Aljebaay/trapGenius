@@ -15,11 +15,13 @@ public class FakePlatform : TrapBase
 
     public override void Activate()
     {
+        // RNG CHECK
+        if (!ShouldActivate()) return;
+
         isTriggered = true;
         if (changesPlayerData) ApplyMutationsToPlayer();
     }
 
-    // Need to detect trigger entry for this specific trap
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))

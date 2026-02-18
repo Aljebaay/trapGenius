@@ -3,10 +3,6 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class AmbushTrap : TrapBase
 {
-    [Header("⚠️ SETUP INSTRUCTIONS")]
-    [TextArea(2, 3)] 
-    [SerializeField] private string setupNote = "This trap is PASSIVE. It will not move until triggered.\n\n1. Create an empty GameObject.\n2. Add 'AreaTrigger' script.\n3. Link 'OnTriggerEnter' to this object's Activate() method.";
-
     public enum AmbushType { FallGravity, PopUp }
 
     [Header("Ambush Settings")]
@@ -21,13 +17,12 @@ public class AmbushTrap : TrapBase
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        
         if (type == AmbushType.FallGravity)
         {
             rb.gravityScale = 0; 
             rb.constraints = RigidbodyConstraints2D.FreezeAll;
         }
-        else // PopUp
+        else 
         {
             rb.isKinematic = true; 
             targetPos = transform.position + popOffset;
@@ -42,13 +37,14 @@ public class AmbushTrap : TrapBase
         }
     }
 
-    // --- TRAP BASE OVERRIDE ---
     public override void Activate()
     {
         if (isTriggered) return;
-        isTriggered = true;
+        
+        // RNG CHECK
+        if (!ShouldActivate()) return;
 
-        // Apply mutations remotely if triggered by a sequencer
+        isTriggered = true;
         if (changesPlayerData) ApplyMutationsToPlayer();
 
         if (type == AmbushType.FallGravity)
@@ -59,12 +55,13 @@ public class AmbushTrap : TrapBase
         }
     }
 
-    // --- COLLISION LOGIC ---
-    
-    // 1. Solid Contact
     protected override void OnCollisionEnter2D(Collision2D collision)
     {
-        base.OnCollisionEnter2D(collision); // Logic for Mutations
+        // RNG CHECK
+        if (!ShouldActivate()) return;
+
+        // Note: calling ApplyMutations manually avoids double RNG rolling from base
+        if (changesPlayerData) ApplyMutationsToPlayer(collision.gameObject);
         
         if (collision.gameObject.CompareTag("Player"))
         {
@@ -72,10 +69,12 @@ public class AmbushTrap : TrapBase
         }
     }
 
-    // 2. Trigger Contact
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
-        base.OnTriggerEnter2D(collision); // Logic for Mutations
+        // RNG CHECK
+        if (!ShouldActivate()) return;
+
+        if (changesPlayerData) ApplyMutationsToPlayer(collision.gameObject);
 
         if (collision.CompareTag("Player"))
         {
