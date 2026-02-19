@@ -5625,7 +5625,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b47e9088b1ba056478151785cd4bc7a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  successChance: 0
+  successChance: 50
   onSuccess:
     m_PersistentCalls:
       m_Calls:
