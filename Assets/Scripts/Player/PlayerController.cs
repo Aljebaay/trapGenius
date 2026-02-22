@@ -22,19 +22,21 @@ public class PlayerController : MonoBehaviour
     // Timers
     private float coyoteTimeCounter;
     private float jumpBufferCounter;
-    private bool canDoubleJump;
+    private bool canDoubleJump; // Internal logic state
     private bool isFacingRight = true;
 
     // --- RUNTIME STATS ---
     private float currentMoveSpeed;
     private float currentJumpHeight;
     private float currentGravityMult;
+    private float currentCoyoteTime; 
     private bool currentInvertControls;
+    private bool currentAllowDoubleJump; // <--- NEW (Configuration state)
     
     // Scale Logic
     private Vector3 originalScale;
     private Coroutine activeScaleCoroutine;
-    private bool isScaling = false; // <--- Controls Freeze
+    private bool isScaling = false; 
 
     // --- LOCKING SYSTEM ---
     private HashSet<PlayerMutation.StatType> lockedStats = new HashSet<PlayerMutation.StatType>();
@@ -42,7 +44,6 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        // Clean absolute capture of original size
         originalScale = new Vector3(Mathf.Abs(transform.localScale.x), Mathf.Abs(transform.localScale.y), transform.localScale.z);
         ResetStats(); 
     }
@@ -52,14 +53,15 @@ public class PlayerController : MonoBehaviour
         currentMoveSpeed = data.moveSpeed;
         currentJumpHeight = data.jumpHeight;
         currentGravityMult = data.fallGravityMultiplier;
+        currentCoyoteTime = data.coyoteTime;
         currentInvertControls = data.invertControls;
+        currentAllowDoubleJump = data.allowDoubleJump; // <--- NEW (Load Default)
         
         lockedStats.Clear();
 
         if(activeScaleCoroutine != null) StopCoroutine(activeScaleCoroutine);
         isScaling = false;
 
-        // Reset scale safely
         float direction = isFacingRight ? 1f : -1f;
         transform.localScale = new Vector3(originalScale.x * direction, originalScale.y, originalScale.z);
     }
@@ -80,8 +82,6 @@ public class PlayerController : MonoBehaviour
     {
         float oldFloat = 0;
         bool oldBool = false;
-        
-        // Capture ratio for revert
         float currentRatio = Mathf.Abs(transform.localScale.x) / originalScale.x;
 
         switch (m.statToChange)
@@ -98,9 +98,17 @@ public class PlayerController : MonoBehaviour
                 oldFloat = currentGravityMult;
                 currentGravityMult = m.numberValue;
                 break;
+            case PlayerMutation.StatType.CoyoteTime:
+                oldFloat = currentCoyoteTime;
+                currentCoyoteTime = m.numberValue;
+                break;
             case PlayerMutation.StatType.InvertControls:
                 oldBool = currentInvertControls;
                 currentInvertControls = m.booleanValue;
+                break;
+            case PlayerMutation.StatType.DoubleJump: // <--- NEW
+                oldBool = currentAllowDoubleJump;
+                currentAllowDoubleJump = m.booleanValue;
                 break;
             case PlayerMutation.StatType.PlayerScale:
                 if (activeScaleCoroutine != null) StopCoroutine(activeScaleCoroutine);
@@ -128,26 +136,45 @@ public class PlayerController : MonoBehaviour
             case PlayerMutation.StatType.MoveSpeed: currentMoveSpeed = oldFloat; break;
             case PlayerMutation.StatType.JumpHeight: currentJumpHeight = oldFloat; break;
             case PlayerMutation.StatType.GravityMultiplier: currentGravityMult = oldFloat; break;
+            case PlayerMutation.StatType.CoyoteTime: currentCoyoteTime = oldFloat; break;
             case PlayerMutation.StatType.InvertControls: currentInvertControls = oldBool; break;
+            case PlayerMutation.StatType.DoubleJump: currentAllowDoubleJump = oldBool; break; // <--- NEW
             case PlayerMutation.StatType.PlayerScale:
                 if (activeScaleCoroutine != null) StopCoroutine(activeScaleCoroutine);
-                // Revert to old ratio
                 activeScaleCoroutine = StartCoroutine(SmoothScaleRoutine(oldRatio));
                 break;
         }
     }
 
-    // --- FREEZING SCALE ROUTINE ---
+    // --- MANUAL REVERT (For Switches) ---
+    public void RevertMutations(List<PlayerMutation> mutations)
+    {
+        foreach (var m in mutations)
+        {
+            if (lockedStats.Contains(m.statToChange)) lockedStats.Remove(m.statToChange);
+
+            switch (m.statToChange)
+            {
+                case PlayerMutation.StatType.MoveSpeed: currentMoveSpeed = data.moveSpeed; break;
+                case PlayerMutation.StatType.JumpHeight: currentJumpHeight = data.jumpHeight; break;
+                case PlayerMutation.StatType.GravityMultiplier: currentGravityMult = data.fallGravityMultiplier; break;
+                case PlayerMutation.StatType.CoyoteTime: currentCoyoteTime = data.coyoteTime; break;
+                case PlayerMutation.StatType.InvertControls: currentInvertControls = data.invertControls; break;
+                case PlayerMutation.StatType.DoubleJump: currentAllowDoubleJump = data.allowDoubleJump; break; // <--- NEW
+                case PlayerMutation.StatType.PlayerScale:
+                    if (activeScaleCoroutine != null) StopCoroutine(activeScaleCoroutine);
+                    activeScaleCoroutine = StartCoroutine(SmoothScaleRoutine(1f));
+                    break;
+            }
+        }
+    }
+
     private IEnumerator SmoothScaleRoutine(float targetMultiplier)
     {
-        isScaling = true; // FREEZE MOVEMENT
-        
-        // Kill existing momentum so player doesn't slide
+        isScaling = true;
         rb.linearVelocity = new Vector2(0, rb.linearVelocity.y); 
 
         Vector3 startScale = transform.localScale;
-        
-        // Calculate target respecting current facing direction
         float direction = isFacingRight ? 1f : -1f;
         Vector3 targetScale = new Vector3(originalScale.x * targetMultiplier * direction, originalScale.y * targetMultiplier, originalScale.z);
 
@@ -158,22 +185,18 @@ public class PlayerController : MonoBehaviour
         {
             elapsedTime += Time.deltaTime;
             float t = elapsedTime / duration;
-            
             transform.localScale = Vector3.Lerp(startScale, targetScale, t);
             yield return null;
         }
 
         transform.localScale = targetScale;
-        
-        isScaling = false; // UNFREEZE MOVEMENT
+        isScaling = false;
         activeScaleCoroutine = null;
     }
 
-    // ----------------------
-
     private void Update()
     {
-        if (isGrounded) coyoteTimeCounter = data.coyoteTime;
+        if (isGrounded) coyoteTimeCounter = currentCoyoteTime; 
         else if (data.useCoyoteTime) coyoteTimeCounter -= Time.deltaTime;
         else coyoteTimeCounter = 0f;
 
@@ -195,7 +218,6 @@ public class PlayerController : MonoBehaviour
 
     public void OnJumpPressed()
     {
-        // Block Jump if Scaling
         if (isScaling) return;
 
         jumpBufferCounter = data.jumpBufferTime; 
@@ -203,9 +225,10 @@ public class PlayerController : MonoBehaviour
         if (coyoteTimeCounter > 0f)
         {
             PerformJump(); 
-            if(data.allowDoubleJump) canDoubleJump = true; 
+            // USE RUNTIME VARIABLE
+            if(currentAllowDoubleJump) canDoubleJump = true; 
         }
-        else if (data.allowDoubleJump && canDoubleJump)
+        else if (currentAllowDoubleJump && canDoubleJump) // USE RUNTIME VARIABLE
         {
             PerformJump();
             canDoubleJump = false; 
@@ -222,7 +245,6 @@ public class PlayerController : MonoBehaviour
 
     private void Run()
     {
-        // Block Movement if Scaling
         if (isScaling)
         {
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
@@ -282,13 +304,12 @@ public class PlayerController : MonoBehaviour
     {
         float scaleY = Mathf.Abs(transform.localScale.y);
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f * scaleY, groundLayer);
-        if (isGrounded) canDoubleJump = true;
+        // Only reset canDoubleJump if the feature is actually enabled
+        if (isGrounded && currentAllowDoubleJump) canDoubleJump = true;
     }
 
     private void Flip()
     {
-        // Since we now block movement during scaling, we don't need complex checks here.
-        // If this code runs, we know scaling is finished.
         isFacingRight = !isFacingRight;
         Vector3 scaler = transform.localScale;
         scaler.x *= -1;
@@ -300,36 +321,5 @@ public class PlayerController : MonoBehaviour
         rb.linearVelocity = Vector2.zero;
         rb.isKinematic = true; 
         this.enabled = false;
-    }
-    
-    public void RevertMutations(List<PlayerMutation> mutations)
-    {
-        foreach (var m in mutations)
-        {
-            if (lockedStats.Contains(m.statToChange)) lockedStats.Remove(m.statToChange);
-
-            switch (m.statToChange)
-            {
-                case PlayerMutation.StatType.MoveSpeed:
-                    currentMoveSpeed = data.moveSpeed;
-                    break;
-                case PlayerMutation.StatType.JumpHeight:
-                    currentJumpHeight = data.jumpHeight;
-                    break;
-                case PlayerMutation.StatType.GravityMultiplier:
-                    currentGravityMult = data.fallGravityMultiplier;
-                    break;
-                case PlayerMutation.StatType.InvertControls:
-                    currentInvertControls = data.invertControls;
-                    break;
-                
-                case PlayerMutation.StatType.PlayerScale:
-                    if (activeScaleCoroutine != null) StopCoroutine(activeScaleCoroutine);
-                
-                    // FIX: Pass 1.0f to multiply OriginalScale by 1 (Returning to normal)
-                    activeScaleCoroutine = StartCoroutine(SmoothScaleRoutine(1f));
-                    break;
-            }
-        }
     }
 }

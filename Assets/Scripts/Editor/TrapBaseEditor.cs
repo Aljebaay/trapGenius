@@ -51,7 +51,6 @@ public class TrapBaseEditor : Editor
                 SerializedProperty numVal = item.FindPropertyRelative("numberValue");
                 SerializedProperty boolVal = item.FindPropertyRelative("booleanValue");
                 
-                // NEW FIELDS
                 SerializedProperty isTemp = item.FindPropertyRelative("isTemporaryChange");
                 SerializedProperty duration = item.FindPropertyRelative("duration");
 
@@ -62,13 +61,19 @@ public class TrapBaseEditor : Editor
                 PlayerMutation.StatType type = (PlayerMutation.StatType)statType.enumValueIndex;
                 string oldValText = "---";
 
-                if (type == PlayerMutation.StatType.InvertControls)
+                // Boolean Types: Invert Controls & Double Jump
+                if (type == PlayerMutation.StatType.InvertControls || type == PlayerMutation.StatType.DoubleJump)
                 {
                     EditorGUILayout.PropertyField(boolVal, new GUIContent("New Value"));
-                    if (data != null) oldValText = data.invertControls.ToString();
+                    if (data != null)
+                    {
+                        if (type == PlayerMutation.StatType.InvertControls) oldValText = data.invertControls.ToString();
+                        else if (type == PlayerMutation.StatType.DoubleJump) oldValText = data.allowDoubleJump.ToString();
+                    }
                 }
                 else
                 {
+                    // Numeric Types
                     EditorGUILayout.PropertyField(numVal, new GUIContent("New Value"));
                     if (data != null)
                     {
@@ -78,18 +83,17 @@ public class TrapBaseEditor : Editor
                             case PlayerMutation.StatType.JumpHeight: oldValText = data.jumpHeight.ToString(); break;
                             case PlayerMutation.StatType.GravityMultiplier: oldValText = data.fallGravityMultiplier.ToString(); break;
                             case PlayerMutation.StatType.PlayerScale: oldValText = "1.0 (Multiplier)"; break; 
+                            case PlayerMutation.StatType.CoyoteTime: oldValText = data.coyoteTime.ToString(); break;
                         }
                     }
                 }
 
-                // --- NEW UI DRAWING ---
                 EditorGUILayout.Space(5);
                 EditorGUILayout.PropertyField(isTemp, new GUIContent("Is Temporary?"));
                 if (isTemp.boolValue)
                 {
                     EditorGUILayout.PropertyField(duration, new GUIContent("Duration (Seconds)"));
                 }
-                // ---------------------
 
                 if (data != null)
                 {
@@ -108,6 +112,4 @@ public class TrapBaseEditor : Editor
 
         serializedObject.ApplyModifiedProperties();
     }
-    
-    
 }

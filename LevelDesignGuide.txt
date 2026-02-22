@@ -1,0 +1,134 @@
+LEVEL DESIGN GUIDE: EVIL GAME (MODULAR SYSTEM)
+
+This guide explains how to design levels for the "Evil Game" project using the modular prefab system. The system is designed for drag-and-drop usage, allowing you to build complex levels without writing code.
+
+1. GETTING STARTED
+
+1.1 Create a New Scene:
+    * Go to "File > New Scene".
+    * Select "2D (URP)" or simply duplicate an existing level scene (e.g., "Scenes/Demo level 0") to start with a configured environment.
+
+1.2 Add the Player:
+    * Drag the "Player" prefab from "Assets/Prefabs" into the scene.
+    * Ensure the player is placed at the start position.
+
+1.3 Add the Grid:
+    * Right-click in the Hierarchy > "2D Object" > "Tilemap" > "Rectangular".
+    * This creates a "Grid" object with a "Tilemap" child. Rename it "Ground".
+    * Use the "Tile Palette" window ("Window > 2D > Tile Palette") to paint the static ground tiles.
+
+1.4 Game Manager:
+    * Ensure a "GameManager" prefab or object exists in your project. It usually persists from the main menu, but for testing individual scenes, you can add one temporarily. (The "GameManager" script handles win/loss conditions).
+
+2. USING MODULAR TRAPS
+
+All traps are located in "Assets/Prefabs/Traps Tilemap Version". These prefabs are designed to snap to the grid or be painted.
+
+2.1 General Trap Settings (Inspector)
+Most traps share these common settings in the Inspector under the "Trap Base (Script)" component:
+    * Activation Chance (0-100):
+        - 100: The trap always works.
+        - 0: The trap is broken/safe.
+        - 50: The trap has a 50% chance of activating.
+    * Changes Player Data: Check this box to make the trap modify the player's stats (speed, jump, etc.) when triggered.
+        - Mutations List: Add elements here to define specific changes (see "Player Mutations" section below).
+
+2.2 Specific Trap Types
+
+    A. Fake Platform (Disappearing Ground)
+        * Behavior: Looks like solid ground but fades away when the player touches it.
+        * How to Use:
+            1. Drag "Fake Platform" prefab into the scene.
+            2. Select the "Fake Platform" object in the Hierarchy.
+            3. Open the "Tile Palette" window.
+            4. Paint tiles directly onto this object in the Scene view. The tiles you paint will become the "fake" ground.
+        * Settings:
+            - Fade Speed: How fast the platform disappears.
+
+    B. Ambush Trap (Falling or Pop-Up)
+        * Behavior: A hidden trap that surprises the player.
+        * How to Use:
+            1. Drag "AmbushTrap-Falling" or "AmbushTrap-PopUp" into the scene.
+            2. Position it where you want the trap to start.
+        * Settings:
+            - Type: "FallGravity" (drops down) or "PopUp" (shoots up).
+            - Pop Offset: Where it moves to (if PopUp).
+            - Pop Speed: How fast it moves.
+
+    C. Moving Trap (Platforms/Spikes)
+        * Behavior: Moves back and forth between two points.
+        * How to Use:
+            1. Drag "Moving Spike Trap" or similar into the scene.
+            2. The trap moves relative to its starting position.
+        * Settings:
+            - Is Auto Move: Check to start moving automatically. Uncheck to wait for a trigger.
+            - Local Target Offset 1 & 2: The two points (X, Y, Z) the trap moves between, *relative* to its initial position.
+            - Speed: Movement speed.
+
+    D. Triggered Move/Rotate/Scale Traps
+        * Behavior: Activates only when triggered (by a button, area, or contact).
+        * How to Use:
+            1. Drag "TriggeredMove Trap", "TriggeredRotate Trap", or "TriggeredScale Trap" into the scene.
+        * Settings:
+            - Trigger On Contact: If checked, the trap activates when the player touches it. If unchecked, it needs an external trigger (like an Area Trigger).
+            - Move Offset / Rotation Speed / Scale Amount: Customizes the movement/transformation.
+
+    E. Breaking Platform
+        * Behavior: Shakes and then falls after the player stands on it.
+        * How to Use: Drag "Disapearing Platfrom" (Breaking Platform) into the scene.
+        * Settings:
+            - Time Before Break: Delay before it falls.
+            - Shake Intensity: How violently it shakes.
+
+3. TRIGGERS & LOGIC
+
+Interactables are in "Assets/Prefabs/Interactables Tilemap Version".
+
+3.1 Area Trigger (Invisible Switch)
+    * Behavior: Invisible box that activates something when the player enters.
+    * How to Use:
+        1. Drag "Area Trigger" into the scene.
+        2. Resize the "Box Collider 2D" to cover the desired area.
+        3. In the Inspector, look for the "On Trigger Enter" list.
+        4. Click "+" to add a new event.
+        5. Drag the *Trap Object* you want to activate (e.g., a "Moving Trap" that is set to *not* auto-move) into the "None (Object)" slot.
+        6. In the dropdown function menu, select "TrapBase" -> "Activate()".
+
+3.2 Trap Sequencer (Complex Patterns)
+    * Behavior: Runs a sequence of events with delays.
+    * How to Use:
+        1. Drag "Trap Sequencer" into the scene.
+        2. In the "Steps" list, add multiple steps.
+        3. For each step, set a "Delay" (time to wait) and an "Action" (drag a trap here and select "Activate()").
+        4. To Start the Sequence: Use an "Area Trigger" to call "TrapSequencer.StartSequence()".
+
+3.3 Goal (Level End)
+    * Behavior: Freezes the player and loads the next level.
+    * How to Use:
+        1. Drag the "Goal" prefab to the end of the level.
+        2. Ensure it has a collider set to "Is Trigger".
+
+4. ADVANCED: PLAYER MUTATIONS
+
+You can make ANY trap modify the player's stats instead of (or in addition to) killing them.
+
+1. Select a Trap.
+2. Check "Changes Player Data".
+3. In the "Mutations" list, click "+" to add a mutation.
+4. Properties:
+    * Stat To Change:
+        - MoveSpeed: Run faster/slower.
+        - JumpHeight: Jump higher/lower.
+        - GravityMultiplier: Fall faster/slower.
+        - InvertControls: Left is Right, Right is Left.
+        - PlayerScale: Make player huge or tiny.
+    * Number Value: The multiplier (e.g., 2 for double speed, 0.5 for half speed).
+    * Boolean Value: Check this if using "InvertControls".
+    * Is Temporary Change: If checked, the effect wears off.
+    * Duration: How long the effect lasts (in seconds).
+
+5. TESTING
+
+1. Press the "Play" button at the top of the editor.
+2. Use "A" / "D" to move and "Space" to jump.
+3. Watch the Console for debug messages like "Trap Failed RNG Roll" to verify your probability settings.
