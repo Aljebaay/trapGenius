@@ -27,15 +27,17 @@ public class MovingTrap : TrapBase
     public override void Activate()
     {
         if (isMoving) return;
-
-        // RNG CHECK
         if (!ShouldActivate()) return;
 
         isMoving = true;
         if (changesPlayerData) ApplyMutationsToPlayer();
     }
+
+    public void StopMovement()
+    {
+        isMoving = false;
+    }
     
-    // ... Update() Logic remains the same ...
 
     private void Update()
     {

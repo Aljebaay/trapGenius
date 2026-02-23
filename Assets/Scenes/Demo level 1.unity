@@ -428,6 +428,7 @@ MonoBehaviour:
     booleanValue: 0
     isTemporaryChange: 1
     duration: 5
+  activationChance: 100
   referenceData: {fileID: 11400000, guid: e4b0127fdd5bd7346b7778edbd71dba7, type: 2}
   isAutoMove: 0
   isStopOnReachingDestination: 0
@@ -2027,7 +2028,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 11
-      m_TileSpriteIndex: 5
+      m_TileSpriteIndex: 6
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -2057,7 +2058,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 11
-      m_TileSpriteIndex: 8
+      m_TileSpriteIndex: 6
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -2227,7 +2228,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 11
-      m_TileSpriteIndex: 5
+      m_TileSpriteIndex: 6
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -2237,7 +2238,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 11
-      m_TileSpriteIndex: 8
+      m_TileSpriteIndex: 6
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -2307,7 +2308,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 11
-      m_TileSpriteIndex: 5
+      m_TileSpriteIndex: 6
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -2350,14 +2351,14 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 99
     m_Data: {fileID: 8704577166008928185, guid: fc584d329b77b9545b9c9c8bb829e553, type: 3}
-  - m_RefCount: 3
-    m_Data: {fileID: 3020870990670601969, guid: fc584d329b77b9545b9c9c8bb829e553, type: 3}
-  - m_RefCount: 17
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 22
     m_Data: {fileID: -7517053698926566003, guid: fc584d329b77b9545b9c9c8bb829e553, type: 3}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 2
-    m_Data: {fileID: -8620202154233844528, guid: fc584d329b77b9545b9c9c8bb829e553, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
   - m_RefCount: 0
@@ -4563,6 +4564,7 @@ MonoBehaviour:
     booleanValue: 0
     isTemporaryChange: 1
     duration: 5
+  activationChance: 100
   referenceData: {fileID: 11400000, guid: e4b0127fdd5bd7346b7778edbd71dba7, type: 2}
   isAutoMove: 0
   isStopOnReachingDestination: 0
@@ -13558,6 +13560,7 @@ MonoBehaviour:
     booleanValue: 0
     isTemporaryChange: 1
     duration: 5
+  activationChance: 100
   referenceData: {fileID: 11400000, guid: e4b0127fdd5bd7346b7778edbd71dba7, type: 2}
   isAutoMove: 0
   isStopOnReachingDestination: 0
