@@ -322,4 +322,11 @@ public class PlayerController : MonoBehaviour
         rb.isKinematic = true; 
         this.enabled = false;
     }
+    
+    public void ResumeMovement()
+    {
+        rb.isKinematic = false;
+        this.enabled = true;
+    }
+
 }

@@ -39,9 +39,6 @@ public class TriggeredScaleTrap : TrapBase
     {
         if (isTriggered)
         {
-            // RNG CHECK
-            if (!ShouldActivate()) return;
-            
             transform.localScale = Vector3.MoveTowards(transform.localScale, targetScale, speed * Time.deltaTime);
 
             if (anchor != ScaleAnchor.Center)
@@ -57,6 +54,7 @@ public class TriggeredScaleTrap : TrapBase
     {
         if (!isTriggered)
         {
+            if (!ShouldActivate()) return;
             // Recalculate anchor just before triggering to be safe
             initialWorldAnchorPos = transform.TransformPoint(localAnchorOffset);
             isTriggered = true;
@@ -69,11 +67,6 @@ public class TriggeredScaleTrap : TrapBase
         if (collision.gameObject.CompareTag("Player"))
         {
             Activate();
-        }
-        else if (ShouldActivate() && changesPlayerData && collision.gameObject.CompareTag("Player"))
-        {
-            // If contact doesn't trigger movement, we still might need to apply mutations
-            ApplyMutationsToPlayer(collision.gameObject);
         }
     }
 }

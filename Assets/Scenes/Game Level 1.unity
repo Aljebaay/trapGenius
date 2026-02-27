@@ -3458,11 +3458,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2778393561036165024, guid: 75dae1d5ac47eea4eab5a5bb0dbae751, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 9.5
+      value: -2.3993587
       objectReference: {fileID: 0}
     - target: {fileID: 2778393561036165024, guid: 75dae1d5ac47eea4eab5a5bb0dbae751, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.5
+      value: 0.4411888
       objectReference: {fileID: 0}
     - target: {fileID: 2778393561036165024, guid: 75dae1d5ac47eea4eab5a5bb0dbae751, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4782,7 +4782,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   changesPlayerData: 0
   mutations: []
-  activationChance: 100
+  activationChance: 50
   referenceData: {fileID: 11400000, guid: e4b0127fdd5bd7346b7778edbd71dba7, type: 2}
   targetScale: {x: 0, y: 1, z: 1}
   speed: 1
@@ -12074,8 +12074,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 706e89a59fecc7444af511a77db76ef4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  changesPlayerData: 0
-  mutations: []
+  changesPlayerData: 1
+  mutations:
+  - statToChange: 0
+    numberValue: 0
+    booleanValue: 0
+    isTemporaryChange: 0
+    duration: 0
   activationChance: 100
   referenceData: {fileID: 11400000, guid: e4b0127fdd5bd7346b7778edbd71dba7, type: 2}
   fadeSpeed: 5
@@ -12354,7 +12359,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2843495634018139363}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 289f2e98495551f4e97a782069f06f51, type: 3}
   m_Name: 
@@ -14550,7 +14555,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afe56fd9bedf1c044bfd6c960c5bee27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  changesPlayerData: 1
+  changesPlayerData: 0
   mutations:
   - statToChange: 4
     numberValue: 2
@@ -14571,7 +14576,19 @@ MonoBehaviour:
   toggleClip: {fileID: 8300000, guid: ce6e6fd3dce07924c9b2aef71ca6638c, type: 3}
   onTurnOn:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2218987756048971960}
+        m_TargetAssemblyTypeName: RandomActiveState, Assembly-CSharp
+        m_MethodName: RollDice
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onTurnOff:
     m_PersistentCalls:
       m_Calls: []
@@ -44978,7 +44995,7 @@ Transform:
   m_GameObject: {fileID: 2203198648428944310}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3, y: 3.5, z: 0}
+  m_LocalPosition: {x: -2.242219, y: -0.00473547, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

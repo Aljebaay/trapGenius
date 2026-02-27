@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.IO; // Required for file saving
+using System.Security.Cryptography; // Required for HMAC hashing
+using System.Text; // Required for encoding
 
 public class InventoryManager : MonoBehaviour
 {
@@ -15,6 +17,9 @@ public class InventoryManager : MonoBehaviour
     public static event System.Action<int> onKeysChanged;
 
     private string savePath;
+    
+    // Salt used for hashing the save file (keep this hidden/obfuscated in a real production environment)
+    private const string SALT = "TrapGeniusSave_v1";
 
     private void Awake()
     {
@@ -88,17 +93,31 @@ public class InventoryManager : MonoBehaviour
 
     public int GetKeyCount() => inventory.keys.Count;
 
-    // --- SAVE / LOAD SYSTEM (JSON) ---
+    // --- SAVE / LOAD SYSTEM WITH ANTI-TAMPER (HMAC) ---
+
+    // Computes an HMAC-SHA256 hash of the JSON data to verify integrity
+    private string ComputeHash(string data)
+    {
+        using (var hmac = new HMACSHA256(Encoding.UTF8.GetBytes(SALT)))
+        {
+            byte[] hashBytes = hmac.ComputeHash(Encoding.UTF8.GetBytes(data));
+            return System.Convert.ToBase64String(hashBytes);
+        }
+    }
 
     [ContextMenu("Force Save")]
     public void SaveInventory()
     {
+        // Default ToJson generates a single-line string
         string json = JsonUtility.ToJson(inventory);
+        string hash = ComputeHash(json);
+
         // Ensure path is set if called from Editor
         if (string.IsNullOrEmpty(savePath)) savePath = Application.persistentDataPath + "/savegame.json";
         
-        File.WriteAllText(savePath, json);
-        Debug.Log("Game Saved.");
+        // Save the JSON on line 1, and the Hash on line 2
+        File.WriteAllText(savePath, json + "\n" + hash);
+        Debug.Log("Game Saved with Tamper Protection.");
     }
 
     [ContextMenu("Force Load")]
@@ -109,19 +128,44 @@ public class InventoryManager : MonoBehaviour
 
         if (File.Exists(savePath))
         {
-            string json = File.ReadAllText(savePath);
-            JsonUtility.FromJsonOverwrite(json, inventory);
-            
-            // Update UI after load
-            if (Application.isPlaying)
+            try
             {
-                onCoinChanged?.Invoke(inventory.coins);
-                onKeysChanged?.Invoke(inventory.keys.Count);
+                // Read all lines (Line 0 = JSON, Line 1 = Hash)
+                string[] lines = File.ReadAllLines(savePath);
+
+                if (lines.Length >= 2)
+                {
+                    string json = lines[0];
+                    string savedHash = lines[1];
+                    
+                    // Verify the hash against the data
+                    string calculatedHash = ComputeHash(json);
+
+                    if (savedHash == calculatedHash)
+                    {
+                        JsonUtility.FromJsonOverwrite(json, inventory);
+                        Debug.Log("Game Loaded Successfully. Data integrity verified.");
+                    }
+                    else
+                    {
+                        Debug.LogWarning("⚠️ Save file tampered with! Hash mismatch. Resetting data.");
+                        inventory.ResetData();
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning("⚠️ Old or invalid save file format detected. Resetting data.");
+                    inventory.ResetData();
+                }
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError($"Failed to load save file: {e.Message}. Resetting.");
+                inventory.ResetData();
             }
         }
         else
         {
-            // First time playing? Start fresh.
             inventory.ResetData();
         }
     }

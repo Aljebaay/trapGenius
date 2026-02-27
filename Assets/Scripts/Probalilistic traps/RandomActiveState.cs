@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class RandomActiveState : MonoBehaviour
 {
@@ -23,9 +24,13 @@ public class RandomActiveState : MonoBehaviour
     {
         float roll = Random.Range(0f, 100f);
         bool shouldExist = (roll <= existChance);
-
-        gameObject.SetActive(shouldExist);
         
+
+        var col = GetComponent<Collider2D>();
+        if (col != null) col.enabled = shouldExist;
+        var renderer = GetComponent<TilemapRenderer>();
+        if (renderer != null) renderer.enabled = shouldExist;
+
         Debug.Log($"❓ Random State [{name}]: {(shouldExist ? "EXISTS" : "GONE")}");
     }
 }

@@ -44,10 +44,5 @@ public class TriggeredMoveTrap : TrapBase
         {
             Activate();
         }
-        else if (ShouldActivate() && changesPlayerData && collision.gameObject.CompareTag("Player"))
-        {
-            // If contact doesn't trigger movement, we still might need to apply mutations
-            ApplyMutationsToPlayer(collision.gameObject);
-        }
     }
 }

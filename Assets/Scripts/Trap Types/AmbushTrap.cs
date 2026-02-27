@@ -55,20 +55,6 @@ public class AmbushTrap : TrapBase
         }
     }
 
-    protected override void OnCollisionEnter2D(Collision2D collision)
-    {
-        // RNG CHECK
-        if (!ShouldActivate()) return;
-
-        // Note: calling ApplyMutations manually avoids double RNG rolling from base
-        if (changesPlayerData) ApplyMutationsToPlayer(collision.gameObject);
-        
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            KillPlayer(collision.gameObject);
-        }
-    }
-
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
         // RNG CHECK
