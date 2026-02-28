@@ -13,7 +13,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerAudio playerAudio; 
     [SerializeField] private PlayerAnimation playerAnim;
     
-    public bool IsGrounded => isGrounded; 
+    public bool IsGrounded => isGrounded;
+    public float VelocityX => rb.linearVelocity.x;
 
     private Rigidbody2D rb;
     private Vector2 moveInput;
@@ -27,11 +28,12 @@ public class PlayerController : MonoBehaviour
 
     // --- RUNTIME STATS ---
     private float currentMoveSpeed;
+    private float currentDeceleration;
     private float currentJumpHeight;
     private float currentGravityMult;
     private float currentCoyoteTime; 
     private bool currentInvertControls;
-    private bool currentAllowDoubleJump; // <--- NEW (Configuration state)
+    private bool currentAllowDoubleJump;
     
     // Scale Logic
     private Vector3 originalScale;
@@ -51,6 +53,7 @@ public class PlayerController : MonoBehaviour
     public void ResetStats()
     {
         currentMoveSpeed = data.moveSpeed;
+        currentDeceleration = data.decceleration;
         currentJumpHeight = data.jumpHeight;
         currentGravityMult = data.fallGravityMultiplier;
         currentCoyoteTime = data.coyoteTime;
@@ -255,7 +258,7 @@ public class PlayerController : MonoBehaviour
         float finalInputX = moveInput.x * directionMult;
 
         float targetSpeed = finalInputX * currentMoveSpeed;
-        float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? data.acceleration : data.decceleration;
+        float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? data.acceleration : currentDeceleration;
         float velX = Mathf.MoveTowards(rb.linearVelocity.x, targetSpeed, accelRate * Time.fixedDeltaTime);
 
         rb.linearVelocity = new Vector2(velX, rb.linearVelocity.y);
@@ -316,6 +319,14 @@ public class PlayerController : MonoBehaviour
         transform.localScale = scaler;
     }
     
+    // --- DECELERATION ACCESS (Used by SlipperyFloor) ---
+    public float GetDeceleration() => currentDeceleration;
+    public void SetDeceleration(float value) => currentDeceleration = value;
+
+    // --- GRAVITY ACCESS (Used by GravityFloor) ---
+    public float GetGravityMultiplier() => currentGravityMult;
+    public void SetGravityMultiplier(float value) => currentGravityMult = value;
+
     public void StopMovement()
     {
         rb.linearVelocity = Vector2.zero;
