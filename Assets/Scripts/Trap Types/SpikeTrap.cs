@@ -19,7 +19,7 @@ public class SpikeTrap : TrapBase
         base.OnCollisionEnter2D(collision);
 
         // 3. Run Specific Logic (Kill)
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && CanKillFromCollision(collision))
         {
             KillPlayer(collision.gameObject);
         }
@@ -28,10 +28,10 @@ public class SpikeTrap : TrapBase
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
         if (!ShouldActivate()) return;
-
-        base.OnTriggerEnter2D(collision);
-
-        if (collision.CompareTag("Player"))
+        if (changesPlayerData) ApplyMutationsToPlayer(collision.gameObject);
+        
+        var trapCol = GetComponentInChildren<Collider2D>();
+        if (collision.CompareTag("Player") && CanKillFromTrigger(collision, trapCol))
         {
             KillPlayer(collision.gameObject);
         }

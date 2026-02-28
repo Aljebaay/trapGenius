@@ -18,7 +18,16 @@ public class TrapBaseEditor : Editor
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
-
+        EditorGUILayout.Space(6);
+        EditorGUILayout.HelpBox(
+            "Kill Direction Mode controls from which side the player must hit this trap to be lethal.\n\n" +
+            "AnySide  → Trap kills from all directions.\n" +
+            "OnlyTop  → Kills only if player lands on it.\n" +
+            "OnlyBelow → Kills only if player hits it from below.\n" +
+            "OnlyLeft / OnlyRight → Kills only from that side.\n\n" +
+            "Note: This setting requires the trap kill logic to use it.",
+            MessageType.Info
+        );
         serializedObject.Update();
 
         EditorGUILayout.Space(10);

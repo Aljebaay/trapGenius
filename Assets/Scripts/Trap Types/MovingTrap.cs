@@ -8,8 +8,15 @@ public class MovingTrap : TrapBase
     [SerializeField] private Vector3 localTargetOffset1 = new Vector3(0, 0, 0); 
     [SerializeField] private Vector3 localTargetOffset2 = new Vector3(-5, 0, 0); 
     [SerializeField] private float speed = 1f; 
+
+    [Header("Rotation Config")]
+    [Tooltip("Total degrees to rotate over the journey.")]
+    [SerializeField] private float rotationAmount = 360f; 
+    [Tooltip("If false: Rotates Clockwise towards target. If true: Rotates Counter-Clockwise towards target.")]
+    [SerializeField] private bool revertRotationDirection = false;
     
     private Vector3 initialPosition; 
+    private Quaternion initialRotation; // Store starting rotation
     private Vector3 globalTargetPosition1; 
     private Vector3 globalTargetPosition2;
     private bool isMoving = false;
@@ -18,6 +25,8 @@ public class MovingTrap : TrapBase
     private void Start()
     {
         initialPosition = transform.position; 
+        initialRotation = transform.rotation; // Capture rotation
+
         globalTargetPosition1 = initialPosition + localTargetOffset1;
         globalTargetPosition2 = initialPosition + localTargetOffset2;
 
@@ -42,8 +51,24 @@ public class MovingTrap : TrapBase
     private void Update()
     {
         if (!isMoving) return;
+
         timeAccumulator += Time.deltaTime;
-        float t = isStopOnReachingDestination ? Mathf.Clamp01(timeAccumulator * speed) : Mathf.PingPong(timeAccumulator * speed, 1f);
+        
+        // Calculate the interpolation factor 't' (0 to 1)
+        float t = isStopOnReachingDestination 
+            ? Mathf.Clamp01(timeAccumulator * speed) 
+            : Mathf.PingPong(timeAccumulator * speed, 1f);
+
+        // 1. Handle Position
         transform.position = Vector3.Lerp(globalTargetPosition1, globalTargetPosition2, t);
+
+        // 2. Handle Rotation
+        // In Unity 2D, Negative Z is Clockwise, Positive Z is Counter-Clockwise.
+        // Default (revert=false): -1 * amount * t (Clockwise)
+        float directionMult = revertRotationDirection ? 1f : -1f;
+        float currentAngle = directionMult * rotationAmount * t;
+
+        // Apply rotation relative to the initial rotation
+        transform.rotation = initialRotation * Quaternion.Euler(0, 0, currentAngle);
     }
 }
