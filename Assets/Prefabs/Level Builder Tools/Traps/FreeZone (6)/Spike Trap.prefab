@@ -104,6 +104,8 @@ MonoBehaviour:
   changesPlayerData: 0
   mutations: []
   activationChance: 100
+  isLethal: 1
+  killDirection: 0
   referenceData: {fileID: 11400000, guid: e4b0127fdd5bd7346b7778edbd71dba7, type: 2}
 --- !u!60 &7572479966507847685
 PolygonCollider2D:

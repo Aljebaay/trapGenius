@@ -51,7 +51,15 @@ public class AttemptTrigger : MonoBehaviour
 
             case CheckType.Modulo:
                 // Triggers every X turns (e.g., 3, 6, 9...)
-                isMet = (current % targetValue == 0);
+                if (targetValue == 0)
+                {
+                    Debug.LogError($"AttemptTrigger '{name}': targetValue is 0 for Modulo check. Defaulting to FAILED.");
+                    isMet = false;
+                }
+                else
+                {
+                    isMet = (current % targetValue == 0);
+                }
                 break;
         }
 

@@ -67,7 +67,8 @@ public class AudioManager : MonoBehaviour
     
     public void PlayKeyPickupSound()
     {
-        if (coinSound != null) 
+        if (keySound != null)
             sfxSource.PlayOneShot(keySound);
     }
+
 }

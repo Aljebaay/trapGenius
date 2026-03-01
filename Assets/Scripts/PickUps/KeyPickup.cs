@@ -26,9 +26,14 @@ public class KeyPickup : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            InventoryManager.Instance.AddKey(keyType);
-            AudioManager.Instance.PlayKeyPickupSound();
+            if (InventoryManager.Instance != null)
+                InventoryManager.Instance.AddKey(keyType);
+
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.PlayKeyPickupSound();
+
             Destroy(gameObject);
         }
     }
+
 }

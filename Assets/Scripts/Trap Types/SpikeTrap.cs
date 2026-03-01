@@ -24,6 +24,8 @@ public class SpikeTrap : TrapBase
             KillPlayer(collision.gameObject);
         }
     }
+    
+    
 
     protected override void OnTriggerEnter2D(Collider2D collision)
     {

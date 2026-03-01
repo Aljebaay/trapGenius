@@ -1,8 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System.IO; // Required for file saving
-using System.Security.Cryptography; // Required for HMAC hashing
-using System.Text; // Required for encoding
+using System.IO;
+using System.Security.Cryptography;
+using System.Text;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -18,8 +18,16 @@ public class InventoryManager : MonoBehaviour
 
     private string savePath;
     
-    // Salt used for hashing the save file (keep this hidden/obfuscated in a real production environment)
+    // Salt used for hashing the save file
     private const string SALT = "TrapGeniusSave_v1";
+
+    // --- NEW: DTO (Data Transfer Object) for safe serialization ---
+    [System.Serializable]
+    private class SaveData
+    {
+        public int coins;
+        public List<string> keyNames = new List<string>();
+    }
 
     private void Awake()
     {
@@ -29,10 +37,8 @@ public class InventoryManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
             
-            // Define where to save the file
             savePath = Application.persistentDataPath + "/savegame.json";
             
-            // Load data immediately on startup
             LoadInventory();
         }
         else
@@ -46,8 +52,8 @@ public class InventoryManager : MonoBehaviour
     public void AddCoins(int amount)
     {
         inventory.coins += amount;
-        onCoinChanged?.Invoke(inventory.coins); // Tell UI to update
-        SaveInventory(); // Save immediately
+        onCoinChanged?.Invoke(inventory.coins);
+        SaveInventory();
     }
 
     public bool SpendCoins(int amount)
@@ -72,7 +78,7 @@ public class InventoryManager : MonoBehaviour
         {
             inventory.keys.Add(key);
             onKeysChanged?.Invoke(inventory.keys.Count); 
-            SaveInventory(); // Added Save here so keys persist
+            SaveInventory();
         }
     }
 
@@ -87,15 +93,14 @@ public class InventoryManager : MonoBehaviour
         {
             inventory.keys.Remove(key);
             onKeysChanged?.Invoke(inventory.keys.Count); 
-            SaveInventory(); // Added Save here so removal persists
+            SaveInventory();
         }
     }
 
     public int GetKeyCount() => inventory.keys.Count;
 
-    // --- SAVE / LOAD SYSTEM WITH ANTI-TAMPER (HMAC) ---
+    // --- SAVE / LOAD SYSTEM (Anti-Tamper & Stable SO References) ---
 
-    // Computes an HMAC-SHA256 hash of the JSON data to verify integrity
     private string ComputeHash(string data)
     {
         using (var hmac = new HMACSHA256(Encoding.UTF8.GetBytes(SALT)))
@@ -108,42 +113,67 @@ public class InventoryManager : MonoBehaviour
     [ContextMenu("Force Save")]
     public void SaveInventory()
     {
-        // Default ToJson generates a single-line string
-        string json = JsonUtility.ToJson(inventory);
+        // 1. Map to persistent DTO
+        SaveData data = new SaveData { coins = inventory.coins };
+        foreach (var key in inventory.keys)
+        {
+            if (key != null) 
+            {
+                // Using key.name matches the exact asset filename needed for Resources.Load
+                data.keyNames.Add(key.name); 
+            }
+        }
+
+        // 2. Serialize and Hash
+        string json = JsonUtility.ToJson(data);
         string hash = ComputeHash(json);
 
-        // Ensure path is set if called from Editor
         if (string.IsNullOrEmpty(savePath)) savePath = Application.persistentDataPath + "/savegame.json";
         
-        // Save the JSON on line 1, and the Hash on line 2
         File.WriteAllText(savePath, json + "\n" + hash);
-        Debug.Log("Game Saved with Tamper Protection.");
+        Debug.Log("Game Saved with stable key references and tamper protection.");
     }
 
     [ContextMenu("Force Load")]
     public void LoadInventory()
     {
-        // Ensure path is set if called from Editor
         if (string.IsNullOrEmpty(savePath)) savePath = Application.persistentDataPath + "/savegame.json";
 
         if (File.Exists(savePath))
         {
             try
             {
-                // Read all lines (Line 0 = JSON, Line 1 = Hash)
                 string[] lines = File.ReadAllLines(savePath);
 
                 if (lines.Length >= 2)
                 {
                     string json = lines[0];
                     string savedHash = lines[1];
-                    
-                    // Verify the hash against the data
                     string calculatedHash = ComputeHash(json);
 
                     if (savedHash == calculatedHash)
                     {
-                        JsonUtility.FromJsonOverwrite(json, inventory);
+                        // 1. Deserialize into the DTO
+                        SaveData data = JsonUtility.FromJson<SaveData>(json);
+                        
+                        // 2. Map data back to ScriptableObject memory
+                        inventory.coins = data.coins;
+                        inventory.keys.Clear();
+
+                        foreach (string name in data.keyNames)
+                        {
+                            // 3. Re-link ScriptableObjects via Resources folder
+                            KeyItem loadedKey = Resources.Load<KeyItem>($"Keys/{name}");
+                            if (loadedKey != null) 
+                            {
+                                inventory.keys.Add(loadedKey);
+                            }
+                            else
+                            {
+                                Debug.LogWarning($"⚠️ Failed to locate key: '{name}' in Resources/Keys/. Was the asset renamed or moved?");
+                            }
+                        }
+
                         Debug.Log("Game Loaded Successfully. Data integrity verified.");
                     }
                     else
@@ -170,16 +200,13 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    // --- NEW: COMPLETE RESET ---
+    // --- COMPLETE RESET ---
 
     [ContextMenu("⚠️ RESET ALL PROGRESS")]
     public void ResetAllProgress()
     {
-        // 1. Reset the ScriptableObject Memory
         if(inventory != null) inventory.ResetData();
 
-        // 2. Delete the physical Save File
-        // We recalculate path here to ensure it works even if Game isn't running
         string path = Application.persistentDataPath + "/savegame.json";
         
         if (File.Exists(path))
@@ -192,7 +219,6 @@ public class InventoryManager : MonoBehaviour
             Debug.Log("No Save File found to delete.");
         }
 
-        // 3. Update UI (Only if game is running)
         if (Application.isPlaying)
         {
             onCoinChanged?.Invoke(0);

@@ -39,20 +39,13 @@ public class CoinPickup : MonoBehaviour
 
     private void Collect()
     {
-        // 1. Add to Game Manager
-        if (GameManager.Instance != null)
-        {
+        if (InventoryManager.Instance != null)
             InventoryManager.Instance.AddCoins(coinValue);
-        }
 
-        // 2. Play Sound
         if (AudioManager.Instance != null)
-        {
             AudioManager.Instance.PlayCoin();
-        }
 
-        // 3. Visuals (Disable sprite, maybe spawn particle later)
-        // We destroy the object so it can't be picked up again
         Destroy(gameObject);
     }
+
 }

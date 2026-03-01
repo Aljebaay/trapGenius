@@ -277,8 +277,9 @@ public class PlayerController : MonoBehaviour
         jumpBufferCounter = 0f;
         coyoteTimeCounter = 0f;
 
-        playerAudio.PlayJump();
-        playerAnim.TriggerJumpAnimation();
+        if (playerAudio != null) playerAudio.PlayJump();
+        if (playerAnim != null) playerAnim.TriggerJumpAnimation();
+
     }
 
     private void ApplyCustomGravity()

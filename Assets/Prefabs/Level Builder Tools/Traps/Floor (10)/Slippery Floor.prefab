@@ -374,9 +374,11 @@ MonoBehaviour:
   changesPlayerData: 0
   mutations: []
   activationChance: 100
+  isLethal: 0
+  killDirection: 0
   referenceData: {fileID: 11400000, guid: e4b0127fdd5bd7346b7778edbd71dba7, type: 2}
   slipperyDeceleration: 0
-  minimumSpeed: 3
-  nudgeAcceleration: 30
+  minimumSpeed: 15
+  nudgeAcceleration: 40
   floorTint: {r: 0.6, g: 0.88, b: 1, a: 1}
-  applyTint: 0
+  applyTint: 1

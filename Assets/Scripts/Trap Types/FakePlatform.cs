@@ -10,8 +10,13 @@ public class FakePlatform : TrapBase
     private void Awake()
     {
         tmr = GetComponent<Tilemap>();
-        GetComponent<CompositeCollider2D>().isTrigger = true; 
+        var compositeCollider = GetComponent<CompositeCollider2D>();
+        if (compositeCollider != null)
+            compositeCollider.isTrigger = true;
+        else
+            Debug.LogError($"FakePlatform '{name}' is missing CompositeCollider2D!", this);
     }
+
 
     public override void Activate()
     {
