@@ -262,6 +262,8 @@ public class PlayerController : MonoBehaviour
         float velX = Mathf.MoveTowards(rb.linearVelocity.x, targetSpeed, accelRate * Time.fixedDeltaTime);
 
         rb.linearVelocity = new Vector2(velX, rb.linearVelocity.y);
+        if (animator != null)
+            animator.SetBool("IsMoving", Mathf.Abs(moveInput.x) > 0.01f);
 
         if (finalInputX > 0 && !isFacingRight) Flip();
         else if (finalInputX < 0 && isFacingRight) Flip();
