@@ -1,0 +1,1309 @@
+fileFormatVersion: 2
+guid: 2172f1a66c36bf047952183f99b34b05
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3239093406707844335
+    second: cute_character_jump_default_0
+  - first:
+      213: 6301160724766938212
+    second: cute_character_jump_default_1
+  - first:
+      213: 8453268820195276545
+    second: cute_character_jump_default_2
+  - first:
+      213: 7114054415897532577
+    second: cute_character_jump_default_3
+  - first:
+      213: -2533636816028159801
+    second: cute_character_jump_default_4
+  - first:
+      213: -4179945966658415866
+    second: cute_character_jump_default_5
+  - first:
+      213: -4636175890636906805
+    second: cute_character_jump_default_6
+  - first:
+      213: -1151892116665386915
+    second: cute_character_jump_default_7
+  - first:
+      213: -8672021394255520803
+    second: cute_character_jump_default_8
+  - first:
+      213: 8181632099899793487
+    second: cute_character_jump_default_9
+  - first:
+      213: -8574438520706470248
+    second: cute_character_jump_default_10
+  - first:
+      213: 1083819503880535608
+    second: cute_character_jump_default_11
+  - first:
+      213: -9087362124012527944
+    second: cute_character_jump_default_12
+  - first:
+      213: 6575007891118372180
+    second: cute_character_jump_default_13
+  - first:
+      213: 4640795279061897765
+    second: cute_character_jump_default_14
+  - first:
+      213: -5430602307477668405
+    second: cute_character_jump_default_15
+  - first:
+      213: 3089117318709107265
+    second: cute_character_jump_default_16
+  - first:
+      213: -1795232047878669827
+    second: cute_character_jump_default_17
+  - first:
+      213: 6553218760097479003
+    second: cute_character_jump_default_18
+  - first:
+      213: -5665894993493545668
+    second: cute_character_jump_default_19
+  - first:
+      213: 6418704309247448443
+    second: cute_character_jump_default_20
+  - first:
+      213: -998696812036137225
+    second: cute_character_jump_default_21
+  - first:
+      213: -3393540541139411879
+    second: cute_character_jump_default_22
+  - first:
+      213: 6552178191241758299
+    second: cute_character_jump_default_23
+  - first:
+      213: -7415097625178673771
+    second: cute_character_jump_default_24
+  - first:
+      213: -306856386171937168
+    second: cute_character_jump_default_25
+  - first:
+      213: 1713057589912743469
+    second: cute_character_jump_default_26
+  - first:
+      213: 2527978353413027725
+    second: cute_character_jump_default_27
+  - first:
+      213: 4123673720758149074
+    second: cute_character_jump_default_28
+  - first:
+      213: 3742434309547766533
+    second: cute_character_jump_default_29
+  - first:
+      213: 3224372874999908587
+    second: cute_character_jump_default_30
+  - first:
+      213: 5936998958181770503
+    second: cute_character_jump_default_31
+  - first:
+      213: 5341646548573816536
+    second: cute_character_jump_default_32
+  - first:
+      213: 4501519248119681537
+    second: cute_character_jump_default_33
+  - first:
+      213: -3615355304567415985
+    second: cute_character_jump_default_34
+  - first:
+      213: 1767912551903463857
+    second: cute_character_jump_default_35
+  - first:
+      213: 8333895576620701606
+    second: cute_character_jump_default_36
+  - first:
+      213: 7975974428747023042
+    second: cute_character_jump_default_37
+  - first:
+      213: -3768313513027208053
+    second: cute_character_jump_default_38
+  - first:
+      213: -4430738845015405121
+    second: cute_character_jump_default_39
+  - first:
+      213: 7435030140090075546
+    second: cute_character_jump_default_40
+  - first:
+      213: 4611237784522919425
+    second: cute_character_jump_default_41
+  - first:
+      213: 3391743517419136719
+    second: cute_character_jump_default_42
+  - first:
+      213: -8672839948945790432
+    second: cute_character_jump_default_43
+  - first:
+      213: -5927275460974821127
+    second: cute_character_jump_default_44
+  - first:
+      213: 6083698549958428221
+    second: cute_character_jump_default_45
+  - first:
+      213: 3854656410735301219
+    second: cute_character_jump_default_46
+  - first:
+      213: 5776725614268002117
+    second: cute_character_jump_default_47
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 200
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: cute_character_jump_default_0
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 7486
+        width: 328
+        height: 656
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11b7ed245bd6c03d0800000000000000
+      internalID: -3239093406707844335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cute_character_jump_default_1
+      rect:
+        serializedVersion: 2
+        x: 446
+        y: 7494
+        width: 323
+        height: 656
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 46450605b48327750800000000000000
+      internalID: 6301160724766938212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cute_character_jump_default_2
+      rect:
+        serializedVersion: 2
+        x: 870
+        y: 7530
+        width: 320
+        height: 628
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 107ff92643b005570800000000000000
+      internalID: 8453268820195276545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cute_character_jump_default_3
+      rect:
+        serializedVersion: 2
+        x: 1298
+        y: 7570
+        width: 320
+        height: 584
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a81f54acc23ab260800000000000000
+      internalID: 7114054415897532577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cute_character_jump_default_4
+      rect:
+        serializedVersion: 2
+        x: 1734
+        y: 7530
+        width: 320
+        height: 600
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c03ac65db6b6dcd0800000000000000
+      internalID: -2533636816028159801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cute_character_jump_default_5
+      rect:
+        serializedVersion: 2
+        x: 2183
+        y: 7418
+        width: 330
+        height: 624
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6039ff42a49ddf5c0800000000000000
+      internalID: -4179945966658415866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cute_character_jump_default_6
+      rect:
+        serializedVersion: 2
+        x: 2566
+        y: 7314
+        width: 408
+        height: 580
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bce5b5a479ef8afb0800000000000000
+      internalID: -4636175890636906805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cute_character_jump_default_7
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 5858
+        width: 410
+        height: 1160
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d58369e0938a300f0800000000000000
+      internalID: -1151892116665386915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cute_character_jump_default_8
+      rect:
+        serializedVersion: 2
+        x: 422
+        y: 5862
+        width: 416
+        height: 1156
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ddbdfcefc7ac6a780800000000000000
+      internalID: -8672021394255520803
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cute_character_jump_default_9
+      rect:
+        serializedVersion: 2
+        x: 850
+        y: 5862
+        width: 412
+        height: 1160
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f40e575fb0ffa8170800000000000000
+      internalID: 8181632099899793487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cute_character_jump_default_10
+      rect:
+        serializedVersion: 2
+        x: 1286
+        y: 6446
+        width: 404
+        height: 592
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89e6dd04899710980800000000000000
+      internalID: -8574438520706470248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cute_character_jump_default_11
+      rect:
+        serializedVersion: 2
+        x: 1750
+        y: 6466
+        width: 344
+        height: 656
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83e7071b8108a0f00800000000000000
+      internalID: 1083819503880535608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cute_character_jump_default_12
+      rect:
+        serializedVersion: 2
+        x: 2162
+        y: 6622
+        width: 324
+        height: 660
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8bed4ec8b4433e180800000000000000
+      internalID: -9087362124012527944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cute_character_jump_default_13
+      rect:
+        serializedVersion: 2
+        x: 2586
+        y: 6639
+        width: 1510
+        height: 671
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 455308157de1f3b50800000000000000
+      internalID: 6575007891118372180
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cute_character_jump_default_14
+      rect:
+        serializedVersion: 2
+        x: 1302
+        y: 5806
+        width: 323
+        height: 616
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5225bc3e7ba676040800000000000000
+      internalID: 4640795279061897765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cute_character_jump_default_15
+      rect:
+        serializedVersion: 2
+        x: 1738
+        y: 5634
+        width: 328
+        height: 652
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bcd706259ff92a4b0800000000000000
+      internalID: -5430602307477668405
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cute_character_jump_default_16
+      rect:
+        serializedVersion: 2
+        x: 2174
+        y: 5574
+        width: 324
+        height: 666
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14ad923a5dfbeda20800000000000000
+      internalID: 3089117318709107265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cute_character_jump_default_17
+      rect:
+        serializedVersion: 2
+        x: 2610
+        y: 5574
+        width: 328
+        height: 620
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df97bc8c6fd0617e0800000000000000
+      internalID: -1795232047878669827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cute_character_jump_default_18
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 4702
+        width: 328
+        height: 620
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b59390bedb5b1fa50800000000000000
+      internalID: 6553218760097479003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cute_character_jump_default_19
+      rect:
+        serializedVersion: 2
+        x: 470
+        y: 4702
+        width: 328
+        height: 620
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c3d272ac582be51b0800000000000000
+      internalID: -5665894993493545668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cute_character_jump_default_20
+      rect:
+        serializedVersion: 2
+        x: 894
+        y: 4702
+        width: 332
+        height: 632
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7596febf81d31950800000000000000
+      internalID: 6418704309247448443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cute_character_jump_default_21
+      rect:
+        serializedVersion: 2
+        x: 1310
+        y: 4782
+        width: 324
+        height: 668
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7fe55407a8ae322f0800000000000000
+      internalID: -998696812036137225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cute_character_jump_default_22
+      rect:
+        serializedVersion: 2
+        x: 1734
+        y: 4823
+        width: 324
+        height: 671
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95c9f7a8bd8b7e0d0800000000000000
+      internalID: -3393540541139411879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cute_character_jump_default_23
+      rect:
+        serializedVersion: 2
+        x: 2158
+        y: 4870
+        width: 324
+        height: 668
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b56c60a99530eea50800000000000000
+      internalID: 6552178191241758299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cute_character_jump_default_24
+      rect:
+        serializedVersion: 2
+        x: 2586
+        y: 4882
+        width: 320
+        height: 664
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 59de16c2ff7481990800000000000000
+      internalID: -7415097625178673771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cute_character_jump_default_25
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 4010
+        width: 323
+        height: 668
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07e59291eb3ddbbf0800000000000000
+      internalID: -306856386171937168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cute_character_jump_default_26
+      rect:
+        serializedVersion: 2
+        x: 446
+        y: 4010
+        width: 320
+        height: 668
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2e29864dc006c710800000000000000
+      internalID: 1713057589912743469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cute_character_jump_default_27
+      rect:
+        serializedVersion: 2
+        x: 886
+        y: 3966
+        width: 324
+        height: 656
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d877f0b2bee251320800000000000000
+      internalID: 2527978353413027725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cute_character_jump_default_28
+      rect:
+        serializedVersion: 2
+        x: 1322
+        y: 3926
+        width: 324
+        height: 656
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2df176f966b3a3930800000000000000
+      internalID: 4123673720758149074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cute_character_jump_default_29
+      rect:
+        serializedVersion: 2
+        x: 1750
+        y: 3834
+        width: 352
+        height: 636
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50334df1d2ccfe330800000000000000
+      internalID: 3742434309547766533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cute_character_jump_default_30
+      rect:
+        serializedVersion: 2
+        x: 2142
+        y: 3830
+        width: 428
+        height: 564
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be846cddb064fbc20800000000000000
+      internalID: 3224372874999908587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cute_character_jump_default_31
+      rect:
+        serializedVersion: 2
+        x: 2570
+        y: 3830
+        width: 432
+        height: 564
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 705e94ec815746250800000000000000
+      internalID: 5936998958181770503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cute_character_jump_default_32
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 2960
+        width: 431
+        height: 566
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d60f631c37512a40800000000000000
+      internalID: 5341646548573816536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cute_character_jump_default_33
+      rect:
+        serializedVersion: 2
+        x: 438
+        y: 2960
+        width: 412
+        height: 590
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 102d1c5f7eb987e30800000000000000
+      internalID: 4501519248119681537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cute_character_jump_default_34
+      rect:
+        serializedVersion: 2
+        x: 878
+        y: 2962
+        width: 388
+        height: 620
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4b5f66618da3ddc0800000000000000
+      internalID: -3615355304567415985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cute_character_jump_default_35
+      rect:
+        serializedVersion: 2
+        x: 1330
+        y: 3002
+        width: 332
+        height: 660
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b909226913e88810800000000000000
+      internalID: 1767912551903463857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cute_character_jump_default_36
+      rect:
+        serializedVersion: 2
+        x: 1730
+        y: 3070
+        width: 324
+        height: 680
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a71daf3fd1f7a370800000000000000
+      internalID: 8333895576620701606
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cute_character_jump_default_37
+      rect:
+        serializedVersion: 2
+        x: 2154
+        y: 3082
+        width: 320
+        height: 680
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c2c0130c7a50be60800000000000000
+      internalID: 7975974428747023042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cute_character_jump_default_38
+      rect:
+        serializedVersion: 2
+        x: 2582
+        y: 3086
+        width: 323
+        height: 680
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8c75b543d244bbc0800000000000000
+      internalID: -3768313513027208053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cute_character_jump_default_39
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 2214
+        width: 323
+        height: 680
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fbd055ade7ad282c0800000000000000
+      internalID: -4430738845015405121
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cute_character_jump_default_40
+      rect:
+        serializedVersion: 2
+        x: 438
+        y: 2214
+        width: 324
+        height: 680
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a99446a15888e2760800000000000000
+      internalID: 7435030140090075546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cute_character_jump_default_41
+      rect:
+        serializedVersion: 2
+        x: 870
+        y: 2214
+        width: 324
+        height: 680
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10e095965586eff30800000000000000
+      internalID: 4611237784522919425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cute_character_jump_default_42
+      rect:
+        serializedVersion: 2
+        x: 1294
+        y: 2214
+        width: 324
+        height: 680
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc6600542c4e11f20800000000000000
+      internalID: 3391743517419136719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cute_character_jump_default_43
+      rect:
+        serializedVersion: 2
+        x: 1723
+        y: 2214
+        width: 323
+        height: 680
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02ae4416402e3a780800000000000000
+      internalID: -8672839948945790432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cute_character_jump_default_44
+      rect:
+        serializedVersion: 2
+        x: 2151
+        y: 2214
+        width: 323
+        height: 680
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f0c4be4f561ebda0800000000000000
+      internalID: -5927275460974821127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 392f1f96d47d790459416d536dea13ea
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      cute_character_jump_default_0: -3239093406707844335
+      cute_character_jump_default_1: 6301160724766938212
+      cute_character_jump_default_10: -8574438520706470248
+      cute_character_jump_default_11: 1083819503880535608
+      cute_character_jump_default_12: -9087362124012527944
+      cute_character_jump_default_13: 6575007891118372180
+      cute_character_jump_default_14: 4640795279061897765
+      cute_character_jump_default_15: -5430602307477668405
+      cute_character_jump_default_16: 3089117318709107265
+      cute_character_jump_default_17: -1795232047878669827
+      cute_character_jump_default_18: 6553218760097479003
+      cute_character_jump_default_19: -5665894993493545668
+      cute_character_jump_default_2: 8453268820195276545
+      cute_character_jump_default_20: 6418704309247448443
+      cute_character_jump_default_21: -998696812036137225
+      cute_character_jump_default_22: -3393540541139411879
+      cute_character_jump_default_23: 6552178191241758299
+      cute_character_jump_default_24: -7415097625178673771
+      cute_character_jump_default_25: -306856386171937168
+      cute_character_jump_default_26: 1713057589912743469
+      cute_character_jump_default_27: 2527978353413027725
+      cute_character_jump_default_28: 4123673720758149074
+      cute_character_jump_default_29: 3742434309547766533
+      cute_character_jump_default_3: 7114054415897532577
+      cute_character_jump_default_30: 3224372874999908587
+      cute_character_jump_default_31: 5936998958181770503
+      cute_character_jump_default_32: 5341646548573816536
+      cute_character_jump_default_33: 4501519248119681537
+      cute_character_jump_default_34: -3615355304567415985
+      cute_character_jump_default_35: 1767912551903463857
+      cute_character_jump_default_36: 8333895576620701606
+      cute_character_jump_default_37: 7975974428747023042
+      cute_character_jump_default_38: -3768313513027208053
+      cute_character_jump_default_39: -4430738845015405121
+      cute_character_jump_default_4: -2533636816028159801
+      cute_character_jump_default_40: 7435030140090075546
+      cute_character_jump_default_41: 4611237784522919425
+      cute_character_jump_default_42: 3391743517419136719
+      cute_character_jump_default_43: -8672839948945790432
+      cute_character_jump_default_44: -5927275460974821127
+      cute_character_jump_default_5: -4179945966658415866
+      cute_character_jump_default_6: -4636175890636906805
+      cute_character_jump_default_7: -1151892116665386915
+      cute_character_jump_default_8: -8672021394255520803
+      cute_character_jump_default_9: 8181632099899793487
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

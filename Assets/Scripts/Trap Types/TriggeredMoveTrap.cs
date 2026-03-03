@@ -1,12 +1,11 @@
 using UnityEngine;
 
-public class TriggeredMoveTrap : MonoBehaviour
+public class TriggeredMoveTrap : TrapBase
 {
-    [Header("Settings")]
-    [Tooltip("How far it moves (e.g., Y = -3 to go down)")]
+    [Header("Move Settings")]
     [SerializeField] private Vector3 moveOffset = new Vector3(0, -3, 0); 
     [SerializeField] private float speed = 5f;
-    [SerializeField] private bool triggerOnContact = true; // False if triggered by an external event
+    [SerializeField] private bool triggerOnContact = true; 
 
     private Vector3 initialPos;
     private Vector3 targetPos;
@@ -22,22 +21,38 @@ public class TriggeredMoveTrap : MonoBehaviour
     {
         if (isTriggered)
         {
-            // Move towards the target position smoothly
             transform.position = Vector3.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    public override void Activate()
     {
-        if (triggerOnContact && collision.gameObject.CompareTag("Player"))
+        if (!isTriggered)
         {
-            Activate();
+            // RNG CHECK
+            if (!ShouldActivate()) return;
+            
+            isTriggered = true;
+            if (changesPlayerData) ApplyMutationsToPlayer();
         }
     }
 
-    // Public method so other triggers can activate this remotely
-    public void Activate()
+    protected override void OnCollisionEnter2D(Collision2D collision)
     {
-        isTriggered = true;
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            if (triggerOnContact) Activate();
+
+            if (CanKillFromCollision(collision))
+            {
+                KillPlayer(collision.gameObject);
+            }
+        }
+    }
+
+    private void KillPlayer(GameObject player)
+    {
+        player.SetActive(false);
+        if (GameManager.Instance != null) GameManager.Instance.GameOver();
     }
 }

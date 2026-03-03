@@ -1,38 +1,58 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class FakePlatform : MonoBehaviour
+public class FakePlatform : TrapBase
 {
     [SerializeField] private float fadeSpeed = 5f;
-    private SpriteRenderer sr;
     private Tilemap tmr;
-    private bool playerInside = false;
+    private bool isTriggered = false;
 
     private void Awake()
     {
-        //sr = GetComponent<SpriteRenderer>();
-        tmr= GetComponent<Tilemap>();
-        GetComponent<CompositeCollider2D>().isTrigger = true;
-        //GetComponent<BoxCollider2D>().isTrigger = true; // IMPORTANT: Must be a trigger
+        tmr = GetComponent<Tilemap>();
+        var compositeCollider = GetComponent<CompositeCollider2D>();
+        if (compositeCollider != null)
+            compositeCollider.isTrigger = true;
+        else
+            Debug.LogError($"FakePlatform '{name}' is missing CompositeCollider2D!", this);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+
+    public override void Activate()
+    {
+        // RNG CHECK
+        if (!ShouldActivate()) return;
+
+        isTriggered = true;
+        if (changesPlayerData) ApplyMutationsToPlayer();
+    }
+
+    protected override void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            playerInside = true;
+            Activate();
+
+            var trapCol = GetComponent<Collider2D>();
+            if (CanKillFromTrigger(collision, trapCol))
+            {
+                KillPlayer(collision.gameObject);
+            }
         }
+    }
+
+    private void KillPlayer(GameObject player)
+    {
+        player.SetActive(false);
+        if (GameManager.Instance != null) GameManager.Instance.GameOver();
     }
 
     private void Update()
     {
-        if (playerInside)
+        if (isTriggered && tmr.color.a > 0)
         {
-            // Fade out rapidly to reveal it was fake
-            //Color c = sr.color;
             Color c = tmr.color;
-            c.a = Mathf.MoveTowards(c.a, 0.2f, Time.deltaTime * fadeSpeed);
-            //sr.color = c;
+            c.a = Mathf.MoveTowards(c.a, 0f, Time.deltaTime * fadeSpeed);
             tmr.color = c;
         }
     }

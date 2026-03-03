@@ -7,6 +7,9 @@ public class PlayerData : ScriptableObject
     public float moveSpeed = 12f;
     public float acceleration = 120f;
     public float decceleration = 120f;
+    
+    [Tooltip("If true, Left becomes Right and vice versa.")]
+    public bool invertControls = false;
 
     [Header("Math-Based Jump")]
     public float jumpHeight = 4f;
@@ -17,6 +20,7 @@ public class PlayerData : ScriptableObject
     public bool allowDoubleJump = true; 
 
     [Header("Assists")]
+    public bool useCoyoteTime = true;
     public float coyoteTime = 0.1f;
     public float jumpBufferTime = 0.1f;
     

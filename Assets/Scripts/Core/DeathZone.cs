@@ -10,7 +10,10 @@ public class DeathZone : MonoBehaviour
             collision.gameObject.SetActive(false);
             
             // Trigger Death
-            GameManager.Instance.GameOver();
+            if (GameManager.Instance != null)
+                GameManager.Instance.GameOver();
+            else
+                Debug.LogError("DeathZone: GameManager.Instance is null! Cannot trigger GameOver.");
         }
         // Optional: Destroy falling rocks/traps so they don't fall forever
         else if (collision.GetComponent<Rigidbody2D>() != null)

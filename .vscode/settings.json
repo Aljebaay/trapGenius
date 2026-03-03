@@ -65,6 +65,8 @@
     "explorer.fileNesting.enabled": true,
     "explorer.fileNesting.patterns": {
         "*.sln": "*.csproj",
+        "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "unity.evilgame.mehdialjebaay.sln"
+    "dotnet.defaultSolution": "unity.evilgame.mehdialjebaay.slnx",
+    "dotnet.enableWorkspaceBasedDevelopment": false
 }
