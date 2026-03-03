@@ -63,6 +63,34 @@ public class ArrowTrap : TrapBase
         arrow.Initialize(shootDir, arrowSpeed, killPlayer, changesPlayerData ? mutations : null);
     }
 
+    // NEW: Allow the trap block itself to be lethal to touch
+    protected override void OnCollisionEnter2D(Collision2D collision)
+    {
+        base.OnCollisionEnter2D(collision);
+
+        if (collision.gameObject.CompareTag("Player") && CanKillFromCollision(collision))
+        {
+            KillPlayer(collision.gameObject);
+        }
+    }
+
+    protected override void OnTriggerEnter2D(Collider2D collision)
+    {
+        base.OnTriggerEnter2D(collision);
+
+        var trapCol = GetComponent<Collider2D>();
+        if (collision.CompareTag("Player") && CanKillFromTrigger(collision, trapCol))
+        {
+            KillPlayer(collision.gameObject);
+        }
+    }
+
+    private void KillPlayer(GameObject player)
+    {
+        player.SetActive(false);
+        if (GameManager.Instance != null) GameManager.Instance.GameOver();
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;

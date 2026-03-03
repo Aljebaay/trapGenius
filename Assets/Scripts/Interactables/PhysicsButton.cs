@@ -38,6 +38,16 @@ public class PhysicsButton : TrapBase
     // We override the Base trigger to use Button Logic instead of Generic Trap Logic
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.CompareTag("Player"))
+        {
+            var trapCol = GetComponent<Collider2D>();
+            if (CanKillFromTrigger(collision, trapCol))
+            {
+                KillPlayer(collision.gameObject);
+                return;
+            }
+        }
+
         if (IsInLayerMask(collision.gameObject, contactLayer))
         {
             objectsOnButton++;
@@ -102,6 +112,18 @@ public class PhysicsButton : TrapBase
         return (mask.value & (1 << obj.layer)) > 0;
     }
     
-    // Disable collision logic from Base to prevent double firing
-    protected override void OnCollisionEnter2D(Collision2D collision) { }
+    // Check for Lethality on Collision, ignore logic to prevent double firing
+    protected override void OnCollisionEnter2D(Collision2D collision) 
+    { 
+        if (collision.gameObject.CompareTag("Player") && CanKillFromCollision(collision))
+        {
+            KillPlayer(collision.gameObject);
+        }
+    }
+
+    private void KillPlayer(GameObject player)
+    {
+        player.SetActive(false);
+        if (GameManager.Instance != null) GameManager.Instance.GameOver();
+    }
 }

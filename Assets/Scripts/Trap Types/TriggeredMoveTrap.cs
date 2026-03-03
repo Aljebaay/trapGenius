@@ -39,10 +39,20 @@ public class TriggeredMoveTrap : TrapBase
 
     protected override void OnCollisionEnter2D(Collision2D collision)
     {
-        // RNG CHECK (inside Activate)
-        if (triggerOnContact && collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
-            Activate();
+            if (triggerOnContact) Activate();
+
+            if (CanKillFromCollision(collision))
+            {
+                KillPlayer(collision.gameObject);
+            }
         }
+    }
+
+    private void KillPlayer(GameObject player)
+    {
+        player.SetActive(false);
+        if (GameManager.Instance != null) GameManager.Instance.GameOver();
     }
 }

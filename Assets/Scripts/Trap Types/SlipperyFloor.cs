@@ -64,6 +64,14 @@ public class SlipperyFloor : TrapBase
     protected override void OnCollisionEnter2D(Collision2D collision)
     {
         if (!collision.gameObject.CompareTag("Player")) return;
+
+        // Lethality check before slip
+        if (CanKillFromCollision(collision))
+        {
+            KillPlayer(collision.gameObject);
+            return;
+        }
+
         if (!ShouldActivate()) return;
 
         PlayerController player = collision.gameObject.GetComponent<PlayerController>();
@@ -107,5 +115,11 @@ public class SlipperyFloor : TrapBase
         player.SetDeceleration(originalDeceleration);
 
         if (changesPlayerData) RevertMutationsFromPlayer(player.gameObject);
+    }
+
+    private void KillPlayer(GameObject player)
+    {
+        player.SetActive(false);
+        if (GameManager.Instance != null) GameManager.Instance.GameOver();
     }
 }

@@ -45,7 +45,7 @@ public class AttemptTrigger : MonoBehaviour
                 break;
             
             case CheckType.GreaterOrEqual:
-                // BEST FOR LEVEL DEVIL: Triggers on X, X+1, X+2... (Permanent difficulty increase)
+                // BEST FOR Devilbait: Triggers on X, X+1, X+2... (Permanent difficulty increase)
                 isMet = (current >= targetValue);
                 break;
 

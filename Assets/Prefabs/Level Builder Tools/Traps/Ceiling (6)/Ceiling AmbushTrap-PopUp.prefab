@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3183125378744481145}
   - component: {fileID: 5928927688096260018}
   - component: {fileID: 5926056941130193107}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ceiling AmbushTrap-PopUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -283,6 +283,8 @@ MonoBehaviour:
   changesPlayerData: 0
   mutations: []
   activationChance: 100
+  isLethal: 0
+  killDirection: 0
   referenceData: {fileID: 11400000, guid: e4b0127fdd5bd7346b7778edbd71dba7, type: 2}
   type: 1
   popOffset: {x: 0, y: -1, z: 0}
@@ -302,4 +304,6 @@ MonoBehaviour:
   changesPlayerData: 0
   mutations: []
   activationChance: 100
+  isLethal: 1
+  killDirection: 2
   referenceData: {fileID: 11400000, guid: e4b0127fdd5bd7346b7778edbd71dba7, type: 2}

@@ -39,9 +39,18 @@ public class Teleporter : TrapBase
 
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
+        if (!collision.CompareTag("Player")) return;
+
+        // Check Lethality first!
+        var trapCol = GetComponent<Collider2D>();
+        if (CanKillFromTrigger(collision, trapCol))
+        {
+            KillPlayer(collision.gameObject);
+            return;
+        }
+
         // 1. Basic Checks
         if (isOnCooldown) return;
-        if (!collision.CompareTag("Player")) return;
 
         // 2. RNG Check (Inherited from TrapBase)
         if (!ShouldActivate()) return;
@@ -51,6 +60,12 @@ public class Teleporter : TrapBase
     }
 
     // --- LOGIC ---
+
+    private void KillPlayer(GameObject player)
+    {
+        player.SetActive(false);
+        if (GameManager.Instance != null) GameManager.Instance.GameOver();
+    }
 
     private IEnumerator TeleportRoutine(GameObject player)
     {

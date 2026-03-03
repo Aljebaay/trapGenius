@@ -42,6 +42,16 @@ public class PhysicsSwitch : TrapBase // <--- NOW INHERITS TRAPBASE
     // Override Base Trigger to use Switch Logic
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.CompareTag("Player"))
+        {
+            var trapCol = GetComponent<Collider2D>();
+            if (CanKillFromTrigger(collision, trapCol))
+            {
+                KillPlayer(collision.gameObject);
+                return;
+            }
+        }
+
         if (!canToggle) return;
 
         if (IsInLayerMask(collision.gameObject, contactLayer))
@@ -103,6 +113,18 @@ public class PhysicsSwitch : TrapBase // <--- NOW INHERITS TRAPBASE
         return (mask.value & (1 << obj.layer)) > 0;
     }
 
-    // Disable collision logic from Base
-    protected override void OnCollisionEnter2D(Collision2D collision) { }
+    // Check for Lethality on Collision, disable normal logic
+    protected override void OnCollisionEnter2D(Collision2D collision) 
+    { 
+        if (collision.gameObject.CompareTag("Player") && CanKillFromCollision(collision))
+        {
+            KillPlayer(collision.gameObject);
+        }
+    }
+
+    private void KillPlayer(GameObject player)
+    {
+        player.SetActive(false);
+        if (GameManager.Instance != null) GameManager.Instance.GameOver();
+    }
 }

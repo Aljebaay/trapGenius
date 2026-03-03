@@ -62,7 +62,8 @@ public class AmbushTrap : TrapBase
 
         if (changesPlayerData) ApplyMutationsToPlayer(collision.gameObject);
 
-        if (collision.CompareTag("Player"))
+        var trapCol = GetComponent<Collider2D>();
+        if (collision.CompareTag("Player") && CanKillFromTrigger(collision, trapCol))
         {
             KillPlayer(collision.gameObject);
         }
