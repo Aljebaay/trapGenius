@@ -28,4 +28,13 @@ Attempt 2: player steps on the betrayal platform and falls. Or they mistime the 
 ## Estimated Solve Time
 5–10 seconds
 
-<!-- level_plan_log: LEVEL_025 | synced: 2026-03-04 -->
+## Build Blueprint (Hybrid)
+Terrain (Tilemap)
+- Ground: y=0, x=0..4 and x=8..16; gap x=5..7. Alternate route with rhythm section.
+Prefabs (Drag & Drop + Unpack Completely)
+- PlayerSpawn: (1,0)
+- Goal: (14,0)
+- FakePlatform: (5,0) over gap; AttemptTrigger GreaterOrEqual 2 → Activate(); Check() on load. DeathZone below
+- MovingTrap (support): alternate route; Auto Move On, ping-pong
+
+<!-- log-sync: level=LEVEL_025 primary=P-008 expectation=E-08 updated=2026-03-04 -->

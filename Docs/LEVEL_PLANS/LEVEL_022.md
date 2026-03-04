@@ -27,4 +27,13 @@ Player takes the fake bridge and falls into the DeathZone. Or they mistime the M
 ## Estimated Solve Time
 5–10 seconds
 
-<!-- level_plan_log: LEVEL_022 | synced: 2026-03-04 -->
+## Build Blueprint (Hybrid)
+Terrain (Tilemap)
+- Ground: y=0, x=0..4 and x=8..16; gap x=5..7. Alternate route with rhythm stretch.
+Prefabs (Drag & Drop + Unpack Completely)
+- PlayerSpawn: (1,0)
+- Goal: (14,0)
+- FakePlatform: (5,0) over gap; DeathZone below
+- MovingTrap (support): on alternate route; Auto Move On, ping-pong
+
+<!-- log-sync: level=LEVEL_022 primary=P-001 expectation=E-01 updated=2026-03-04 -->

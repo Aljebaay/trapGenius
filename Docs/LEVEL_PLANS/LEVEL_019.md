@@ -25,4 +25,13 @@ Player stays on the platform too long; it disappears or collapses and they fall 
 ## Estimated Solve Time
 5–10 seconds
 
-<!-- level_plan_log: LEVEL_019 | synced: 2026-03-04 -->
+## Build Blueprint (Hybrid)
+Terrain (Tilemap)
+- Ground: y=0, x=0..14; gap x=5..7 with pit.
+Prefabs (Drag & Drop + Unpack Completely)
+- PlayerSpawn: (1,0)
+- Goal: (12,0)
+- DisappearingPlatform or BreakingPlatform: (5,0) over pit; Delay or Time Before Break
+- DeathZone: under pit
+
+<!-- log-sync: level=LEVEL_019 primary=P-004 expectation=E-04 updated=2026-03-04 -->

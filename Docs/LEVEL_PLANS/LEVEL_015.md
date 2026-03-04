@@ -26,4 +26,14 @@ Player enters the corridor and lingers; AreaTrigger fires TrapSequencer and the 
 ## Estimated Solve Time
 5–10 seconds
 
-<!-- level_plan_log: LEVEL_015 | synced: 2026-03-04 -->
+## Build Blueprint (Hybrid)
+Terrain (Tilemap)
+- Ground: y=0, x=0..14; corridor x=5..10 under ceiling.
+Prefabs (Drag & Drop + Unpack Completely)
+- PlayerSpawn: (1,0)
+- Goal: (13,0)
+- AreaTrigger: corridor start (e.g. x=5); On Trigger Enter → TrapSequencer StartSequence()
+- TrapSequencer: step Delay ~1.0s → AmbushTrap-Falling Activate()
+- AmbushTrap-Falling: above corridor
+
+<!-- log-sync: level=LEVEL_015 primary=P-011 expectation=E-11 updated=2026-03-04 -->

@@ -1,3 +1,8 @@
+## Build Rule (Unity)
+All trap prefabs are placed via Drag & Drop into the scene and then:
+Right Click → Prefab → Unpack Completely
+Do not edit the original prefab assets while building levels.
+
 # Pattern Build Checklist
 
 Per-pattern checklist for building levels from **PATTERNS.json** and **TRAP_LIBRARY.md**. Use for fast, mistake-free placement.

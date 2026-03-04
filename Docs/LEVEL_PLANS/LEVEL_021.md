@@ -27,4 +27,13 @@ Attempt 2: player takes the same path and is killed by the newly active trap. Or
 ## Estimated Solve Time
 5–10 seconds
 
-<!-- level_plan_log: LEVEL_021 | synced: 2026-03-04 -->
+## Build Blueprint (Hybrid)
+Terrain (Tilemap)
+- Ground: y=0, x=0..16; two routes; one has arrow section.
+Prefabs (Drag & Drop + Unpack Completely)
+- PlayerSpawn: (1,0)
+- Goal: (15,0)
+- AttemptTrigger: GreaterOrEqual 2 → SpikeTrap or AmbushTrap-PopUp on one route; Check() on load
+- ArrowTrap (support): on alternate route; Auto Start On, Loop On
+
+<!-- log-sync: level=LEVEL_021 primary=P-002 expectation=E-02 updated=2026-03-04 -->

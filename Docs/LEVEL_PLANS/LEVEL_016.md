@@ -25,4 +25,12 @@ Player crosses the corridor or platform; SpikeTrap or KillPlayer with Activation
 ## Estimated Solve Time
 5–10 seconds
 
-<!-- level_plan_log: LEVEL_016 | synced: 2026-03-04 -->
+## Build Blueprint (Hybrid)
+Terrain (Tilemap)
+- Ground: y=0, x=0..14; corridor.
+Prefabs (Drag & Drop + Unpack Completely)
+- PlayerSpawn: (1,0)
+- Goal: (12,0)
+- SpikeTrap or KillPlayer: in corridor, e.g. (6,0); Activation Chance 50. Or FakePlatform over DeathZone
+
+<!-- log-sync: level=LEVEL_016 primary=P-003 expectation=E-03 updated=2026-03-04 -->

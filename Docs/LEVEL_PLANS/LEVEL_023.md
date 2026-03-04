@@ -27,4 +27,13 @@ Player is squished by the CrushingWall or, after the crusher, hesitates on a del
 ## Estimated Solve Time
 5–10 seconds
 
-<!-- level_plan_log: LEVEL_023 | synced: 2026-03-04 -->
+## Build Blueprint (Hybrid)
+Terrain (Tilemap)
+- Ground: y=0, x=0..16; crusher corridor x=5..9; then gap with pit for delayed platform.
+Prefabs (Drag & Drop + Unpack Completely)
+- PlayerSpawn: (1,0)
+- Goal: (15,0)
+- CrushingWall: corridor; Move Offset, Crush Layer, Auto Start On
+- DeathZone + DisappearingPlatform or BreakingPlatform (support): after crusher; Delay or Time Before Break
+
+<!-- log-sync: level=LEVEL_023 primary=P-009 expectation=E-09 updated=2026-03-04 -->

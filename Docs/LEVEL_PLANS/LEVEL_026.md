@@ -27,4 +27,13 @@ Player is killed by SpikeTrap/KillPlayer/FakePlatform on the safe-looking path, 
 ## Estimated Solve Time
 5–10 seconds
 
-<!-- level_plan_log: LEVEL_026 | synced: 2026-03-04 -->
+## Build Blueprint (Hybrid)
+Terrain (Tilemap)
+- Ground: y=0, x=0..16; safe-looking corridor then crusher run.
+Prefabs (Drag & Drop + Unpack Completely)
+- PlayerSpawn: (1,0)
+- Goal: (15,0)
+- SpikeTrap or KillPlayer or FakePlatform: in corridor; Activation Chance 50 or over DeathZone
+- CrushingWall (support): later section; Move Offset, Crush Layer, Auto Start On
+
+<!-- log-sync: level=LEVEL_026 primary=P-003 expectation=E-03 updated=2026-03-04 -->

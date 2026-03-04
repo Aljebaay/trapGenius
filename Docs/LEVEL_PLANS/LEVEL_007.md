@@ -24,4 +24,12 @@ Player enters the corridor and is hit by the MovingTrap (floor/ceiling/wall) bec
 ## Estimated Solve Time
 5–10 seconds
 
-<!-- level_plan_log: LEVEL_007 | synced: 2026-03-04 -->
+## Build Blueprint (Hybrid)
+Terrain (Tilemap)
+- Ground: y=0, x=0..14; narrow corridor x=5..9.
+Prefabs (Drag & Drop + Unpack Completely)
+- PlayerSpawn: (1,0)
+- Goal: (12,0)
+- MovingTrap: in corridor (e.g. floor/ceiling at 6,0); Auto Move On, ping-pong; Local Target Offset 1/2, Speed set
+
+<!-- log-sync: level=LEVEL_007 primary=P-006 expectation=E-06 updated=2026-03-04 -->

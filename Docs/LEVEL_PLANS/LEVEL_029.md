@@ -28,4 +28,13 @@ Player lingers under the ceiling and the AmbushTrap-Falling kills them. Or they 
 ## Estimated Solve Time
 5–10 seconds
 
-<!-- level_plan_log: LEVEL_029 | synced: 2026-03-04 -->
+## Build Blueprint (Hybrid)
+Terrain (Tilemap)
+- Ground: y=0, x=0..16; ceiling corridor x=5..10 then rhythm section.
+Prefabs (Drag & Drop + Unpack Completely)
+- PlayerSpawn: (1,0)
+- Goal: (15,0)
+- AreaTrigger: corridor start → TrapSequencer; Delay → AmbushTrap-Falling Activate()
+- MovingTrap (support): rhythm section; Auto Move On, ping-pong
+
+<!-- log-sync: level=LEVEL_029 primary=P-011 expectation=E-11 updated=2026-03-04 -->

@@ -25,4 +25,12 @@ Player lands on the tile or crosses the trigger; AmbushTrap-PopUp activates and 
 ## Estimated Solve Time
 5–10 seconds
 
-<!-- level_plan_log: LEVEL_020 | synced: 2026-03-04 -->
+## Build Blueprint (Hybrid)
+Terrain (Tilemap)
+- Ground: y=0, x=0..14; tile or choke at (6,0).
+Prefabs (Drag & Drop + Unpack Completely)
+- PlayerSpawn: (1,0)
+- Goal: (12,0)
+- AmbushTrap-PopUp: (6,0); AreaTrigger or AttemptTrigger → Activate(). If attempt-based: GreaterOrEqual 2, Check() on load
+
+<!-- log-sync: level=LEVEL_020 primary=P-010 expectation=E-10 updated=2026-03-04 -->

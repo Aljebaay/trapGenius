@@ -26,4 +26,14 @@ Attempt 1: platform holds and player reaches the other side. Attempt 2: they ste
 ## Estimated Solve Time
 5–10 seconds
 
-<!-- level_plan_log: LEVEL_008 | synced: 2026-03-04 -->
+## Build Blueprint (Hybrid)
+Terrain (Tilemap)
+- Ground: y=0, x=0..4 and x=8..14; gap x=5..7. Pit below.
+Prefabs (Drag & Drop + Unpack Completely)
+- PlayerSpawn: (1,0)
+- Goal: (12,0)
+- FakePlatform: (5,0) over gap. AttemptTrigger Condition GreaterOrEqual 2 → FakePlatform Activate(). Call Check() on load.
+- DeathZone: under gap
+- AttemptTrigger: wire On Condition Met → FakePlatform Activate()
+
+<!-- log-sync: level=LEVEL_008 primary=P-008 expectation=E-08 updated=2026-03-04 -->

@@ -25,4 +25,13 @@ On attempt 2, player takes the same (e.g. left) path; SpikeTrap or AmbushTrap-Po
 ## Estimated Solve Time
 5–10 seconds
 
-<!-- level_plan_log: LEVEL_003 | synced: 2026-03-04 -->
+## Build Blueprint (Hybrid)
+Terrain (Tilemap)
+- Ground: y=0, x=0..14. Two routes: left path and right path to goal.
+Prefabs (Drag & Drop + Unpack Completely)
+- PlayerSpawn: (1,0)
+- Goal: (13,0)
+- AttemptTrigger: anywhere; Condition GreaterOrEqual 2. On Condition Met → trap Activate(). Call Check() on level load.
+- SpikeTrap or AmbushTrap-PopUp: on left route, position e.g. (5,0); activated by AttemptTrigger
+
+<!-- log-sync: level=LEVEL_003 primary=P-002 expectation=E-02 updated=2026-03-04 -->

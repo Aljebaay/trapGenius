@@ -25,4 +25,13 @@ On attempt 2, player reuses the previously safe path and is killed by the newly 
 ## Estimated Solve Time
 5–10 seconds
 
-<!-- level_plan_log: LEVEL_014 | synced: 2026-03-04 -->
+## Build Blueprint (Hybrid)
+Terrain (Tilemap)
+- Ground: y=0, x=0..14; two routes (left and right) to goal.
+Prefabs (Drag & Drop + Unpack Completely)
+- PlayerSpawn: (1,0)
+- Goal: (13,0)
+- AttemptTrigger: Condition GreaterOrEqual 2 → trap Activate(). Call Check() on load.
+- SpikeTrap or AmbushTrap-PopUp: on one route (e.g. left); activated by AttemptTrigger
+
+<!-- log-sync: level=LEVEL_014 primary=P-002 expectation=E-02 updated=2026-03-04 -->

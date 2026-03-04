@@ -28,4 +28,14 @@ Player lingers in the zone or re-enters; AreaTrigger starts TrapSequencer and th
 ## Estimated Solve Time
 5–10 seconds
 
-<!-- level_plan_log: LEVEL_011 | synced: 2026-03-04 -->
+## Build Blueprint (Hybrid)
+Terrain (Tilemap)
+- Ground: y=0, x=0..16; corridor section x=5..10 (zone).
+Prefabs (Drag & Drop + Unpack Completely)
+- PlayerSpawn: (1,0)
+- Goal: (15,0)
+- AreaTrigger: at section start (e.g. x=5); On Trigger Enter → TrapSequencer StartSequence()
+- TrapSequencer: one step Delay ~1s → AmbushTrap-Falling or AmbushTrap-PopUp or SpikeTrap Activate()
+- ArrowTrap (support): later in path; Auto Start On, Loop On
+
+<!-- log-sync: level=LEVEL_011 primary=P-007 expectation=E-07 updated=2026-03-04 -->

@@ -28,4 +28,13 @@ Player lingers or re-enters; TrapSequencer activates the ambush. Or they mistime
 ## Estimated Solve Time
 5–10 seconds
 
-<!-- level_plan_log: LEVEL_028 | synced: 2026-03-04 -->
+## Build Blueprint (Hybrid)
+Terrain (Tilemap)
+- Ground: y=0, x=0..16; zone section x=5..10 then arrow section.
+Prefabs (Drag & Drop + Unpack Completely)
+- PlayerSpawn: (1,0)
+- Goal: (15,0)
+- AreaTrigger: zone start → TrapSequencer StartSequence(); step Delay → Ambush/Spike Activate()
+- ArrowTrap (support): later; Auto Start On, Loop On
+
+<!-- log-sync: level=LEVEL_028 primary=P-007 expectation=E-07 updated=2026-03-04 -->

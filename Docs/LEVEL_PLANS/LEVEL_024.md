@@ -27,4 +27,14 @@ Attempt 1: wall blocks. Attempt 2+: gate opens; player may be hit by arrows in t
 ## Estimated Solve Time
 5–10 seconds
 
-<!-- level_plan_log: LEVEL_024 | synced: 2026-03-04 -->
+## Build Blueprint (Hybrid)
+Terrain (Tilemap)
+- Ground: y=0, x=0..16; gate at x=6; beyond gate, arrow corridor.
+Prefabs (Drag & Drop + Unpack Completely)
+- PlayerSpawn: (1,0)
+- Goal: (15,0)
+- AttemptTrigger: GreaterOrEqual 2 → FakeWall BecomeOpen(); Check() on load
+- FakeWall: at (6,0); Initial State Solid
+- ArrowTrap (support): beyond gate; Auto Start On, Loop On
+
+<!-- log-sync: level=LEVEL_024 primary=P-005 expectation=E-05 updated=2026-03-04 -->
