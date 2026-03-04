@@ -1,0 +1,233 @@
+{
+  "schema_version": "1.0",
+  "patterns": [
+    {
+      "id": "P-001",
+      "name": "Fake Bridge",
+      "short_goal": "Player trusts a visible shortcut over a gap and dies when it fails.",
+      "tags": ["psychological", "bait", "betrayal", "environmental"],
+      "primary_tag": "bait",
+      "requires": ["FakePlatform", "DeathZone"],
+      "optional": [],
+      "difficulty": 1,
+      "segment_fit": ["intro", "mid", "end"],
+      "expectation": {
+        "teach": "Platforms over gaps are solid and will hold.",
+        "betray": "This platform fades on contact; only the pit below is real."
+      },
+      "attempt_logic": null,
+      "retry_speed_seconds": 2,
+      "notes": "Ensure pit is covered by DeathZone. Goal reachable via alternate route or after learning."
+    },
+    {
+      "id": "P-002",
+      "name": "Double Bluff Path",
+      "short_goal": "First run one path is safe; later runs that path becomes lethal.",
+      "tags": ["psychological", "expectation-reversal", "attempt-based", "sequence"],
+      "primary_tag": "expectation-reversal",
+      "requires": ["AttemptTrigger", "SpikeTrap"],
+      "optional": ["AmbushTrap-PopUp"],
+      "difficulty": 2,
+      "segment_fit": ["mid", "end"],
+      "expectation": {
+        "teach": "The path I used last time is still safe.",
+        "betray": "From attempt 2, that path has a trap; only the other route is safe."
+      },
+      "attempt_logic": {
+        "uses_attempts": true,
+        "recommended_condition": "GreaterOrEqual 2"
+      },
+      "retry_speed_seconds": 2,
+      "notes": "AttemptTrigger.Check() must be called on level load. Two routes to goal required. Condition set to GreaterOrEqual 2 (trap active from attempt 2 onward)."
+    },
+    {
+      "id": "P-003",
+      "name": "Safe-Looking Kill",
+      "short_goal": "A corridor or platform looks safe but sometimes kills.",
+      "tags": ["psychological", "bait", "rng", "direct-lethal"],
+      "primary_tag": "bait",
+      "requires": ["SpikeTrap"],
+      "optional": ["KillPlayer", "FakePlatform", "DeathZone"],
+      "difficulty": 2,
+      "segment_fit": ["intro", "mid"],
+      "expectation": {
+        "teach": "This path is safe or I made it last time.",
+        "betray": "Activation Chance < 100 or fake platform; path is never fully trustworthy."
+      },
+      "attempt_logic": null,
+      "retry_speed_seconds": 2,
+      "notes": "Use TrapBase Activation Chance 50 for SpikeTrap or KillPlayer; or FakePlatform over DeathZone."
+    },
+    {
+      "id": "P-004",
+      "name": "Delayed Death Platform",
+      "short_goal": "Death occurs after a delay (platform disappears or collapses), not on first touch.",
+      "tags": ["timing", "delayed-death", "environmental", "movement"],
+      "primary_tag": "delayed-death",
+      "requires": ["DeathZone"],
+      "optional": ["DisappearingPlatform", "BreakingPlatform", "TrapSequencer"],
+      "difficulty": 2,
+      "segment_fit": ["mid", "end"],
+      "expectation": {
+        "teach": "I have time to cross or it will hold for one more step.",
+        "betray": "Platform vanishes or collapses after a short delay; hesitation causes death."
+      },
+      "attempt_logic": null,
+      "retry_speed_seconds": 3,
+      "notes": "Set Delay or Time Before Break. Prefabs in Floor (10)."
+    },
+    {
+      "id": "P-005",
+      "name": "Attempt Gate",
+      "short_goal": "Level layout changes by attempt; a blocked path opens (or closes) on later runs.",
+      "tags": ["attempt-based", "expectation-reversal", "sequence", "environmental"],
+      "primary_tag": "expectation-reversal",
+      "requires": ["AttemptTrigger", "FakeWall"],
+      "optional": ["MovingTrap", "TriggeredMoveTrap"],
+      "difficulty": 2,
+      "segment_fit": ["mid", "end"],
+      "expectation": {
+        "teach": "This path is blocked or this path is open.",
+        "betray": "From attempt N the blocked path opens or the open path closes."
+      },
+      "attempt_logic": {
+        "uses_attempts": true,
+        "recommended_condition": "GreaterOrEqual 2"
+      },
+      "retry_speed_seconds": 2,
+      "notes": "On Condition Met → FakeWall BecomeOpen() or BecomeGhost(), or MovingTrap/TriggeredMoveTrap Activate(). Condition set to GreaterOrEqual 2 (gate opens from attempt 2 onward)."
+    },
+    {
+      "id": "P-006",
+      "name": "Rhythm Corridor",
+      "short_goal": "Player must time movement between periodic hazards.",
+      "tags": ["timing", "rhythm", "movement", "direct-lethal"],
+      "primary_tag": "rhythm",
+      "requires": ["MovingTrap"],
+      "optional": ["ArrowTrap"],
+      "difficulty": 2,
+      "segment_fit": ["mid", "end"],
+      "expectation": {
+        "teach": "I can run through anytime.",
+        "betray": "There is a safe window each cycle; wrong timing kills."
+      },
+      "attempt_logic": null,
+      "retry_speed_seconds": 2,
+      "notes": "Auto Move On, ping-pong; or ArrowTrap Auto Start + Loop + Cycle Interval."
+    },
+    {
+      "id": "P-007",
+      "name": "One-Time Safe",
+      "short_goal": "First time through is safe if player runs; second time trap is active or retriggers.",
+      "tags": ["sequence", "ambush", "timing", "expectation-reversal"],
+      "primary_tag": "expectation-reversal",
+      "requires": ["AreaTrigger", "TrapSequencer"],
+      "optional": ["AmbushTrap-Falling", "AmbushTrap-PopUp", "SpikeTrap"],
+      "difficulty": 3,
+      "segment_fit": ["mid", "end"],
+      "expectation": {
+        "teach": "This section is safe after first pass.",
+        "betray": "Section is only safe for a short window; lingering or re-entering gets you killed."
+      },
+      "attempt_logic": null,
+      "retry_speed_seconds": 3,
+      "notes": "AreaTrigger → TrapSequencer StartSequence(); step Delay → Ambush or SpikeTrap Activate()."
+    },
+    {
+      "id": "P-008",
+      "name": "Betrayal Platform (Attempt)",
+      "short_goal": "First run platform is solid; second run it is already used and fades on contact.",
+      "tags": ["psychological", "bait", "betrayal", "attempt-based"],
+      "primary_tag": "betrayal",
+      "requires": ["FakePlatform", "AttemptTrigger", "DeathZone"],
+      "optional": [],
+      "difficulty": 2,
+      "segment_fit": ["mid", "end"],
+      "expectation": {
+        "teach": "The platform will hold again.",
+        "betray": "From attempt 2 the platform betrays on contact; must skip or use different route."
+      },
+      "attempt_logic": {
+        "uses_attempts": true,
+        "recommended_condition": "GreaterOrEqual 2"
+      },
+      "retry_speed_seconds": 2,
+      "notes": "AttemptTrigger On Condition Met → FakePlatform Activate(). Platform over DeathZone."
+    },
+    {
+      "id": "P-009",
+      "name": "Crusher Run",
+      "short_goal": "Player must pass through a closing space before being squished.",
+      "tags": ["timing", "movement", "environmental", "direct-lethal"],
+      "primary_tag": "timing",
+      "requires": ["CrushingWall"],
+      "optional": ["SlipperyFloor"],
+      "difficulty": 3,
+      "segment_fit": ["mid", "end"],
+      "expectation": {
+        "teach": "I have time or I can wait.",
+        "betray": "Crusher cycle is fixed; only passing in the safe window works."
+      },
+      "attempt_logic": null,
+      "retry_speed_seconds": 3,
+      "notes": "Set Move Offset, Crush Layer, Auto Start On. Prefabs in Ceiling (6), Floor (10), Walls (7)."
+    },
+    {
+      "id": "P-010",
+      "name": "Pop-Up Surprise",
+      "short_goal": "A previously safe spot becomes lethal when player passes a line or on a specific attempt.",
+      "tags": ["ambush", "surprise", "expectation-reversal", "attempt-based"],
+      "primary_tag": "ambush",
+      "requires": ["AmbushTrap-PopUp"],
+      "optional": ["AreaTrigger", "AttemptTrigger"],
+      "difficulty": 2,
+      "segment_fit": ["mid", "end"],
+      "expectation": {
+        "teach": "This tile is safe.",
+        "betray": "Spot is only safe when ambush is not triggered; from attempt N or after crossing line it is deadly."
+      },
+      "attempt_logic": {
+        "uses_attempts": true,
+        "recommended_condition": "GreaterOrEqual 2"
+      },
+      "retry_speed_seconds": 2,
+      "notes": "AreaTrigger or AttemptTrigger → Activate(). Set Pop Offset and Pop Speed. Floor/Ceiling/Wall variants. Condition set to GreaterOrEqual 2 (ambush active from attempt 2 onward)."
+    },
+    {
+      "id": "P-011",
+      "name": "Warning Then Drop",
+      "short_goal": "Short warning then ceiling block drops; player who lingers dies.",
+      "tags": ["sequence", "ambush", "timing", "delayed-death"],
+      "primary_tag": "delayed-death",
+      "requires": ["AreaTrigger", "TrapSequencer", "AmbushTrap-Falling"],
+      "optional": [],
+      "difficulty": 3,
+      "segment_fit": ["mid", "end"],
+      "expectation": {
+        "teach": "I am safe under here.",
+        "betray": "Ceiling is deadly after a fixed delay from entering; must clear the zone quickly."
+      },
+      "attempt_logic": null,
+      "retry_speed_seconds": 3,
+      "notes": "AreaTrigger → TrapSequencer StartSequence(); step Delay 1.0 → Ceiling AmbushTrap-Falling Activate()."
+    },
+    {
+      "id": "P-012",
+      "name": "Arrow Rhythm Gate",
+      "short_goal": "Player must cross corridor between arrow bursts.",
+      "tags": ["timing", "rhythm", "direct-lethal", "movement"],
+      "primary_tag": "rhythm",
+      "requires": ["ArrowTrap"],
+      "optional": [],
+      "difficulty": 2,
+      "segment_fit": ["mid", "end"],
+      "expectation": {
+        "teach": "I can run through.",
+        "betray": "Safe crossing only between bursts; rhythm must be read."
+      },
+      "attempt_logic": null,
+      "retry_speed_seconds": 2,
+      "notes": "Auto Start On, Loop On, Cycle Interval set. Rotate so projectiles cross path. FreeZone or Ceiling/Wall variants."
+    }
+  ]
+}
