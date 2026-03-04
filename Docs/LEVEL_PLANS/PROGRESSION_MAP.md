@@ -34,6 +34,7 @@ Reference table for level order, expectations, patterns, and difficulty. Primary
 | 028 | E-07 | P-007 | P-012 | expectation-reversal | 3 | One-time safe + arrow support. |
 | 029 | E-11 | P-011 | P-006 | delayed-death | 3 | Ceiling drop + rhythm support. |
 | 030 | E-04 | P-004 | P-012 | delayed-death | 2 | Timer + arrows support. |
+| 031 | E-09 | P-009 | — | timing | 3 | Crusher run only; no support. |
 
 ---
 

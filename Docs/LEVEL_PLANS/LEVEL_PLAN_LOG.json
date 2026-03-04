@@ -360,6 +360,18 @@
       "last_modified": "2026-03-04",
       "source_file": "Docs/LEVEL_PLANS/LEVEL_030.md",
       "notes": "Timer + arrows support."
+    },
+    "031": {
+      "status": "active",
+      "title": "Squeeze Play",
+      "target_expectation": "E-09",
+      "primary_pattern": "P-009",
+      "support_pattern": null,
+      "pattern_sequence": ["P-009"],
+      "primary_concept": "timing",
+      "last_modified": "2026-03-04",
+      "source_file": "Docs/LEVEL_PLANS/LEVEL_031.md",
+      "notes": "Crusher run only; no support."
     }
   },
   "retired": {},
@@ -369,6 +381,12 @@
       "action": "initialize",
       "date": "2026-03-04",
       "summary": "Initialized log from LEVEL_001–LEVEL_030; added log-sync metadata to level files."
+    },
+    {
+      "level_number": "031",
+      "action": "create",
+      "date": "2026-03-04",
+      "summary": "Generated next level plan: P-009 Crusher Run, E-09, timing; no support."
     }
   ]
 }
