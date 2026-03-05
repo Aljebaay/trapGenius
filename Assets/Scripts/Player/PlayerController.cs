@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerAudio playerAudio; 
     [SerializeField] private PlayerAnimation playerAnim;
     
+    [SerializeField] private Animator animator;
+
     public bool IsGrounded => isGrounded;
     public float VelocityX => rb.linearVelocity.x;
 
@@ -46,6 +48,10 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        
+        if (animator == null)
+            animator = GetComponentInChildren<Animator>();
+
         originalScale = new Vector3(Mathf.Abs(transform.localScale.x), Mathf.Abs(transform.localScale.y), transform.localScale.z);
         ResetStats(); 
     }

@@ -25,12 +25,15 @@ Player steps onto the fake platform over the pit; it fades immediately and they 
 5–10 seconds
 
 ## Build Blueprint (Hybrid)
-Terrain (Tilemap)
-- Ground: solid row y=0, x=0..4 and x=8..14; gap x=5..7 (pit).
+
 Prefabs (Drag & Drop + Unpack Completely)
-- PlayerSpawn: (1,0)
-- Goal: (12,0)
-- FakePlatform: position (5,0), span over gap
-- DeathZone: under gap, cover x=5..7, y&lt;0
+- Player: (0,1)
+- Goal: (5,1)
+- Fake Platform: (3,1)
+- Death Zone: (3,-2)
+
+Notes
+- Fake Platform should visually cover the gap (x=5..7). Resize/duplicate if needed.
+- Death Zone should cover the pit area below the gap. Resize collider to cover x=5..7.
 
 <!-- log-sync: level=LEVEL_001 primary=P-001 expectation=E-01 updated=2026-03-04 -->
