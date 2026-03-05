@@ -37,11 +37,22 @@ public class BreakingPlatform : TrapBase
 
     protected override void OnCollisionEnter2D(Collision2D collision)
     {
-        // RNG CHECK via Activate
         if (collision.gameObject.CompareTag("Player"))
         {
             Activate(); 
+
+            // Kill Logic Integration
+            if (CanKillFromCollision(collision))
+            {
+                KillPlayer(collision.gameObject);
+            }
         }
+    }
+
+    private void KillPlayer(GameObject player)
+    {
+        player.SetActive(false);
+        if (GameManager.Instance != null) GameManager.Instance.GameOver();
     }
 
     private IEnumerator BreakRoutine()

@@ -115,10 +115,25 @@ public class CrushingWall : TrapBase
         // Check if Player is Squished
         if (CheckSquish(collision))
         {
-            // Kill Logic
-            collision.gameObject.SetActive(false);
-            if (GameManager.Instance != null) GameManager.Instance.GameOver();
+            KillPlayer(collision.gameObject);
         }
+    }
+
+    // NEW: Support for instant touch lethality without squish.
+    protected override void OnCollisionEnter2D(Collision2D collision)
+    {
+        base.OnCollisionEnter2D(collision);
+
+        if (collision.gameObject.CompareTag("Player") && CanKillFromCollision(collision))
+        {
+            KillPlayer(collision.gameObject);
+        }
+    }
+
+    private void KillPlayer(GameObject player)
+    {
+        player.SetActive(false);
+        if (GameManager.Instance != null) GameManager.Instance.GameOver();
     }
 
     private bool CheckSquish(Collision2D collision)

@@ -47,7 +47,6 @@ public class MovingTrap : TrapBase
         isMoving = false;
     }
     
-
     private void Update()
     {
         if (!isMoving) return;
@@ -70,5 +69,32 @@ public class MovingTrap : TrapBase
 
         // Apply rotation relative to the initial rotation
         transform.rotation = initialRotation * Quaternion.Euler(0, 0, currentAngle);
+    }
+
+    protected override void OnCollisionEnter2D(Collision2D collision)
+    {
+        base.OnCollisionEnter2D(collision);
+
+        if (collision.gameObject.CompareTag("Player") && CanKillFromCollision(collision))
+        {
+            KillPlayer(collision.gameObject);
+        }
+    }
+
+    protected override void OnTriggerEnter2D(Collider2D collision)
+    {
+        base.OnTriggerEnter2D(collision);
+
+        var trapCol = GetComponent<Collider2D>();
+        if (collision.CompareTag("Player") && CanKillFromTrigger(collision, trapCol))
+        {
+            KillPlayer(collision.gameObject);
+        }
+    }
+
+    private void KillPlayer(GameObject player)
+    {
+        player.SetActive(false);
+        if (GameManager.Instance != null) GameManager.Instance.GameOver();
     }
 }

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7373582948901524689}
   - component: {fileID: 8323161625028373229}
   - component: {fileID: 2647022603784557778}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ceiling AmbushTrap-Falling
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -275,16 +275,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b689ce6138e544498c715407b4014f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  setupNote: 'This trap is PASSIVE. It will not move until triggered.
-
-
-    1. Create
-    an empty GameObject.
-
-    2. Add ''AreaTrigger'' script.
-
-    3. Link ''OnTriggerEnter''
-    to this object''s Activate() method.'
+  changesPlayerData: 0
+  mutations: []
+  activationChance: 100
+  isLethal: 0
+  killDirection: 0
+  referenceData: {fileID: 11400000, guid: e4b0127fdd5bd7346b7778edbd71dba7, type: 2}
   type: 0
   popOffset: {x: 0, y: 1, z: 0}
   popSpeed: 15

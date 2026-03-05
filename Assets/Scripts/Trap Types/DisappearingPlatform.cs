@@ -51,6 +51,11 @@ public class DisappearingPlatform : TrapBase
         if (collision.gameObject.CompareTag("Player"))
         {
             Activate();
+
+            if (CanKillFromCollision(collision))
+            {
+                KillPlayer(collision.gameObject);
+            }
         }
     }
 
@@ -59,7 +64,19 @@ public class DisappearingPlatform : TrapBase
         if (collision.CompareTag("Player"))
         {
             Activate();
+
+            var trapCol = GetComponent<Collider2D>();
+            if (CanKillFromTrigger(collision, trapCol))
+            {
+                KillPlayer(collision.gameObject);
+            }
         }
+    }
+
+    private void KillPlayer(GameObject player)
+    {
+        player.SetActive(false);
+        if (GameManager.Instance != null) GameManager.Instance.GameOver();
     }
 
     private IEnumerator DisappearRoutine()

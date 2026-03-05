@@ -67,6 +67,17 @@ public class TriggeredScaleTrap : TrapBase
         if (collision.gameObject.CompareTag("Player"))
         {
             Activate();
+
+            if (CanKillFromCollision(collision))
+            {
+                KillPlayer(collision.gameObject);
+            }
         }
+    }
+
+    private void KillPlayer(GameObject player)
+    {
+        player.SetActive(false);
+        if (GameManager.Instance != null) GameManager.Instance.GameOver();
     }
 }
